@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IHYA7TV - Live Stream Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .video-container iframe {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+        }
+    </style>
+</head>
+<body class="bg-black text-white font-sans">
+
+    <header class="p-6 text-center border-b border-gray-800 bg-zinc-900">
+        <h1 class="text-3xl font-extrabold text-red-600 tracking-tighter">IHYA7TV LIVE</h1>
+        <p class="text-gray-400 text-sm mt-1">Streaming Otomatis & Arsip Siaran</p>
+    </header>
+
+    <main class="container mx-auto p-4 max-w-5xl">
+        
+        <section class="mb-12">
+            <div class="flex items-center mb-4">
+                <span class="relative flex h-3 w-3 mr-3">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-red-600"></span>
+                </span>
+                <h2 class="text-xl font-bold uppercase tracking-widest">Siaran Langsung / Mendatang</h2>
+            </div>
+            
+            <div class="video-container shadow-2xl shadow-red-900/20">
+                <iframe 
+                    src="https://www.youtube.com/embed/live_stream?channel=UC2TptaJdg05H5zrIyffgPiQ" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="text-xl font-bold mb-6 text-gray-500 uppercase tracking-widest">Arsip Live Sebelumnya</h2>
+            <div id="archive-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="animate-pulse bg-zinc-800 h-48 rounded-lg"></div>
+                <div class="animate-pulse bg-zinc-800 h-48 rounded-lg"></div>
+                <div class="animate-pulse bg-zinc-800 h-48 rounded-lg"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="mt-20 p-8 border-t border-gray-900 text-center text-gray-600 text-xs">
+        &copy; 2026 IHYA7TV Hub. Powered by Vercel & YouTube API.
+    </footer>
+
+    <script>
+        const CHANNEL_ID = 'UC2TptaJdg05H5zrIyffgPiQ';
+        
+        async function loadArchive() {
+            try {
+                // Mengambil data video terbaru dari RSS Feed YouTube (Gratis & No API Key)
+                const response = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`);
+                const data = await response.json();
+                
+                const grid = document.getElementById('archive-grid');
+                grid.innerHTML = ''; // Hapus loading skeleton
+
+                if (data.items && data.items.length > 0) {
+                    data.items.forEach(video => {
+                        // Membuat tampilan kotak video
+                        const card = `
+                            <div class="bg-zinc-900 rounded-lg overflow-hidden border border-zinc-800 hover:border-red-600 transition-all group">
+                                <a href="${video.link}" target="_blank">
+                                    <div class="relative">
+                                        <img src="${video.thumbnail}" alt="${video.title}" class="w-full">
+                                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                                            <span class="bg-red-600 text-white px-3 py-1 rounded text-xs font-bold">PUTAR</span>
+                                        </div>
+                                    </div>
+                                    <div class="p-3">
+                                        <h3 class="text-sm font-medium line-clamp-2">${video.title}</h3>
+                                        <p class="text-[10px] text-gray-500 mt-2 uppercase">${new Date(video.pubDate).toLocaleDateString('id-ID')}</p>
+                                    </div>
+                                </a>
+                            </div>
+                        `;
+                        grid.innerHTML += card;
+                    });
+                } else {
+                    grid.innerHTML = '<p class="text-gray-500">Belum ada arsip video.</p>';
+                }
+            } catch (error) {
+                console.error('Gagal memuat arsip:', error);
+                document.getElementById('archive-grid').innerHTML = '<p class="text-red-500">Gagal memuat data dari YouTube.</p>';
+            }
+        }
+
+        loadArchive();
+    </script>
+</body>
+</html>
