@@ -3,72 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IHYA7TV - Fast Stream</title>
+    <title>IHYA' 7 TV - Media Streaming</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #000; color: #fff; }
-        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; background: #111; }
-        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        body { background-color: #050505; color: #eeeeee; }
+        .red-gradient-text {
+            background: linear-gradient(to right, #ff0000, #ff4d4d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 15px; background: #111; border: 1px solid #222; }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        .social-btn { transition: all 0.3s ease; opacity: 0.6; }
+        .social-btn:hover { opacity: 1; transform: translateY(-3px); }
     </style>
 </head>
-<body class="font-sans">
+<body class="font-sans selection:bg-red-600">
 
-    <header class="p-4 border-b border-zinc-800 flex justify-between items-center bg-black">
-        <h1 class="text-xl font-bold text-red-600 italic">IHYA7TV</h1>
-        <span class="text-[9px] text-zinc-500 uppercase tracking-widest">Live System v2</span>
-    </header>
-
-    <main class="p-4 max-w-5xl mx-auto">
-        <div class="mb-8">
-            <div class="flex items-center gap-2 mb-2 text-xs font-bold text-zinc-400 uppercase">
-                <span class="w-2 h-2 bg-red-600 rounded-full animate-pulse"></span> Siaran Langsung
+    <nav class="p-4 border-b border-zinc-900 bg-black/80 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <img src="logoihya7tv.png" alt="Logo" class="h-10 w-10 object-contain rounded-lg shadow-lg shadow-red-900/20">
+                <span class="text-xl font-black tracking-tighter red-gradient-text">IHYA' 7 TV</span>
             </div>
-            <div class="video-wrapper shadow-lg shadow-red-900/10">
-                <iframe 
-                    src="https://www.youtube.com/embed/live_stream?channel=UC2TptaJdg05H5zrIyffgPiQ" 
-                    allowfullscreen>
-                </iframe>
+            <div class="hidden sm:block">
+                <span class="text-[9px] font-bold uppercase tracking-[0.3em] text-zinc-500">Multimedia Broadcasting</span>
             </div>
         </div>
+    </nav>
 
-        <h2 class="text-sm font-bold mb-4 text-zinc-400 uppercase tracking-tight">Arsip Terbaru (Top 40)</h2>
-        <div id="video-list" class="grid grid-cols-2 md:grid-cols-4 gap-3">
-            <p id="loading" class="text-xs text-zinc-600 col-span-full text-center py-10">Memuat video...</p>
-        </div>
+    <main class="max-w-6xl mx-auto p-4 md:p-8">
+        
+        <section class="mb-12">
+            <div class="flex items-center gap-2 mb-4">
+                <span class="flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-red-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-red-600"></span>
+                </span>
+                <h2 class="text-[10px] font-bold uppercase tracking-widest text-zinc-400">Siaran Langsung Utama</h2>
+            </div>
+            <div class="video-container shadow-2xl shadow-red-900/10">
+                <iframe src="https://www.youtube.com/embed/live_stream?channel=UC2TptaJdg05H5zrIyffgPiQ&autoplay=1" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section class="mb-20">
+            <h2 class="text-sm font-bold mb-8 flex items-center gap-3 italic text-zinc-300">
+                <span class="h-4 w-1 bg-red-600"></span> DAFTAR SIARAN TERBARU
+            </h2>
+            <div id="video-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <p id="loading-msg" class="col-span-full text-center text-zinc-800 animate-pulse py-10 text-[10px] uppercase font-bold tracking-[0.5em]">Synchronizing Media...</p>
+            </div>
+        </section>
+
+        <footer class="text-center border-t border-zinc-900 pt-12 pb-20">
+            <div class="flex justify-center gap-10 mb-10">
+                <a href="https://www.youtube.com/@IHYA7TV" target="_blank" class="social-btn">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" class="w-6 h-6 invert">
+                </a>
+                <a href="https://www.instagram.com/ihya7tv?igsh=MTYwNDZpaGxkNnlscA==" target="_blank" class="social-btn">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" class="w-6 h-6 invert">
+                </a>
+                <a href="https://vm.tiktok.com/ZS9N299oN48LS-LBapA/" target="_blank" class="social-btn">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" class="w-6 h-6 invert">
+                </a>
+            </div>
+
+            <p class="text-zinc-600 text-[10px] font-bold uppercase tracking-[0.4em] mb-1">TIM MULTIMEDIA IHYA' 7 TV &copy; 2026</p>
+            <p class="text-zinc-800 text-[8px] uppercase tracking-widest italic">Always Connected, Always Inspiring</p>
+        </footer>
     </main>
 
     <script>
         const CHANNEL_ID = 'UC2TptaJdg05H5zrIyffgPiQ';
         
-        async function loadVideos() {
+        async function fetchArchive() {
             try {
-                // Mengambil data 40 video terbaru (lebih ringan dari 50)
-                const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`);
+                // Menarik hingga 50 video terbaru
+                const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}&count=50`);
                 const data = await res.json();
                 
                 const list = document.getElementById('video-list');
-                const loading = document.getElementById('loading');
+                const loading = document.getElementById('loading-msg');
                 
                 if (data.items) {
                     loading.style.display = 'none';
                     data.items.forEach(item => {
                         const vId = item.link.split('v=')[1];
                         list.innerHTML += `
-                            <div class="cursor-pointer group" onclick="location.href='#'; document.querySelector('iframe').src='https://www.youtube.com/embed/${vId}?autoplay=1'">
-                                <div class="relative overflow-hidden rounded-lg bg-zinc-900 aspect-video">
-                                    <img src="${item.thumbnail}" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                            <div class="group bg-zinc-900/20 border border-zinc-800/30 rounded-xl overflow-hidden hover:border-red-600/40 transition-all cursor-pointer shadow-lg" onclick="window.scrollTo({top:0, behavior:'smooth'}); document.querySelector('iframe').src='https://www.youtube.com/embed/${vId}?autoplay=1'">
+                                <div class="relative aspect-video">
+                                    <img src="${item.thumbnail}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-all">
                                 </div>
-                                <h3 class="text-[10px] mt-2 line-clamp-2 text-zinc-300 font-medium group-hover:text-red-500">${item.title}</h3>
+                                <div class="p-3">
+                                    <h3 class="text-[10px] font-bold line-clamp-2 leading-relaxed text-zinc-400 group-hover:text-white">${item.title}</h3>
+                                    <p class="text-[8px] text-zinc-700 mt-2 font-black uppercase">${new Date(item.pubDate).toLocaleDateString('id-ID', {day:'numeric', month:'short'})}</p>
+                                </div>
                             </div>
                         `;
                     });
                 }
-            } catch (e) {
-                document.getElementById('loading').innerText = "Gagal memuat video.";
+            } catch (err) {
+                document.getElementById('loading-msg').innerText = "OFFLINE SOURCE";
             }
         }
-        loadVideos();
+        fetchArchive();
     </script>
-
 </body>
-    </html>
+</html>
