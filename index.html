@@ -23,8 +23,8 @@
     <nav class="p-4 border-b border-zinc-900 bg-black/80 backdrop-blur-md sticky top-0 z-50">
         <div class="max-w-6xl mx-auto flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <img src="logoihya7tv.png" alt="Logo" class="h-10 w-10 object-contain rounded-lg shadow-lg shadow-red-900/20">
-                <span class="text-xl font-black tracking-tighter red-gradient-text">IHYA' 7 TV</span>
+                <img src="logoihya7tv.png" alt="Logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/717/717426.png'" class="h-10 w-10 object-contain rounded-lg shadow-lg shadow-red-900/20">
+                <span class="text-xl font-black tracking-tighter red-gradient-text uppercase">IHYA' 7 TV</span>
             </div>
             <div class="hidden sm:block">
                 <span class="text-[9px] font-bold uppercase tracking-[0.3em] text-zinc-500">Multimedia Broadcasting</span>
@@ -43,7 +43,11 @@
                 <h2 class="text-[10px] font-bold uppercase tracking-widest text-zinc-400">Siaran Langsung Utama</h2>
             </div>
             <div class="video-container shadow-2xl shadow-red-900/10">
-                <iframe src="https://www.youtube.com/embed/live_stream?channel=UC2TptaJdg05H5zrIyffgPiQ&autoplay=1" allowfullscreen></iframe>
+                <iframe 
+                    id="live-player"
+                    src="https://www.youtube.com/embed/live_stream?channel=UC2TptaJdg05H5zrIyffgPiQ" 
+                    allowfullscreen>
+                </iframe>
             </div>
         </section>
 
@@ -52,7 +56,7 @@
                 <span class="h-4 w-1 bg-red-600"></span> DAFTAR SIARAN TERBARU
             </h2>
             <div id="video-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <p id="loading-msg" class="col-span-full text-center text-zinc-800 animate-pulse py-10 text-[10px] uppercase font-bold tracking-[0.5em]">Synchronizing Media...</p>
+                <p id="loading-msg" class="col-span-full text-center text-zinc-800 py-10 text-[10px] uppercase font-bold tracking-[0.5em]">Memuat Data...</p>
             </div>
         </section>
 
@@ -78,20 +82,20 @@
         const CHANNEL_ID = 'UC2TptaJdg05H5zrIyffgPiQ';
         
         async function fetchArchive() {
+            const list = document.getElementById('video-list');
+            const loading = document.getElementById('loading-msg');
+            
             try {
-                // Menarik hingga 50 video terbaru
-                const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}&count=50`);
+                // Mencoba mengambil data tanpa API Key pihak ketiga yang membatasi
+                const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`);
                 const data = await res.json();
                 
-                const list = document.getElementById('video-list');
-                const loading = document.getElementById('loading-msg');
-                
-                if (data.items) {
+                if (data.status === 'ok') {
                     loading.style.display = 'none';
                     data.items.forEach(item => {
                         const vId = item.link.split('v=')[1];
                         list.innerHTML += `
-                            <div class="group bg-zinc-900/20 border border-zinc-800/30 rounded-xl overflow-hidden hover:border-red-600/40 transition-all cursor-pointer shadow-lg" onclick="window.scrollTo({top:0, behavior:'smooth'}); document.querySelector('iframe').src='https://www.youtube.com/embed/${vId}?autoplay=1'">
+                            <div class="group bg-zinc-900/20 border border-zinc-800/30 rounded-xl overflow-hidden hover:border-red-600/40 transition-all cursor-pointer shadow-lg" onclick="window.scrollTo({top:0, behavior:'smooth'}); document.getElementById('live-player').src='https://www.youtube.com/embed/${vId}?autoplay=1'">
                                 <div class="relative aspect-video">
                                     <img src="${item.thumbnail}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-all">
                                 </div>
@@ -102,12 +106,15 @@
                             </div>
                         `;
                     });
+                } else {
+                    throw new Error();
                 }
             } catch (err) {
-                document.getElementById('loading-msg').innerText = "OFFLINE SOURCE";
+                loading.innerText = "Sistem sedang sibuk. Silakan segarkan halaman atau klik ikon sosial media di bawah.";
             }
         }
         fetchArchive();
     </script>
 </body>
-</html>
+    </html>
+                        
