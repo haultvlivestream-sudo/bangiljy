@@ -6,133 +6,148 @@
     <title>IHYA' 7 TV - Media Streaming</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #020617; color: #f1f5f9; overflow-x: hidden; }
+        body { background-color: #020617; color: #f1f5f9; overflow-x: hidden; font-family: sans-serif; }
         
-        /* Shape Cahaya di Latar Belakang */
-        .shape-1 {
-            position: fixed; top: -10%; left: -10%; width: 40vw; height: 40vw;
-            background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, rgba(2, 6, 23, 0) 70%);
-            border-radius: 50%; z-index: -1; animation: float 20s infinite alternate;
-        }
-        .shape-2 {
-            position: fixed; bottom: -10%; right: -10%; width: 35vw; height: 35vw;
-            background: radial-gradient(circle, rgba(129, 140, 248, 0.1) 0%, rgba(2, 6, 23, 0) 70%);
-            border-radius: 50%; z-index: -1; animation: float 15s infinite alternate-reverse;
+        /* SHAPE MENGKILAT DI BACKGROUND */
+        .bg-glow {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(56, 189, 248, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(129, 140, 248, 0.1) 0%, transparent 50%);
+            z-index: -2;
         }
 
-        @keyframes float {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(5%, 5%) scale(1.1); }
+        /* EFEK TEKS LIVE STREAMING NEON */
+        .live-text {
+            font-size: 14px; font-weight: 900; letter-spacing: 0.3em;
+            color: #fff; text-shadow: 0 0 10px #38bdf8, 0 0 20px #38bdf8;
+            animation: pulse-neon 1.5s infinite;
         }
 
-        .nav-glass {
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        @keyframes pulse-neon {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.02); }
         }
 
         .video-container { 
             position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; 
-            border-radius: 24px; background: #000; border: 1px solid rgba(56, 189, 248, 0.3);
-            box-shadow: 0 0 50px rgba(56, 189, 248, 0.1);
+            border-radius: 24px; background: #000; border: 2px solid rgba(56, 189, 248, 0.4);
+            box-shadow: 0 0 40px rgba(56, 189, 248, 0.2);
         }
 
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
         
         .card-video {
-            background: rgba(30, 41, 59, 0.3);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.4s ease;
         }
 
-        .card-video:hover {
-            transform: scale(1.05);
-            border-color: rgba(56, 189, 248, 0.5);
-            background: rgba(30, 41, 59, 0.6);
-        }
+        .card-video:hover { transform: translateY(-8px); border-color: #38bdf8; }
 
-        .profile-box {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);
-            border: 1px solid rgba(56, 189, 248, 0.2);
-            position: relative; overflow: hidden;
+        /* SIDEBAR MENU */
+        #sidebar {
+            position: fixed; top: 0; right: -300px; width: 280px; height: 100%;
+            background: rgba(2, 6, 23, 0.95); backdrop-filter: blur(20px);
+            z-index: 100; transition: 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+            border-left: 1px solid rgba(56, 189, 248, 0.2);
+            padding: 40px 20px;
         }
+        #sidebar.active { right: 0; shadow: -10px 0 30px rgba(0,0,0,0.5); }
 
-        /* Garis cahaya berjalan di profile box */
-        .profile-box::after {
-            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(56, 189, 248, 0.05), transparent);
-            transform: rotate(45deg); animation: shine 6s infinite;
+        .menu-btn {
+            background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.3);
+            width: 45px; height: 45px; border-radius: 50%; display: flex;
+            align-items: center; justify-content: center; cursor: pointer; transition: 0.3s;
         }
+        .menu-btn:hover { background: #38bdf8; color: white; transform: rotate(90deg); }
 
-        @keyframes shine {
-            0% { transform: translateX(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) rotate(45deg); }
-        }
-
-        .social-btn { 
-            transition: all 0.3s ease; background: rgba(56, 189, 248, 0.1);
-            padding: 12px; border-radius: 16px; border: 1px solid rgba(56, 189, 248, 0.2);
-        }
-
-        .social-btn:hover { background: #38bdf8; transform: translateY(-5px); box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
-        .social-btn img { filter: invert(1); width: 20px; height: 20px; }
+        .coming-soon { font-size: 8px; background: #334155; color: #94a3b8; padding: 2px 6px; border-radius: 4px; margin-left: 8px; }
     </style>
 </head>
-<body class="font-sans">
+<body>
 
-    <div class="shape-1"></div>
-    <div class="shape-2"></div>
+    <div class="bg-glow"></div>
 
-    <nav class="p-4 nav-glass sticky top-0 z-50">
+    <div id="sidebar">
+        <div class="flex justify-between items-center mb-10">
+            <h2 class="text-sky-400 font-black italic tracking-widest uppercase">Menu</h2>
+            <button onclick="toggleMenu()" class="text-slate-400 hover:text-white">✕</button>
+        </div>
+        <nav class="space-y-6">
+            <a href="#" class="block text-sm font-bold text-sky-400 hover:pl-2 transition-all">BERANDA</a>
+            <div class="block text-sm font-bold text-slate-500 cursor-not-allowed">
+                PROGRAM TV <span class="coming-soon uppercase">Coming Soon</span>
+            </div>
+            <div class="block text-sm font-bold text-slate-500 cursor-not-allowed">
+                JADWAL <span class="coming-soon uppercase">Coming Soon</span>
+            </div>
+            <div class="block text-sm font-bold text-slate-500 cursor-not-allowed">
+                DONASI <span class="coming-soon uppercase">Coming Soon</span>
+            </div>
+        </nav>
+    </div>
+
+    <nav class="p-4 bg-slate-950/80 backdrop-blur-xl sticky top-0 z-50 border-b border-white/5">
         <div class="max-w-6xl mx-auto flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <img src="logoihya7tv.png" alt="Logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/717/717426.png'" class="h-10 w-10 object-contain rounded-xl">
-                <h1 class="text-xl font-black tracking-tighter text-sky-400 uppercase leading-none">IHYA' 7 TV</h1>
+                <h1 class="text-xl font-black tracking-tighter text-sky-400 uppercase italic">IHYA' 7 TV</h1>
             </div>
-            <div class="flex items-center gap-2">
-                <div class="w-2 h-2 bg-red-500 rounded-full animate-pulse shadow-[0_0_10px_#ef4444]"></div>
-                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Live Now</span>
-            </div>
+            
+            <button class="menu-btn" onclick="toggleMenu()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
         </div>
     </nav>
 
     <main class="max-w-5xl mx-auto p-4 md:p-8">
         
-        <section class="mb-10 profile-box p-6 rounded-3xl shadow-2xl relative">
-            <p class="text-[11px] md:text-sm text-slate-300 leading-relaxed font-medium relative z-10">
-                <strong class="text-sky-400 italic uppercase">IHYA' 7 TV</strong> ADALAH TELEVISI ISLAM AHLUSSUNAH WAL JAMA'AH YANG MENAMPILKAN LIVE STREAMING DI CHANNEL YOUTUBE, INSTAGRAM, TIKTOK, DLL BERISI TENTANG LIVE HAUL, MAULID, KAJIAN, DLL. <br class="hidden md:block">
-                <span class="text-sky-500 font-black mt-2 inline-block border-b-2 border-sky-900/50">EST. 1 RAMADHAN 1444 H</span>
+        <section class="mb-10 bg-slate-900/50 border border-sky-900/20 p-6 rounded-3xl text-center shadow-xl">
+            <p class="text-[11px] md:text-sm text-slate-300 leading-relaxed font-medium uppercase tracking-tight">
+                <span class="text-sky-400 font-bold italic">IHYA' 7 TV</span> ADALAH TELEVISI ISLAM AHLUSSUNAH WAL JAMA'AH YANG MENAMPILKAN LIVE STREAMING DI CHANNEL YOUTUBE, INSTAGRAM, TIKTOK, DLL BERISI TENTANG LIVE HAUL, MAULID, KAJIAN, DLL. <br class="hidden md:block">
+                <span class="text-sky-500 font-black mt-2 inline-block">EST. 1 RAMADHAN 1444 H</span>
             </p>
         </section>
 
-        <section class="mb-14">
+        <section class="mb-16">
+            <div class="flex items-center justify-center gap-4 mb-6">
+                <div class="h-px w-10 md:w-20 bg-gradient-to-r from-transparent to-sky-500"></div>
+                <h2 class="live-text uppercase italic">LIVE STREAMING</h2>
+                <div class="h-px w-10 md:w-20 bg-gradient-to-l from-transparent to-sky-500"></div>
+            </div>
             <div class="video-container">
                 <iframe id="live-player" src="https://www.youtube.com/embed/live_stream?channel=UC2TptaJdg05H5zrIyffgPiQ" allowfullscreen></iframe>
             </div>
         </section>
 
-        <section class="mb-20">
-            <div class="flex items-center gap-4 mb-8">
-                <h2 class="text-xs font-black tracking-[0.3em] text-slate-500 uppercase">Latest Broadcasts</h2>
-                <div class="h-px flex-grow bg-gradient-to-r from-sky-900/50 to-transparent"></div>
-            </div>
-            <div id="video-list" class="grid grid-cols-2 lg:grid-cols-5 gap-4">
-                <p id="loading-msg" class="col-span-full text-center text-slate-600 py-10 text-[10px] uppercase tracking-widest italic">Syncing satellite...</p>
+        <section class="mb-24">
+            <h2 class="text-xs font-black mb-8 flex items-center gap-3 tracking-[0.4em] text-slate-500 uppercase italic">
+                <span class="h-4 w-1 bg-sky-500 rounded-full"></span> Arsip Terbaru
+            </h2>
+            <div id="video-list" class="grid grid-cols-2 lg:grid-cols-5 gap-4 text-center">
+                <p id="loading-msg" class="col-span-full text-slate-700 py-10 text-[10px] uppercase tracking-widest animate-pulse">Syncing satellite...</p>
             </div>
         </section>
 
         <footer class="text-center border-t border-white/5 pt-16 pb-20">
-            <div class="flex justify-center gap-6 mb-10">
-                <a href="https://www.youtube.com/@IHYA7TV" target="_blank" class="social-btn"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png"></a>
-                <a href="https://www.instagram.com/ihya7tv?igsh=MTYwNDZpaGxkNnlscA==" target="_blank" class="social-btn"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png"></a>
-                <a href="https://vm.tiktok.com/ZS9N299oN48LS-LBapA/" target="_blank" class="social-btn"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png"></a>
+            <div class="flex justify-center gap-6 mb-12">
+                <a href="https://www.youtube.com/@IHYA7TV" target="_blank" class="block p-3 bg-slate-900 border border-sky-900/30 rounded-2xl hover:bg-sky-500 transition-all"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" class="w-5 h-5 invert"></a>
+                <a href="https://www.instagram.com/ihya7tv?igsh=MTYwNDZpaGxkNnlscA==" target="_blank" class="block p-3 bg-slate-900 border border-sky-900/30 rounded-2xl hover:bg-sky-500 transition-all"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" class="w-5 h-5 invert"></a>
+                <a href="https://vm.tiktok.com/ZS9N299oN48LS-LBapA/" target="_blank" class="block p-3 bg-slate-900 border border-sky-900/30 rounded-2xl hover:bg-sky-500 transition-all"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" class="w-5 h-5 invert"></a>
             </div>
-            <p class="text-slate-600 text-[10px] font-black uppercase tracking-[0.6em]">MULTIMEDIA IHYA' 7 TV &copy; 2026</p>
+            <p class="text-slate-600 text-[10px] font-black uppercase tracking-[0.5em]">TIM MULTIMEDIA IHYA' 7 TV &copy; 2026</p>
         </footer>
     </main>
 
     <script>
+        function toggleMenu() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
+
         const CHANNEL_ID = 'UC2TptaJdg05H5zrIyffgPiQ';
         async function fetchArchive() {
             const list = document.getElementById('video-list');
@@ -146,20 +161,18 @@
                         const vId = item.link.split('v=')[1];
                         list.innerHTML += `
                             <div class="card-video rounded-2xl overflow-hidden cursor-pointer group p-1" onclick="window.scrollTo({top:0, behavior:'smooth'}); document.getElementById('live-player').src='https://www.youtube.com/embed/${vId}?autoplay=1'">
-                                <div class="relative overflow-hidden rounded-xl aspect-video">
-                                    <img src="${item.thumbnail}" class="w-full h-full object-cover">
-                                </div>
-                                <div class="p-2">
-                                    <h3 class="text-[9px] font-bold line-clamp-2 text-slate-400 group-hover:text-sky-300 transition-colors">${item.title}</h3>
+                                <img src="${item.thumbnail}" class="w-full h-full object-cover rounded-xl">
+                                <div class="p-3">
+                                    <h3 class="text-[9px] font-bold line-clamp-2 text-slate-400 group-hover:text-sky-400 transition-colors uppercase italic">${item.title}</h3>
                                 </div>
                             </div>
                         `;
                     });
                 }
-            } catch (err) { loading.innerText = "Connection lost."; }
+            } catch (err) { loading.innerText = "Error Sinkronisasi."; }
         }
         fetchArchive();
     </script>
 </body>
-    </html>
-    
+                    </html>
+                        
