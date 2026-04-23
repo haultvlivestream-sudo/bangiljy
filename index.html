@@ -6,96 +6,98 @@
     <title>IHYA' 7 TV - Media Streaming</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #020617; color: #f8fafc; }
+        /* Warna Biru yang lebih cerah dan segar */
+        body { background-color: #f0f4f8; color: #1e293b; }
+        
+        .header-bg {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+        }
+
         .navy-gradient-text {
-            background: linear-gradient(to right, #38bdf8, #818cf8);
+            background: linear-gradient(to right, #ffffff, #dbeafe);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
         .video-container { 
             position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; 
-            border-radius: 20px; background: #0f172a; border: 1px solid #1e293b;
-            box-shadow: 0 0 40px rgba(56, 189, 248, 0.1);
+            border-radius: 20px; background: #000; border: 4px solid #ffffff;
+            box-shadow: 0 10px 25px rgba(30, 64, 175, 0.2);
         }
+
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        
         .card-video {
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid rgba(30, 41, 59, 0.5);
-            transition: all 0.4s ease;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
+
         .card-video:hover {
-            border-color: #38bdf8;
             transform: translateY(-5px);
-            background: rgba(30, 41, 59, 0.8);
+            box-shadow: 0 10px 15px rgba(30, 64, 175, 0.1);
+            border-color: #3b82f6;
         }
+
+        .profile-box {
+            background: #ffffff;
+            border-left: 5px solid #3b82f6;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
         .social-btn { 
-            transition: all 0.3s ease; background: rgba(30, 41, 59, 0.5);
-            padding: 10px; border-radius: 50%; border: 1px solid #1e293b;
+            transition: all 0.3s ease; background: #1e40af;
+            padding: 10px; border-radius: 50%;
         }
-        .social-btn:hover { background: #38bdf8; transform: scale(1.1); }
-        .social-btn img { filter: invert(1); width: 20px; height: 20px; }
+
+        .social-btn:hover { background: #3b82f6; transform: scale(1.1); }
+        .social-btn img { filter: invert(1); width: 18px; height: 18px; }
     </style>
 </head>
-<body class="font-sans selection:bg-sky-500">
+<body class="font-sans selection:bg-blue-200">
 
-    <nav class="p-5 border-b border-slate-800 bg-slate-950/80 backdrop-blur-xl sticky top-0 z-50">
+    <nav class="p-4 header-bg sticky top-0 z-50 shadow-md">
         <div class="max-w-6xl mx-auto flex items-center justify-between">
-            <div class="flex items-center gap-4">
-                <img src="logoihya7tv.png" alt="Logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/717/717426.png'" class="h-12 w-12 object-contain rounded-xl shadow-lg">
-                <div>
-                    <h1 class="text-2xl font-black tracking-tighter navy-gradient-text uppercase leading-none">IHYA' 7 TV</h1>
-                    <p class="text-[8px] text-slate-500 uppercase tracking-[0.4em] mt-1">Ahlussunnah Wal Jama'ah</p>
-                </div>
+            <div class="flex items-center gap-3">
+                <img src="logoihya7tv.png" alt="Logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/717/717426.png'" class="h-10 w-10 object-contain rounded-lg bg-white p-0.5">
+                <h1 class="text-xl font-black tracking-tighter navy-gradient-text uppercase leading-none">IHYA' 7 TV</h1>
             </div>
+            <span class="text-[9px] font-bold text-blue-100 uppercase tracking-widest bg-blue-700/50 px-3 py-1 rounded-full">Online Channel</span>
         </div>
     </nav>
 
-    <main class="max-w-6xl mx-auto p-4 md:p-10">
+    <main class="max-w-5xl mx-auto p-4 md:p-8">
         
-        <section class="mb-10 bg-slate-900/50 border border-sky-900/30 p-6 rounded-2xl text-center shadow-inner">
-            <p class="text-xs md:text-sm text-slate-300 leading-relaxed font-medium">
-                <span class="text-sky-400 font-bold italic">IHYA' 7 TV</span> ADALAH TELEVISI ISLAM AHLUSSUNAH WAL JAMA'AH YANG MENAMPILKAN LIVE STREAMING DI CHANNEL YOUTUBE, INSTAGRAM, TIKTOK, DLL BERISI TENTANG LIVE HAUL, MAULID, KAJIAN, DLL. <br class="hidden md:block">
-                <span class="text-sky-500 font-bold">IHYA' 7 TV BERDIRI PADA 1 RAMADHAN 1444 H</span>
+        <section class="mb-8 profile-box p-6 rounded-r-2xl">
+            <p class="text-[11px] md:text-sm text-slate-700 leading-relaxed font-medium">
+                <strong class="text-blue-700 italic uppercase leading-loose">IHYA' 7 TV</strong> ADALAH TELEVISI ISLAM AHLUSSUNAH WAL JAMA'AH YANG MENAMPILKAN LIVE STREAMING DI CHANNEL YOUTUBE, INSTAGRAM, TIKTOK, DLL BERISI TENTANG LIVE HAUL, MAULID, KAJIAN, DLL. <br class="hidden md:block">
+                <span class="text-blue-600 font-bold mt-2 inline-block">IHYA' 7 TV BERDIRI PADA 1 RAMADHAN 1444 H</span>
             </p>
         </section>
 
-        <section class="mb-16">
-            <div class="flex items-center gap-2 mb-4">
-                <span class="w-2 h-2 bg-red-600 rounded-full animate-pulse"></span>
-                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest text-red-500">Live Streaming</span>
-            </div>
+        <section class="mb-12">
             <div class="video-container">
                 <iframe id="live-player" src="https://www.youtube.com/embed/live_stream?channel=UC2TptaJdg05H5zrIyffgPiQ" allowfullscreen></iframe>
             </div>
         </section>
 
-        <section class="mb-24">
-            <div class="flex items-center justify-between mb-10 border-b border-slate-800 pb-4">
-                <h2 class="text-lg font-bold flex items-center gap-3">
-                    <span class="h-6 w-1 bg-sky-500 rounded-full shadow-[0_0_10px_#38bdf8]"></span> 
-                    <span class="tracking-tight italic uppercase text-slate-300">Daftar Siaran Terbaru</span>
-                </h2>
-            </div>
-            
-            <div id="video-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <p id="loading-msg" class="col-span-full text-center text-slate-600 py-20 text-xs font-mono uppercase tracking-[0.3em]">Mengkoneksikan ke Server...</p>
+        <section class="mb-20">
+            <h2 class="text-xs font-black mb-6 flex items-center gap-2 tracking-[0.2em] text-blue-900 uppercase">
+                <span class="w-2 h-6 bg-blue-600 rounded-full"></span> Arsip Siaran Terbaru
+            </h2>
+            <div id="video-list" class="grid grid-cols-2 lg:grid-cols-5 gap-4">
+                <p id="loading-msg" class="col-span-full text-center text-slate-400 py-10 text-[10px] uppercase tracking-widest italic">Memuat Video...</p>
             </div>
         </section>
 
-        <footer class="text-center border-t border-slate-900 pt-16 pb-24">
-            <div class="flex justify-center gap-6 mb-12">
-                <a href="https://www.youtube.com/@IHYA7TV" target="_blank" class="social-btn">
-                    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png">
-                </a>
-                <a href="https://www.instagram.com/ihya7tv?igsh=MTYwNDZpaGxkNnlscA==" target="_blank" class="social-btn">
-                    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png">
-                </a>
-                <a href="https://vm.tiktok.com/ZS9N299oN48LS-LBapA/" target="_blank" class="social-btn">
-                    <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png">
-                </a>
+        <footer class="text-center border-t border-slate-200 pt-12 pb-16">
+            <div class="flex justify-center gap-6 mb-8">
+                <a href="https://www.youtube.com/@IHYA7TV" target="_blank" class="social-btn"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png"></a>
+                <a href="https://www.instagram.com/ihya7tv?igsh=MTYwNDZpaGxkNnlscA==" target="_blank" class="social-btn"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png"></a>
+                <a href="https://vm.tiktok.com/ZS9N299oN48LS-LBapA/" target="_blank" class="social-btn"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png"></a>
             </div>
-
-            <p class="text-slate-500 text-[11px] font-bold uppercase tracking-[0.5em] mb-1">TIM MULTIMEDIA IHYA' 7 TV &copy; 2026</p>
+            <p class="text-slate-400 text-[10px] font-bold uppercase tracking-[0.4em]">TIM MULTIMEDIA IHYA' 7 TV &copy; 2026</p>
         </footer>
     </main>
 
@@ -105,35 +107,26 @@
         async function fetchArchive() {
             const list = document.getElementById('video-list');
             const loading = document.getElementById('loading-msg');
-            
             try {
-                // Parameter count=50 untuk memastikan video yang ditarik banyak (minimal 20+)
-                const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}&count=50`);
+                const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}&count=10`);
                 const data = await res.json();
-                
                 if (data.status === 'ok') {
                     loading.style.display = 'none';
                     data.items.forEach(item => {
                         const vId = item.link.split('v=')[1];
                         list.innerHTML += `
-                            <div class="card-video rounded-2xl overflow-hidden cursor-pointer group shadow-xl" onclick="window.scrollTo({top:0, behavior:'smooth'}); document.getElementById('live-player').src='https://www.youtube.com/embed/${vId}?autoplay=1'">
-                                <div class="relative aspect-video overflow-hidden">
-                                    <img src="${item.thumbnail}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                                </div>
-                                <div class="p-4">
-                                    <h3 class="text-[10px] font-bold line-clamp-2 leading-relaxed text-slate-300 group-hover:text-sky-400 transition-colors">${item.title}</h3>
-                                    <p class="text-[8px] text-slate-600 mt-2 font-black uppercase">${new Date(item.pubDate).toLocaleDateString('id-ID', {day:'numeric', month:'short'})}</p>
+                            <div class="card-video rounded-xl overflow-hidden cursor-pointer group" onclick="window.scrollTo({top:0, behavior:'smooth'}); document.getElementById('live-player').src='https://www.youtube.com/embed/${vId}?autoplay=1'">
+                                <img src="${item.thumbnail}" class="w-full aspect-video object-cover">
+                                <div class="p-3">
+                                    <h3 class="text-[10px] font-bold line-clamp-2 text-slate-700 group-hover:text-blue-600 transition-colors">${item.title}</h3>
                                 </div>
                             </div>
                         `;
                     });
                 }
-            } catch (err) {
-                loading.innerText = "Gagal memuat arsip.";
-            }
+            } catch (err) { loading.innerText = "Error Loading."; }
         }
         fetchArchive();
     </script>
 </body>
-    </html>
-    
+</html>
