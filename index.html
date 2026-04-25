@@ -40,8 +40,8 @@
 
         /* SIDEBAR */
         #sidebar {
-            position: fixed; top: 0; left: -60%; width: 60%; height: 100%;
-            background: rgba(2, 6, 23, 0.95); backdrop-filter: blur(25px);
+            position: fixed; top: 0; left: -100%; width: 70%; height: 100%;
+            background: rgba(2, 6, 23, 0.98); backdrop-filter: blur(25px);
             z-index: 100; transition: 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
             border-right: 1px solid rgba(56, 189, 248, 0.3);
             padding: 40px 20px;
@@ -80,7 +80,6 @@
             100% { transform: translateX(100%) rotate(45deg); }
         }
 
-        /* CUSTOM SWIPER DOTS */
         .swiper-pagination-bullet { background: rgba(56, 189, 248, 0.5) !important; }
         .swiper-pagination-bullet-active { background: #38bdf8 !important; box-shadow: 0 0 10px #38bdf8; }
 
@@ -132,22 +131,10 @@
             <div class="swiper mySwiper rounded-3xl overflow-hidden border border-sky-500/30 shadow-2xl shadow-sky-500/10">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide relative">
-                        <img src="thumbnail1.jpg" class="w-full aspect-video object-cover" onerror="this.src='https://via.placeholder.com/1280x720/020617/38bdf8?text=IHYA+7+TV+JADWAL+1'">
-                        <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 via-black/20 to-transparent">
-                            <span class="px-3 py-1 bg-sky-500 text-[10px] font-black rounded-full text-white uppercase italic tracking-widest">Upcoming Event</span>
-                        </div>
+                        <img src="thumbnail1.jpg" class="w-full aspect-video object-cover" onerror="this.src='https://via.placeholder.com/1280x720/020617/38bdf8?text=IHYA+7+TV+EVENT+1'">
                     </div>
                     <div class="swiper-slide relative">
-                        <img src="thumbnail2.jpg" class="w-full aspect-video object-cover" onerror="this.src='https://via.placeholder.com/1280x720/020617/38bdf8?text=IHYA+7+TV+JADWAL+2'">
-                        <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 via-black/20 to-transparent">
-                            <span class="px-3 py-1 bg-sky-500 text-[10px] font-black rounded-full text-white uppercase italic tracking-widest">Upcoming Event</span>
-                        </div>
-                    </div>
-                    <div class="swiper-slide relative">
-                        <img src="thumbnail3.jpg" class="w-full aspect-video object-cover" onerror="this.src='https://via.placeholder.com/1280x720/020617/38bdf8?text=IHYA+7+TV+JADWAL+3'">
-                        <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 via-black/20 to-transparent">
-                            <span class="px-3 py-1 bg-sky-500 text-[10px] font-black rounded-full text-white uppercase italic tracking-widest">Upcoming Event</span>
-                        </div>
+                        <img src="thumbnail2.jpg" class="w-full aspect-video object-cover" onerror="this.src='https://via.placeholder.com/1280x720/020617/38bdf8?text=IHYA+7+TV+EVENT+2'">
                     </div>
                 </div>
                 <div class="swiper-pagination"></div>
@@ -156,7 +143,8 @@
 
         <section class="mb-10 profile-box p-6 rounded-3xl shadow-2xl relative">
             <p class="text-[11px] md:text-sm text-slate-300 leading-relaxed font-medium relative z-10 uppercase tracking-tight">
-                <strong class="text-sky-400 italic uppercase">IHYA' 7 TV</strong> ADALAH TELEVISI ISLAM AHLUSSUNAH WAL JAMA'AH YANG MENAMPILKAN LIVE STREAMING DI CHANNEL YOUTUBE, INSTAGRAM, TIKTOK, DLL BERISI TENTANG LIVE HAUL, MAULID, KAJIAN, DLL. <br class="hidden md:block">
+                <strong class="text-sky-400 italic uppercase">IHYA' 7 TV</strong> ADALAH TELEVISI ISLAM AHLUSSUNAH WAL JAMA'AH. MENYIARKAN LIVE HAUL, MAULID, DAN KAJIAN SECARA REAL-TIME.
+                <br>
                 <span class="text-sky-500 font-black mt-2 inline-block border-b-2 border-sky-900/50">EST. 1 RAMADHAN 1444 H</span>
             </p>
         </section>
@@ -168,22 +156,21 @@
                 <div class="h-px flex-grow bg-gradient-to-l from-transparent to-sky-500/50"></div>
             </div>
             <div class="video-container">
-                <iframe id="live-player" src="https://www.youtube.com/embed/live_stream?channel=UC2TptaJdg05H5zrIyffgPiQ" allowfullscreen></iframe>
+                <iframe id="live-player" src="https://www.youtube.com/embed/live_stream?channel=UC2TptaJdg05H5zrIyffgPiQ" allowfullscreen allow="autoplay"></iframe>
             </div>
         </section>
 
         <section class="mb-20 text-center">
-            <h2 class="text-[10px] font-black mb-8 tracking-[0.4em] text-slate-500 uppercase italic">Siaran Terbaru</h2>
-            <div id="video-list" class="grid grid-cols-2 lg:grid-cols-5 gap-4">
-                <p id="loading-msg" class="col-span-full py-10 text-[9px] uppercase tracking-widest animate-pulse">Syncing satellite...</p>
+            <h2 class="text-[10px] font-black mb-8 tracking-[0.4em] text-slate-500 uppercase italic">Arsip Siaran Terbaru</h2>
+            <div id="video-list" class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                <p id="loading-msg" class="col-span-full py-10 text-[9px] uppercase tracking-widest animate-pulse">Menghubungkan ke Satellite...</p>
             </div>
         </section>
 
         <footer class="text-center border-t border-white/5 pt-16 pb-20">
             <div class="flex justify-center gap-6 mb-10">
                 <a href="https://www.youtube.com/@IHYA7TV" target="_blank" class="p-3 bg-slate-900/50 rounded-2xl border border-white/5 hover:bg-sky-500 transition-all"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" class="w-5 h-5 invert"></a>
-                <a href="https://www.instagram.com/ihya7tv?igsh=MTYwNDZpaGxkNnlscA==" target="_blank" class="p-3 bg-slate-900/50 rounded-2xl border border-white/5 hover:bg-sky-500 transition-all"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" class="w-5 h-5 invert"></a>
-                <a href="https://vm.tiktok.com/ZS9N299oN48LS-LBapA/" target="_blank" class="p-3 bg-slate-900/50 rounded-2xl border border-white/5 hover:bg-sky-500 transition-all"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" class="w-5 h-5 invert"></a>
+                <a href="https://www.instagram.com/ihya7tv" target="_blank" class="p-3 bg-slate-900/50 rounded-2xl border border-white/5 hover:bg-sky-500 transition-all"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" class="w-5 h-5 invert"></a>
             </div>
             <p class="text-slate-600 text-[10px] font-black uppercase tracking-[0.5em]">TIM MULTIMEDIA IHYA' 7 TV &copy; 2026</p>
         </footer>
@@ -191,55 +178,71 @@
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        // TOGGLE MENU
+        const CHANNEL_ID = 'UC2TptaJdg05H5zrIyffgPiQ';
+
         function toggleMenu() {
             document.getElementById('sidebar').classList.toggle('active');
         }
 
-        // INITIALIZE SWIPER (SLIDER)
+        // SWIPER
         const swiper = new Swiper(".mySwiper", {
-            loop: true,
-            autoplay: {
-                delay: 4000,
-                disableOnInteraction: false,
-            },
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-            },
-            effect: "fade",
-            fadeEffect: { crossFade: true },
+            loop: true, autoplay: { delay: 4000 },
+            pagination: { el: ".swiper-pagination", clickable: true },
+            effect: "fade"
         });
 
-        // FETCH YOUTUBE ARCHIVE
-        const CHANNEL_ID = 'UC2TptaJdg05H5zrIyffgPiQ';
+        // FETCH VIDEOS
         async function fetchArchive() {
             const list = document.getElementById('video-list');
             const loading = document.getElementById('loading-msg');
+            
             try {
-                const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}&count=10`);
+                // Tambahkan parameter t agar tidak terkena cache lama
+                const cacheBuster = new Date().getTime();
+                const rssUrl = encodeURIComponent(`https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`);
+                const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${rssUrl}&api_key=your_free_api_key_if_have&t=${cacheBuster}`);
                 const data = await res.json();
+
                 if (data.status === 'ok') {
                     loading.style.display = 'none';
+                    list.innerHTML = ''; // Bersihkan loading
+
                     data.items.forEach(item => {
-                        const vId = item.link.split('v=')[1];
-                        list.innerHTML += `
-                            <div class="card-video rounded-2xl overflow-hidden cursor-pointer group p-1" onclick="window.scrollTo({top:500, behavior:'smooth'}); document.getElementById('live-player').src='https://www.youtube.com/embed/${vId}?autoplay=1'">
-                                <div class="aspect-video w-full overflow-hidden rounded-xl bg-slate-800">
-                                    <img src="${item.thumbnail}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                                </div>
-                                <div class="p-2 text-center">
-                                    <h3 class="text-[9px] font-bold line-clamp-2 text-slate-400 group-hover:text-sky-300 transition-colors uppercase italic">${item.title}</h3>
-                                </div>
-                            </div>
-                        `;
+                        // FILTER: Cek apakah ini video reguler (bukan Shorts)
+                        // Shorts biasanya punya link yang mengandung '/shorts/' tapi di RSS semua masuk sebagai 'watch?v='
+                        // Namun kita bisa memfilter berdasarkan kata kunci di judul jika perlu
+                        const isShort = item.title.toLowerCase().includes('#shorts');
+                        
+                        if (!isShort) {
+                            const vId = item.link.split('v=')[1]?.split('&')[0];
+                            if (vId) {
+                                const card = document.createElement('div');
+                                card.className = 'card-video rounded-2xl overflow-hidden cursor-pointer group p-1';
+                                card.onclick = () => {
+                                    window.scrollTo({top: 400, behavior: 'smooth'});
+                                    document.getElementById('live-player').src = `https://www.youtube.com/embed/${vId}?autoplay=1`;
+                                };
+                                card.innerHTML = `
+                                    <div class="aspect-video w-full overflow-hidden rounded-xl bg-slate-800">
+                                        <img src="${item.thumbnail}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                                    </div>
+                                    <div class="p-2 text-center">
+                                        <h3 class="text-[9px] font-bold line-clamp-2 text-slate-400 group-hover:text-sky-300 transition-colors uppercase italic">${item.title}</h3>
+                                    </div>
+                                `;
+                                list.appendChild(card);
+                            }
+                        }
                     });
                 }
-            } catch (err) { loading.innerText = "Error Sinkronisasi."; }
+            } catch (err) { 
+                loading.innerText = "Gagal Sinkronisasi."; 
+            }
         }
-        fetchArchive();
+
+        // Jalankan saat load
+        window.onload = fetchArchive;
     </script>
 </body>
-                </html>
-                                    
-
+                        </html>
+                    
