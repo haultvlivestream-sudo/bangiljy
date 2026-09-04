@@ -1,258 +1,314 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IHYA' 7 TV - Media Streaming</title>
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     
+    <!-- AOS (Animate On Scroll) Library -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
     <style>
-        body { background-color: #020617; color: #f1f5f9; overflow-x: hidden; }
-        
-        /* BACKGROUND ANIMATION */
-        .shape-1 {
-            position: fixed; top: -10%; left: -10%; width: 50vw; height: 50vw;
-            background: radial-gradient(circle, rgba(56, 189, 248, 0.2) 0%, rgba(2, 6, 23, 0) 70%);
-            border-radius: 50%; z-index: -1; animation: float 15s infinite alternate;
-        }
-        .shape-2 {
-            position: fixed; bottom: -10%; right: -10%; width: 45vw; height: 45vw;
-            background: radial-gradient(circle, rgba(129, 140, 248, 0.15) 0%, rgba(2, 6, 23, 0) 70%);
-            border-radius: 50%; z-index: -1; animation: float 12s infinite alternate-reverse;
+        :root {
+            --primary-blue: #0284c7;
+            --accent-sky: #38bdf8;
+            --soft-blue: #f0f9ff;
         }
 
-        @keyframes float {
-            0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.5; }
-            100% { transform: translate(10%, 10%) scale(1.2) rotate(10deg); opacity: 0.8; }
+        body { 
+            background-color: #f8fafc; 
+            color: #0f172a; 
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
         }
 
-        /* LIVE TEXT NEON */
-        .live-label {
-            font-size: 14px; font-weight: 900; letter-spacing: 0.3em;
-            color: #fff; text-shadow: 0 0 10px #38bdf8, 0 0 20px #38bdf8;
-            animation: pulse-neon 1.5s infinite;
+        /* BACKGROUND LIGHT GLOW & AMBIENT SPHERES */
+        .ambient-glow-1 {
+            position: fixed; top: -10vw; left: -10vw; width: 50vw; height: 50vw;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.18) 0%, rgba(248, 250, 252, 0) 70%);
+            border-radius: 50%; z-index: -1; animation: floatSphere 18s ease-in-out infinite alternate;
         }
-        @keyframes pulse-neon {
-            0%, 100% { transform: scale(1); filter: brightness(1); }
-            50% { transform: scale(1.05); filter: brightness(1.3); }
+        .ambient-glow-2 {
+            position: fixed; bottom: -10vw; right: -10vw; width: 45vw; height: 45vw;
+            background: radial-gradient(circle, rgba(2, 132, 199, 0.12) 0%, rgba(248, 250, 252, 0) 70%);
+            border-radius: 50%; z-index: -1; animation: floatSphere 14s ease-in-out infinite alternate-reverse;
         }
 
-        /* SIDEBAR */
-        #sidebar {
-            position: fixed; top: 0; left: -60%; width: 60%; height: 100%;
-            background: rgba(2, 6, 23, 0.95); backdrop-filter: blur(25px);
-            z-index: 100; transition: 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
-            border-right: 1px solid rgba(56, 189, 248, 0.3);
-            padding: 40px 20px;
+        @keyframes floatSphere {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(6%, 8%) scale(1.15); }
         }
-        #sidebar.active { left: 0; box-shadow: 20px 0 50px rgba(0,0,0,0.8); }
 
+        /* LIGHT GLASSMORPHISM NAVBAR */
         .nav-glass {
-            background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
         }
 
-        .video-container { 
-            position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; 
-            border-radius: 24px; background: #000; border: 1px solid rgba(56, 189, 248, 0.4);
-            box-shadow: 0 0 50px rgba(56, 189, 248, 0.15);
+        /* LIVE NEON BADGE WITH GLOW ANIMATION */
+        .live-badge {
+            position: relative;
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            box-shadow: 0 0 20px rgba(2, 132, 199, 0.4);
         }
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
-        
-        .card-video {
-            background: rgba(30, 41, 59, 0.3); backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.05); transition: 0.3s;
+        .live-badge::after {
+            content: ''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px;
+            border-radius: inherit;
+            background: linear-gradient(90deg, #38bdf8, #818cf8, #38bdf8);
+            z-index: -1; opacity: 0.7;
+            animation: borderRotate 3s linear infinite;
         }
-        .card-video:hover { transform: translateY(-5px); border-color: #38bdf8; }
-
-        .profile-box {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.9) 100%);
-            border: 1px solid rgba(56, 189, 248, 0.2); position: relative; overflow: hidden;
-        }
-        .profile-box::after {
-            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(56, 189, 248, 0.1), transparent);
-            transform: rotate(45deg); animation: shine 4s infinite;
-        }
-        @keyframes shine {
-            0% { transform: translateX(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) rotate(45deg); }
+        @keyframes borderRotate {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
         }
 
-        /* CUSTOM SWIPER DOTS */
-        .swiper-pagination-bullet { background: rgba(56, 189, 248, 0.5) !important; }
-        .swiper-pagination-bullet-active { background: #38bdf8 !important; box-shadow: 0 0 10px #38bdf8; }
+        /* 3D TILT EFFECT & CARD SHINE */
+        .card-3d {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
+        }
+        .card-3d:hover {
+            transform: translateY(-8px) rotateX(2deg) rotateY(-1deg);
+            box-shadow: 0 20px 30px -10px rgba(2, 132, 199, 0.15), 0 10px 15px -5px rgba(0, 0, 0, 0.04);
+        }
 
-        .menu-btn {
-            background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.3);
-            width: 42px; height: 42px; border-radius: 50%; display: flex;
-            align-items: center; justify-content: center; cursor: pointer;
+        /* EFEK KILAU CAHAYA (LIGHT SHINE EFFECT) */
+        .shine-effect {
+            position: relative;
+            overflow: hidden;
+        }
+        .shine-effect::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 30%,
+                rgba(255, 255, 255, 0.6) 50%,
+                transparent 70%
+            );
+            transform: rotate(30deg) translateY(-100%);
+            animation: lightRay 6s infinite ease-in-out;
+        }
+        @keyframes lightRay {
+            0% { transform: rotate(30deg) translateY(-100%); }
+            20% { transform: rotate(30deg) translateY(100%); }
+            100% { transform: rotate(30deg) translateY(100%); }
+        }
+
+        /* VIDEO CONTAINER WITH 3D ELEVATION */
+        .video-wrapper {
+            position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
+            border-radius: 24px; background: #0f172a;
+            box-shadow: 0 25px 50px -12px rgba(2, 132, 199, 0.25);
+            border: 4px solid #ffffff;
+        }
+        .video-wrapper iframe {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;
+        }
+
+        /* SIDEBAR LIGHT THEME */
+        #sidebar {
+            position: fixed; top: 0; left: -100%; width: 280px; height: 100%;
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px);
+            z-index: 100; transition: all 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+            border-right: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        #sidebar.active { left: 0; box-shadow: 25px 0 50px rgba(15, 23, 42, 0.1); }
+
+        /* CUSTOM SWIPER BULLETS */
+        .swiper-pagination-bullet { background: #cbd5e1 !important; opacity: 1 !important; }
+        .swiper-pagination-bullet-active { 
+            background: #0284c7 !important; 
+            width: 24px !important; 
+            border-radius: 8px !important; 
+        }
+
+        /* CURSOR TRAIL GLOW */
+        .cursor-glow {
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, transparent 70%);
+            position: fixed; pointer-events: none; z-index: 99;
+            transform: translate(-50%, -50%); transition: left 0.15s ease-out, top 0.15s ease-out;
         }
     </style>
 </head>
-<body class="font-sans">
+<body class="antialiased">
 
-    <div class="shape-1"></div>
-    <div class="shape-2"></div>
+    <!-- Ambient Glow BG -->
+    <div class="ambient-glow-1"></div>
+    <div class="ambient-glow-2"></div>
 
-    <div id="sidebar">
-        <div class="flex justify-between items-center mb-10">
-            <h2 class="text-sky-400 font-black italic tracking-widest uppercase">Menu</h2>
-            <button onclick="toggleMenu()" class="text-slate-400 hover:text-white text-xl">✕</button>
+    <!-- Mouse Glow Follower -->
+    <div class="cursor-glow hidden md:block" id="mouseGlow"></div>
+
+    <!-- SIDEBAR NAVIGATION -->
+    <div id="sidebar" class="p-6 flex flex-col justify-between">
+        <div>
+            <div class="flex items-center justify-between mb-8 pb-4 border-b border-slate-100">
+                <div class="flex items-center gap-2">
+                    <div class="w-3 h-3 rounded-full bg-sky-500"></div>
+                    <span class="font-extrabold text-slate-800 tracking-wider text-sm uppercase">Menu Utama</span>
+                </div>
+                <button onclick="toggleMenu()" class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-slate-200 transition-colors">✕</button>
+            </div>
+            <nav class="space-y-4">
+                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-sky-50 text-sky-600 font-bold text-sm transition-all shadow-sm">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 00-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                    BERANDA
+                </a>
+                <div class="flex items-center justify-between px-4 py-3 rounded-xl text-slate-400 text-sm font-semibold hover:bg-slate-50 cursor-not-allowed">
+                    <span class="flex items-center gap-3">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                        PROGRAM TV
+                    </span>
+                    <span class="text-xs bg-slate-100 text-slate-400 px-2 py-0.5 rounded">🔒</span>
+                </div>
+                <div class="flex items-center justify-between px-4 py-3 rounded-xl text-slate-400 text-sm font-semibold hover:bg-slate-50 cursor-not-allowed">
+                    <span class="flex items-center gap-3">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        JADWAL SIARAN
+                    </span>
+                    <span class="text-xs bg-slate-100 text-slate-400 px-2 py-0.5 rounded">🔒</span>
+                </div>
+            </nav>
         </div>
-        <nav class="space-y-8">
-            <a href="#" class="flex items-center text-sm font-bold text-sky-400 hover:tracking-widest transition-all">BERANDA</a>
-            <div class="flex items-center justify-between text-xs font-bold text-slate-600">
-                <span>PROGRAM TV</span> <span>🔒</span>
-            </div>
-            <div class="flex items-center justify-between text-xs font-bold text-slate-600">
-                <span>JADWAL</span> <span>🔒</span>
-            </div>
-            <p class="text-[8px] text-slate-500 uppercase tracking-[0.4em] mt-20 border-t border-white/5 pt-4">Fitur Coming Soon</p>
-        </nav>
+        <div class="border-t border-slate-100 pt-4">
+            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest text-center">Fitur Dalam Pengembangan</p>
+        </div>
     </div>
 
-    <nav class="p-4 nav-glass sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <img src="logoihya7tv.png" alt="Logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/717/717426.png'" class="h-10 w-10 object-contain rounded-xl">
-                <h1 class="text-xl font-black tracking-tighter text-sky-400 uppercase leading-none italic">IHYA' 7 TV</h1>
+    <!-- NAVBAR -->
+    <nav class="nav-glass sticky top-0 z-50 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-3 group cursor-pointer">
+                <div class="relative">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-sky-400 to-blue-600 rounded-2xl blur opacity-30 group-hover:opacity-75 transition duration-300"></div>
+                    <img src="logoihya7tv.png" alt="Logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/717/717426.png'" class="relative h-10 w-10 object-contain rounded-xl bg-white p-1 border border-slate-100 shadow-sm">
+                </div>
+                <div>
+                    <h1 class="text-lg font-black tracking-tight text-slate-900 leading-none">
+                        IHYA' <span class="text-sky-600">7 TV</span>
+                    </h1>
+                    <p class="text-[9px] font-bold text-slate-400 tracking-widest uppercase mt-0.5">Media Streaming Islam</p>
+                </div>
             </div>
-            <button class="menu-btn" onclick="toggleMenu()">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+
+            <button onclick="toggleMenu()" class="p-2.5 rounded-xl bg-slate-100/80 hover:bg-sky-50 hover:text-sky-600 transition-all text-slate-700 border border-slate-200/60 flex items-center gap-2 font-bold text-xs">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                <span class="hidden sm:inline">MENU</span>
             </button>
         </div>
     </nav>
 
-    <main class="max-w-5xl mx-auto p-4 md:p-8">
+    <main class="max-w-5xl mx-auto px-4 py-8 md:py-12 space-y-16">
         
-        <section class="mb-10">
-            <h2 class="text-[10px] font-black mb-4 tracking-[0.4em] text-slate-500 uppercase italic text-center">Jadwal Mendatang</h2>
-            <div class="swiper mySwiper rounded-3xl overflow-hidden border border-sky-500/30 shadow-2xl shadow-sky-500/10">
+        <!-- CAROUSEL BANNER / JADWAL -->
+        <section data-aos="fade-up" data-aos-duration="1000">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-sky-500 animate-ping"></span>
+                    <h2 class="text-xs font-black tracking-widest text-slate-400 uppercase">Jadwal Mendatang</h2>
+                </div>
+            </div>
+            
+            <div class="swiper mySwiper rounded-3xl border border-slate-200/80 shadow-xl bg-white overflow-hidden">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide relative">
-                        <img src="thumbnail1.jpg" class="w-full aspect-video object-cover" onerror="this.src='https://via.placeholder.com/1280x720/020617/38bdf8?text=IHYA+7+TV+JADWAL+1'">
-                        <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 via-black/20 to-transparent">
-                            <span class="px-3 py-1 bg-sky-500 text-[10px] font-black rounded-full text-white uppercase italic tracking-widest">Upcoming Event</span>
+                    <div class="swiper-slide relative group overflow-hidden">
+                        <img src="thumbnail1.jpg" class="w-full aspect-video object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://via.placeholder.com/1280x720/f0f9ff/0284c7?text=IHYA+7+TV+JADWAL+1'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent flex items-end p-6">
+                            <span class="px-4 py-1.5 bg-white/90 backdrop-blur-md text-sky-700 text-xs font-extrabold rounded-full shadow-lg border border-white/50">Agenda Spesial</span>
                         </div>
                     </div>
-                    <div class="swiper-slide relative">
-                        <img src="thumbnail2.jpg" class="w-full aspect-video object-cover" onerror="this.src='https://via.placeholder.com/1280x720/020617/38bdf8?text=IHYA+7+TV+JADWAL+2'">
-                        <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 via-black/20 to-transparent">
-                            <span class="px-3 py-1 bg-sky-500 text-[10px] font-black rounded-full text-white uppercase italic tracking-widest">Upcoming Event</span>
-                        </div>
-                    </div>
-                    <div class="swiper-slide relative">
-                        <img src="thumbnail3.jpg" class="w-full aspect-video object-cover" onerror="this.src='https://via.placeholder.com/1280x720/020617/38bdf8?text=IHYA+7+TV+JADWAL+3'">
-                        <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 via-black/20 to-transparent">
-                            <span class="px-3 py-1 bg-sky-500 text-[10px] font-black rounded-full text-white uppercase italic tracking-widest">Upcoming Event</span>
+                    <div class="swiper-slide relative group overflow-hidden">
+                        <img src="thumbnail2.jpg" class="w-full aspect-video object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://via.placeholder.com/1280x720/f0f9ff/0284c7?text=IHYA+7+TV+JADWAL+2'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent flex items-end p-6">
+                            <span class="px-4 py-1.5 bg-white/90 backdrop-blur-md text-sky-700 text-xs font-extrabold rounded-full shadow-lg border border-white/50">Kajian Rutin</span>
                         </div>
                     </div>
                 </div>
-                <div class="swiper-pagination"></div>
+                <div class="swiper-pagination !bottom-4"></div>
             </div>
         </section>
 
-        <section class="mb-10 profile-box p-6 rounded-3xl shadow-2xl relative">
-            <p class="text-[11px] md:text-sm text-slate-300 leading-relaxed font-medium relative z-10 uppercase tracking-tight">
-                <strong class="text-sky-400 italic uppercase">IHYA' 7 TV</strong> ADALAH TELEVISI ISLAM AHLUSSUNAH WAL JAMA'AH YANG MENAMPILKAN LIVE STREAMING DI CHANNEL YOUTUBE, INSTAGRAM, TIKTOK, DLL BERISI TENTANG LIVE HAUL, MAULID, KAJIAN, DLL. <br class="hidden md:block">
-                <span class="text-sky-500 font-black mt-2 inline-block border-b-2 border-sky-900/50">EST. 1 RAMADHAN 1444 H</span>
-            </p>
+        <!-- PROFILE / DESCRIPTION BOX WITH LIGHT SHINE & TYPEWRITER -->
+        <section data-aos="fade-up" data-aos-duration="1000" class="relative">
+            <div class="shine-effect rounded-3xl bg-white p-6 md:p-8 border border-sky-100 shadow-xl shadow-sky-500/5 relative">
+                <div class="flex items-start gap-4">
+                    <div class="hidden sm:flex w-12 h-12 rounded-2xl bg-sky-50 border border-sky-100 items-center justify-center text-sky-600 shrink-0 mt-1">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </div>
+                    <div>
+                        <span class="inline-block px-3 py-1 bg-sky-100 text-sky-800 text-[10px] font-black rounded-lg uppercase tracking-wider mb-3">Tentang Kami</span>
+                        <p class="text-sm md:text-base text-slate-700 leading-relaxed font-semibold">
+                            <span class="text-sky-600 font-extrabold">IHYA' 7 TV</span> Adalah Televisi Islam Ahlussunnah wal Jama'ah yang menyajikan tayangan Siaran Langsung Haul, Maulid, Kajian Ilmiah, dan Acara Keagamaan lainnya melalui platform digital.
+                        </p>
+                        <div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between flex-wrap gap-2">
+                            <span class="text-xs font-extrabold text-slate-400 uppercase tracking-widest">Est. 1 Ramadhan 1444 H</span>
+                            <span class="text-xs font-extrabold text-sky-600 bg-sky-50 px-3 py-1 rounded-full border border-sky-100" id="typewriterText"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <section class="mb-14">
-            <div class="flex items-center justify-center gap-4 mb-8">
-                <div class="h-px flex-grow bg-gradient-to-r from-transparent to-sky-500/50"></div>
-                <h2 class="live-label uppercase italic">LIVE STREAMING</h2>
-                <div class="h-px flex-grow bg-gradient-to-l from-transparent to-sky-500/50"></div>
+        <!-- LIVE STREAMING SECTION WITH ANIMATED BADGE -->
+        <section data-aos="fade-up" data-aos-duration="1000">
+            <div class="flex flex-col items-center mb-6">
+                <div class="live-badge px-6 py-2 rounded-full flex items-center gap-3 text-white font-black text-xs tracking-widest uppercase mb-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping"></span>
+                    <span>LIVE STREAMING UTAMA</span>
+                </div>
+                <p class="text-xs text-slate-400 font-medium">Klik video untuk menyaksikan siaran terkini</p>
             </div>
-            <div class="video-container">
+
+            <div class="video-wrapper">
                 <iframe id="live-player" src="https://www.youtube.com/embed/live_stream?channel=UC2TptaJdg05H5zrIyffgPiQ" allowfullscreen allow="autoplay"></iframe>
             </div>
         </section>
 
-        <section class="mb-20 text-center">
-            <h2 class="text-[10px] font-black mb-8 tracking-[0.4em] text-slate-500 uppercase italic">Siaran Terbaru</h2>
-            <div id="video-list" class="grid grid-cols-2 lg:grid-cols-5 gap-4">
-                <p id="loading-msg" class="col-span-full py-10 text-[9px] uppercase tracking-widest animate-pulse">Syncing satellite...</p>
+        <!-- LATEST VIDEOS GRID WITH 3D TILT CARDS -->
+        <section data-aos="fade-up" data-aos-duration="1000">
+            <div class="flex items-center justify-between mb-8 pb-3 border-b border-slate-200">
+                <div>
+                    <h2 class="text-lg font-extrabold text-slate-900 tracking-tight">Siaran Terbaru</h2>
+                    <p class="text-xs text-slate-400 font-medium">Arsip siaran dan rekaman kajian terkini</p>
+                </div>
+                <span class="text-xs font-bold text-sky-600 bg-sky-50 px-3 py-1.5 rounded-xl border border-sky-100">Auto Sync</span>
+            </div>
+
+            <div id="video-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Skeleton Loading -->
+                <div class="col-span-full py-12 flex flex-col items-center justify-center text-center space-y-3" id="loading-msg">
+                    <div class="w-10 h-10 border-4 border-sky-500 border-t-transparent rounded-full animate-spin"></div>
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Menghubungkan ke Server YouTube...</p>
+                </div>
             </div>
         </section>
 
-        <footer class="text-center border-t border-white/5 pt-16 pb-20">
-            <div class="flex justify-center gap-6 mb-10">
-                <a href="https://www.youtube.com/@IHYA7TV" target="_blank" class="p-3 bg-slate-900/50 rounded-2xl border border-white/5 hover:bg-sky-500 transition-all"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" class="w-5 h-5 invert"></a>
-                <a href="https://www.instagram.com/ihya7tv?igsh=MTYwNDZpaGxkNnlscA==" target="_blank" class="p-3 bg-slate-900/50 rounded-2xl border border-white/5 hover:bg-sky-500 transition-all"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" class="w-5 h-5 invert"></a>
-                <a href="https://vm.tiktok.com/ZS9N299oN48LS-LBapA/" target="_blank" class="p-3 bg-slate-900/50 rounded-2xl border border-white/5 hover:bg-sky-500 transition-all"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" class="w-5 h-5 invert"></a>
-            </div>
-            <p class="text-slate-600 text-[10px] font-black uppercase tracking-[0.5em]">TIM MULTIMEDIA IHYA' 7 TV &copy; 2026</p>
-        </footer>
-    </main>
-
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script>
-        const CHANNEL_ID = 'UC2TptaJdg05H5zrIyffgPiQ';
-
-        // TOGGLE MENU
-        function toggleMenu() {
-            document.getElementById('sidebar').classList.toggle('active');
-        }
-
-        // INITIALIZE SWIPER
-        const swiper = new Swiper(".mySwiper", {
-            loop: true,
-            autoplay: {
-                delay: 4000,
-                disableOnInteraction: false,
-            },
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-            },
-            effect: "fade",
-            fadeEffect: { crossFade: true },
-        });
-
-        // FETCH ARCHIVE DENGAN FILTER ANTI-SHORTS & ANTI-CACHE
-        async function fetchArchive() {
-            const list = document.getElementById('video-list');
-            const loading = document.getElementById('loading-msg');
-            try {
-                // Menambahkan timestamp agar data selalu fresh (anti-loading terus)
-                const cacheBuster = new Date().getTime();
-                const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}&t=${cacheBuster}`);
-                const data = await res.json();
-                
-                if (data.status === 'ok') {
-                    loading.style.display = 'none';
-                    list.innerHTML = ''; // Clear loading message
-
-                    data.items.forEach(item => {
-                        const vId = item.link.split('v=')[1]?.split('&')[0];
-                        
-                        // Deteksi Shorts: Link YouTube Shorts biasanya berbeda, atau bisa filter via judul
-                        const isShort = item.title.toLowerCase().includes('#shorts') || item.link.includes('/shorts/');
-
-                        if (vId && !isShort) {
-                            list.innerHTML += `
-                                <div class="card-video rounded-2xl overflow-hidden cursor-pointer group p-1" onclick="window.scrollTo({top:500, behavior:'smooth'}); document.getElementById('live-player').src='https://www.youtube.com/embed/${vId}?autoplay=1'">
-                                    <div class="aspect-video w-full overflow-hidden rounded-xl bg-slate-800">
-                                        <img src="${item.thumbnail}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                                    </div>
-                                    <div class="p-2 text-center">
-                                        <h3 class="text-[9px] font-bold line-clamp-2 text-slate-400 group-hover:text-sky-300 transition-colors uppercase italic">${item.title}</h3>
-                                    </div>
-                                </div>
-                            `;
-                        }
-                    });
-                }
-            } catch (err) { 
-                loading.innerText = "Error Sinkronisasi Satellite."; 
-            }
-        }
-        
-        window.onload = fetchArchive;
-    </script>
-</body>
-                </html>
+        <!-- FOOTER -->
+        <footer data-aos="fade-up" data-aos-duration="1000" class="border-t border-slate-200 pt-12 pb-16 text-center space-y-6">
+            <div class="flex justify-center items-center gap-4">
+                <a href="https://www.youtube.com/@IHYA7TV" target="_blank" class="w-12 h-12 bg-white rounded-2xl border border-slate-200 flex items-center justify-center shadow-sm hover:shadow-md hover:border-sky-300 hover:scale-110 transition-all text-slate-700 hover:text-red-600">
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                </a>
+                <a href="https://www.instagram.com/ihya7tv" target="_blank" class="w-12 h-12 bg-white rounded-2xl border border-slate-200 flex items-center justify-center shadow-sm hover:shadow-md hover:border-sky-300 hover:scale-110 transition-all text-slate-700 hover:text-pink-600">
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                </a>
+                <a href="https://vm.tiktok.com" target="_blank" class="w-12 h-12 bg-white rounded-2xl border border-slate-200 flex items-center justify-center shadow-sm hover:shadow-md hover:border-sky-300 hover:scale-110 transition-all text-slate-700 hover:text-slate-900">
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-4.245V2h-3.445v13.672a2.896 2.896 0 0 1-5.201 1.743l-.002-.001a2.895 2.895 0 0 1 3.183-4.51v-3.5a6.329 6.329 0 0 0-5.394 2.583 6.297 6.297 0 0 0 1.074 8.273 6.338 6.338 0 0 0 7.788.196 6.298 6.298 0 0 0 2.518-4.991V8.653a8.17 8.17 0 0 0 4.697 1.485V6.686h
