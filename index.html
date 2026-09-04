@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IHYA' 7 TV - Media Streaming</title>
+    <!-- Judul Situs & Tag Meta -->
+    <title>IHYA' 7 TV - TELEVISI AHLUSSUNAH WAL JAMA'AH</title>
+    
+    <!-- Favicon Logo untuk Tab Browser & Hasil Pencarian Google/Browser -->
+    <link rel="icon" type="image/png" href="logoihya7tv.png">
+    <link rel="apple-touch-icon" href="logoihya7tv.png">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     
@@ -40,16 +46,76 @@
             100% { transform: translate3d(-12%, -10%, 0) scale(1.2) rotate(-15deg); opacity: 0.7; }
         }
 
-        /* LIVE TEXT NEON (TEMA TERANG) */
-        .live-label {
-            font-size: 14px; font-weight: 900; letter-spacing: 0.3em;
-            color: #0284c7; 
-            text-shadow: 0 0 12px rgba(56, 189, 248, 0.6), 0 0 25px rgba(2, 132, 199, 0.4);
-            animation: pulse-neon-light 1.8s ease-in-out infinite;
+        /* LIVE STREAMING BADGE MODERN 3D */
+        .live-badge-container {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 24px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(240, 249, 255, 0.85));
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            border-radius: 9999px;
+            box-shadow: 
+                0 10px 25px -5px rgba(2, 132, 199, 0.15),
+                0 0 15px rgba(56, 189, 248, 0.2),
+                inset 0 1px 2px rgba(255, 255, 255, 1);
+            backdrop-filter: blur(12px);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
         }
-        @keyframes pulse-neon-light {
-            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 2px rgba(2, 132, 199, 0.5)); }
-            50% { transform: scale(1.06); filter: drop-shadow(0 0 8px rgba(14, 165, 233, 0.8)); }
+        .live-badge-container:hover {
+            transform: translateY(-2px) scale(1.02);
+        }
+        
+        /* Shimmer Animation Effect */
+        .live-badge-container::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(60deg, transparent, rgba(56, 189, 248, 0.15), transparent);
+            transform: rotate(30deg);
+            animation: liveShimmer 3s infinite linear;
+        }
+        @keyframes liveShimmer {
+            0% { transform: translateX(-100%) rotate(30deg); }
+            100% { transform: translateX(100%) rotate(30deg); }
+        }
+
+        /* Pulsing Dot Effect */
+        .live-dot-glow {
+            width: 10px;
+            height: 10px;
+            background-color: #0284c7;
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 0 8px #0284c7;
+        }
+        .live-dot-glow::before {
+            content: '';
+            position: absolute;
+            top: -3px; left: -3px; right: -3px; bottom: -3px;
+            background-color: rgba(2, 132, 199, 0.6);
+            border-radius: 50%;
+            animation: livePulse 1.5s infinite ease-out;
+        }
+        @keyframes livePulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(2.4); opacity: 0; }
+        }
+
+        .live-text-modern {
+            font-size: 13px;
+            font-weight: 900;
+            letter-spacing: 0.35em;
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            font-style: italic;
         }
 
         /* SIDEBAR LIGHT GLASSMORPHISM */
@@ -221,11 +287,18 @@
         </section>
 
         <section class="mb-14">
+            <!-- HEADER LIVE STREAMING DENGAN BADGE MODERN & ANIMASI GLOW -->
             <div class="flex items-center justify-center gap-4 mb-8">
-                <div class="h-px flex-grow bg-gradient-to-r from-transparent to-sky-400"></div>
-                <h2 class="live-label uppercase italic">LIVE STREAMING</h2>
-                <div class="h-px flex-grow bg-gradient-to-l from-transparent to-sky-400"></div>
+                <div class="h-px flex-grow bg-gradient-to-r from-transparent via-sky-300 to-sky-400"></div>
+                
+                <div class="live-badge-container">
+                    <span class="live-dot-glow"></span>
+                    <span class="live-text-modern">LIVE STREAMING</span>
+                </div>
+
+                <div class="h-px flex-grow bg-gradient-to-l from-transparent via-sky-300 to-sky-400"></div>
             </div>
+
             <div class="video-container">
                 <iframe id="live-player" src="https://www.youtube.com/embed/live_stream?channel=UC2TptaJdg05H5zrIyffgPiQ" allowfullscreen allow="autoplay"></iframe>
             </div>
@@ -314,5 +387,5 @@
         window.onload = fetchArchive;
     </script>
 </body>
-    </html>
-    
+                            </html>
+                    
