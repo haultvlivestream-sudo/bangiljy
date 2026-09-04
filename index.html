@@ -69,8 +69,8 @@
             <button onclick="toggleMenu()" class="text-slate-400 hover:text-slate-700 text-lg font-bold">✕</button>
         </div>
         <nav class="space-y-3">
-            <a href="javascript:void(0)" onclick="window.scrollTo({top:0, behavior:'smooth'}); toggleMenu();" class="block p-3 rounded-xl bg-sky-50 text-sky-600 font-extrabold text-xs">BERANDA</a>
-            <a href="javascript:void(0)" onclick="document.getElementById('live-section').scrollIntoView({behavior:'smooth'}); toggleMenu();" class="block p-3 rounded-xl hover:bg-slate-50 text-slate-700 font-extrabold text-xs">LIVE STREAMING</a>
+            <a href="/beranda" onclick="toggleMenu();" class="block p-3 rounded-xl bg-sky-50 text-sky-600 font-extrabold text-xs">BERANDA</a>
+            <a href="/livestreaming" onclick="toggleMenu();" class="block p-3 rounded-xl hover:bg-slate-50 text-slate-700 font-extrabold text-xs">LIVE STREAMING</a>
             <div class="flex justify-between p-3 rounded-xl text-slate-400 font-extrabold text-xs opacity-60">
                 <span>PROGRAM TV</span> <span>🔒</span>
             </div>
@@ -133,6 +133,7 @@
                 </h2>
             </div>
             <div class="video-container">
+                <!-- MEMUTAR SIARAN LIVE TERBARU IHYA' 7 TV -->
                 <iframe id="live-player" src="https://www.youtube.com/embed/5dZrNC1I0V8?autoplay=1" allowfullscreen allow="autoplay"></iframe>
             </div>
         </section>
@@ -164,13 +165,11 @@
     <script>
         const CHANNEL_ID = 'UC2TptaJdg05H5zrIyffgPiQ';
 
-        // 1. DUA PROXY UTAMA UNTUK SINKRONISASI VIDEO REAL-TIME AKURAT
         const PROXIES = [
             `https://api.allorigins.win/raw?url=${encodeURIComponent('https://www.youtube.com/feeds/videos.xml?channel_id=' + CHANNEL_ID)}`,
             `https://corsproxy.io/?${encodeURIComponent('https://www.youtube.com/feeds/videos.xml?channel_id=' + CHANNEL_ID)}`
         ];
 
-        // 2. DATA VIDEO REAL TERBARU CHANNEL IHYA 7 TV (VERIFIED YOUTUBE IDs)
         const ihyaRealVideos = [
             { id: '5dZrNC1I0V8', title: '🔴LIVE MAULID NABI MUHAMMAD ﷺ & HAUL SYEKH USMAN AL-ISHAQY | PONDOK TRIWUNG - PROBOLINGGO' },
             { id: 'Hj5_5vs5bZs', title: '🔴LIVE PENUTUPAN MUKTAMAR KE 35 NAHDLATUL ULAMA DI TAMBAKBERAS - JOMBANG' },
@@ -184,13 +183,11 @@
             { id: '2G8N34kX_6s', title: 'DOKUMENTASI KAJIAN SHOLAWAT & KETELADANAN MAJELIS IHYA' }
         ];
 
-        // FUNCTION TOGGLE MENU
         function toggleMenu() {
             document.getElementById('sidebar-drawer').classList.toggle('active');
             document.getElementById('sidebar-backdrop').classList.toggle('active');
         }
 
-        // FUNCTION INIT SWIPER
         let swiper = new Swiper(".mySwiper", {
             loop: true,
             autoplay: {
@@ -203,10 +200,15 @@
             },
         });
 
-        // FUNCTION RENDER VIDEO CARDS
         function renderVideoCards(videos) {
             const container = document.getElementById('video-list');
             container.innerHTML = '';
+            
+            // ATUR PLAYER UTAMA KE VIDEO TERBARU PERTAMA
+            if(videos.length > 0) {
+                document.getElementById('live-player').src = `https://www.youtube.com/embed/${videos[0].id}?autoplay=1`;
+            }
+
             videos.forEach(v => {
                 container.innerHTML += `
                     <div class="card-video" onclick="playVideo('${v.id}')">
@@ -219,7 +221,6 @@
             });
         }
 
-        // FETCH XML RSS PARSER
         async function fetchIhyaVideos() {
             const statusEl = document.getElementById('sync-status');
             for (let url of PROXIES) {
@@ -249,7 +250,6 @@
                     console.log("Proxy retry...", e);
                 }
             }
-            // IF PROXY BUSY, USE DIRECT VERIFIED CHANNEL IHYA 7 TV DATA
             renderVideoCards(ihyaRealVideos);
             statusEl.innerText = "TERHUBUNG LIVE";
         }
@@ -264,5 +264,5 @@
         });
     </script>
 </body>
-                </html>
+                    </html>
     
