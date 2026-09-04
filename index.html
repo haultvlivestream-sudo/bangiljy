@@ -70,7 +70,7 @@
         }
         .menu-btn:hover { background: #e0f2fe; color: #0284c7; border-color: #38bdf8; }
 
-        /* MENU SIDEBAR (MUNCUL DARI KANAN KE KIRI) */
+        /* MENU SIDEBAR (MUNCUL DARI KIRI KE KANAN) */
         .sidebar-overlay {
             position: fixed; inset: 0;
             background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(4px);
@@ -79,14 +79,14 @@
         .sidebar-overlay.active { opacity: 1; visibility: visible; }
 
         .sidebar {
-            position: fixed; top: 0; right: -300px; width: 280px; height: 100vh;
+            position: fixed; top: 0; left: -300px; width: 280px; height: 100vh;
             background: #ffffff; z-index: 999; 
-            transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            border-left: 1px solid #e2e8f0; padding: 24px;
+            transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border-right: 1px solid #e2e8f0; padding: 24px;
             display: flex; flex-direction: column; justify-content: space-between;
-            box-shadow: -10px 0 30px rgba(0,0,0,0.15);
+            box-shadow: 10px 0 30px rgba(0,0,0,0.15);
         }
-        .sidebar.active { right: 0; }
+        .sidebar.active { left: 0; }
 
         .sidebar-header {
             display: flex; justify-content: space-between; align-items: center;
@@ -106,7 +106,7 @@
         .nav-item.active { background: #0284c7; color: #ffffff; }
         .nav-item.disabled { color: #94a3b8; cursor: not-allowed; opacity: 0.7; }
 
-        /* SLIDER BANNER (3 THUMBNAIL BERGESER AUTOMATIS) */
+        /* SLIDER BANNER (3 THUMBNAIL BERGESER OTOMATIS) */
         .banner-slider {
             width: 100%; aspect-ratio: 16/9; border-radius: 20px; overflow: hidden;
             position: relative; border: 1px solid #e2e8f0; box-shadow: 0 15px 25px rgba(0,0,0,0.08);
@@ -167,22 +167,8 @@
         }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
 
-        /* VIDEO GRID ARCHIVE */
-        .archive-header { margin: 36px 0 16px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; }
-        .archive-title { font-size: 16px; font-weight: 900; color: #0f172a; }
-
-        .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; margin-bottom: 40px; }
-        .video-card {
-            background: #ffffff; border-radius: 14px; padding: 10px; border: 1px solid #e2e8f0;
-            cursor: pointer; transition: all 0.2s;
-        }
-        .video-card:hover { transform: translateY(-4px); border-color: #38bdf8; box-shadow: 0 10px 20px rgba(2, 132, 199, 0.15); }
-        .thumb-box { width: 100%; aspect-ratio: 16/9; border-radius: 10px; overflow: hidden; background: #1e293b; margin-bottom: 8px; position: relative; }
-        .thumb-box img { width: 100%; height: 100%; object-fit: cover; }
-        .video-card-title { font-size: 12px; font-weight: 800; color: #1e293b; line-height: 1.4; }
-
         /* FOOTER */
-        footer { border-top: 1px solid #e2e8f0; padding: 30px 0; text-align: center; }
+        footer { border-top: 1px solid #e2e8f0; padding: 30px 0; margin-top: 40px; text-align: center; }
         .social-links { display: flex; justify-content: center; gap: 16px; margin-bottom: 16px; }
         .social-btn {
             width: 40px; height: 40px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px;
@@ -198,7 +184,7 @@
     <div class="ambient-glow-1"></div>
     <div class="ambient-glow-2"></div>
 
-    <!-- SIDEBAR MENU (MUNCUL DARI KANAN KE KIRI) -->
+    <!-- SIDEBAR MENU (MUNCUL DARI KIRI KE KANAN) -->
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleMenu()"></div>
     <div class="sidebar" id="sidebar">
         <div>
@@ -241,18 +227,18 @@
 
     <main class="container" id="top">
         
-        <!-- BANNER SLIDER (3 THUMBNAIL OTOMATIS) -->
+        <!-- BANNER SLIDER (3 THUMBNAIL BERGESER OTOMATIS BERDASARKAN FILE KAMU) -->
         <div class="banner-slider">
             <div class="slide active">
-                <img src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=1000&q=80" alt="Thumbnail 1">
+                <img src="thumbnail1.jpg" alt="Thumbnail 1" onerror="this.src='https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=1000&q=80'">
                 <div class="slide-overlay"><span class="badge-tag">Jadwal Utama</span></div>
             </div>
             <div class="slide">
-                <img src="https://images.unsplash.com/photo-1590076175571-4b5459efb08c?w=1000&q=80" alt="Thumbnail 2">
+                <img src="thumbnail2.jpg" alt="Thumbnail 2" onerror="this.src='https://images.unsplash.com/photo-1590076175571-4b5459efb08c?w=1000&q=80'">
                 <div class="slide-overlay"><span class="badge-tag">Kajian Rutin</span></div>
             </div>
             <div class="slide">
-                <img src="https://images.unsplash.com/photo-1564769625905-50e93615e769?w=1000&q=80" alt="Thumbnail 3">
+                <img src="thumbnail3.jpg" alt="Thumbnail 3" onerror="this.src='https://images.unsplash.com/photo-1564769625905-50e93615e769?w=1000&q=80'">
                 <div class="slide-overlay"><span class="badge-tag">Siaran Haul</span></div>
             </div>
         </div>
@@ -272,33 +258,13 @@
         <section class="section-title" id="live-section">
             <div class="live-badge">
                 <span class="pulse-dot"></span>
-                <span>SIARAN UTAMA (LIVE)</span>
+                <span>LIVE STREAMING</span>
             </div>
         </section>
 
-        <!-- PLAYER YOUTUBE INSTAN -->
+        <!-- PLAYER YOUTUBE RESMI IHYA 7 TV -->
         <div class="video-container">
-            <iframe id="main-player" src="https://www.youtube.com/embed/videoseries?list=PL3a3_placeholder" title="YouTube Video Player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-
-        <!-- DAFTAR VIDEO REKAMAN -->
-        <div class="archive-header">
-            <h2 class="archive-title">Siaran & Kajian Terbaru</h2>
-        </div>
-
-        <div class="video-grid">
-            <div class="video-card" onclick="changeVideo('https://www.youtube.com/embed/live_stream?channel=UC2TptaJdg05H5zrIyffgPiQ')">
-                <div class="thumb-box"><img src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=500&q=80" alt="Live"></div>
-                <h3 class="video-card-title">Siaran Langsung IHYA 7 TV</h3>
-            </div>
-            <div class="video-card" onclick="changeVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')">
-                <div class="thumb-box"><img src="https://images.unsplash.com/photo-1590076175571-4b5459efb08c?w=500&q=80" alt="Kajian"></div>
-                <h3 class="video-card-title">Dokumentasi Kajian Rutin Ahlussunnah</h3>
-            </div>
-            <div class="video-card" onclick="changeVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')">
-                <div class="thumb-box"><img src="https://images.unsplash.com/photo-1564769625905-50e93615e769?w=500&q=80" alt="Tabligh"></div>
-                <h3 class="video-card-title">Tabligh Akbar & Peringatan Hari Besar</h3>
-            </div>
+            <iframe id="main-player" src="https://www.youtube.com/embed/live_stream?channel=UC2TptaJdg05H5zrIyffgPiQ" title="YouTube Video Player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
 
         <!-- FOOTER SOSIAL MEDIA -->
@@ -322,7 +288,7 @@
     </main>
 
     <script>
-        // 1. TAMPILKAN / SEMBUNYIKAN MENU SIDEBAR (KANAN KE KIRI)
+        // 1. TAMPILKAN / SEMBUNYIKAN MENU SIDEBAR (DARI KIRI KE KANAN)
         function toggleMenu() {
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebarOverlay');
@@ -350,7 +316,6 @@
             allSlides[activeSlideIndex].classList.add('active');
         }
         setInterval(rotateSlides, 3000); // Bergeser setiap 3 detik
-
-        // 4. GANTI VIDEO UTAMA
-        function changeVideo(url) {
-            document.getElement
+    </script>
+</body>
+</html>
