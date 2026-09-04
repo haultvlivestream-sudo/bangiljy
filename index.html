@@ -9,6 +9,8 @@
     <meta property="og:image" content="logoihya7tv.png">
     <link rel="icon" href="logoihya7tv.png" type="image/png">
 
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -24,9 +26,9 @@
             min-height: 100vh;
         }
 
-        .container { max-width: 1000px; margin: 0 auto; padding: 0 16px; }
+        .container-custom { max-width: 1000px; margin: 0 auto; padding: 0 16px; }
 
-        /* NAVBAR & BRAND HEADER */
+        /* NAVBAR HEADER */
         .navbar {
             position: sticky; top: 0; z-index: 100;
             background: rgba(255, 255, 255, 0.98);
@@ -34,15 +36,6 @@
             border-bottom: 1px solid #e2e8f0;
             padding: 12px 0;
         }
-        .nav-container { display: flex; justify-content: space-between; align-items: center; }
-        .brand { display: flex; align-items: center; gap: 12px; }
-        .brand-logo {
-            width: 44px; height: 44px; border-radius: 12px;
-            background: #fff; border: 1px solid #e2e8f0;
-            padding: 2px; object-fit: contain;
-        }
-        
-        /* WARNA JUDUL DI SAMPING LOGO: FULL HITAM PEKAT */
         .brand-title { font-size: 18px; font-weight: 900; color: #000000 !important; line-height: 1; }
         .brand-sub { font-size: 8px; font-weight: 800; color: #0284c7; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 3px; }
 
@@ -54,23 +47,23 @@
         }
         .menu-btn:hover { background: #e0f2fe; color: #0284c7; border-color: #38bdf8; }
 
-        /* NAVIGASI MENU DRAWER (MELUNCUR MURNI KIRI KE KANAN) */
+        /* SIDEBAR DRAWER MENU (SLIDE KIRI KE KANAN FIX) */
         .sidebar-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px);
-            z-index: 998; display: none;
+            z-index: 998; display: none; opacity: 0; transition: opacity 0.3s ease;
         }
-        .sidebar-overlay.show { display: block; }
+        .sidebar-overlay.active { display: block; opacity: 1; }
 
         .sidebar {
             position: fixed; top: 0; left: -320px; width: 280px; height: 100%;
             background: #ffffff; z-index: 999; 
-            transition: transform 0.35s ease-in-out;
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             border-right: 1px solid #e2e8f0; padding: 24px;
             display: flex; flex-direction: column; justify-content: space-between;
-            box-shadow: 10px 0 30px rgba(0,0,0,0.2);
+            box-shadow: 10px 0 30px rgba(0,0,0,0.15);
         }
-        .sidebar.show { transform: translateX(320px); }
+        .sidebar.active { transform: translateX(320px); }
 
         .sidebar-header {
             display: flex; justify-content: space-between; align-items: center;
@@ -88,256 +81,245 @@
         .nav-item:hover { background: #f0f9ff; color: #0284c7; }
         .nav-item.active { background: #0284c7; color: #ffffff; }
 
-        /* BANNER SLIDER: 3 THUMBNAIL FOTO GESER OTOMATIS (2.5 DETIK, TANPA FADE) */
-        .banner-slider {
-            width: 100%; aspect-ratio: 16/9; border-radius: 20px; overflow: hidden;
-            position: relative; border: 1px solid #e2e8f0; box-shadow: 0 15px 25px rgba(0,0,0,0.08);
-            background: #0f172a; margin-top: 20px;
-        }
-        .slider-track {
-            display: flex; width: 300%; height: 100%;
-            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-        .slide-item { width: 33.33333%; height: 100%; flex-shrink: 0; }
-        .slide-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        /* BANNER SWIPER CUSTOM */
+        .swiper-pagination-bullet { background: #0284c7 !important; }
+        .swiper-pagination-bullet-active { width: 20px !important; border-radius: 6px !important; }
 
-        /* DESKRIPSI PROFILE CARD */
+        /* PROFILE CARD */
         .profile-card {
             background: #ffffff; border: 1px solid #bae6fd; border-radius: 20px;
-            padding: 20px; margin-top: 24px; box-shadow: 0 10px 25px rgba(2, 132, 199, 0.1);
+            padding: 20px; margin-top: 24px; box-shadow: 0 10px 25px rgba(2, 132, 199, 0.08);
         }
-        .profile-card p { font-size: 13px; font-weight: 600; color: #334155; line-height: 1.6; }
-        .profile-card p strong { color: #0284c7; font-weight: 900; }
-        .profile-meta {
-            margin-top: 14px; padding-top: 14px; border-top: 1px solid #f1f5f9;
-            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
-        }
-        .meta-est { font-size: 10px; font-weight: 800; color: #94a3b8; }
-        .typewriter-text { font-size: 11px; font-weight: 800; color: #0284c7; background: #f0f9ff; padding: 4px 12px; border-radius: 20px; border: 1px solid #bae6fd; }
 
-        /* PLAYER UTAMA & LIVE STREAMING */
-        .section-title { text-align: center; margin: 32px 0 16px; }
-        .live-badge {
-            background: #0284c7; color: #fff; font-size: 11px; font-weight: 900; 
-            padding: 8px 18px; border-radius: 20px; letter-spacing: 1px;
-            display: inline-flex; align-items: center; gap: 8px;
-        }
-        .pulse-dot { width: 8px; height: 8px; background: #ef4444; border-radius: 50%; animation: pulse 1s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-
+        /* LIVE STREAM PLAYER */
         .video-container {
             position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
             border-radius: 20px; background: #000; border: 3px solid #ffffff;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
         }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
 
-        /* DAFTAR 10 VIDEO INSTAN */
-        .archive-header { margin: 40px 0 16px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; }
-        .archive-title { font-size: 15px; font-weight: 900; color: #0f172a; text-transform: uppercase; letter-spacing: 0.5px; }
-
-        .video-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
-            gap: 14px; 
-            margin-bottom: 40px; 
-        }
-        .video-card {
+        /* CARD VIDEO ARCHIVE */
+        .card-video {
             background: #ffffff; border-radius: 14px; padding: 8px; border: 1px solid #e2e8f0;
             cursor: pointer; transition: all 0.2s;
         }
-        .video-card:hover { transform: translateY(-3px); border-color: #38bdf8; box-shadow: 0 8px 18px rgba(2, 132, 199, 0.12); }
-        .thumb-box { width: 100%; aspect-ratio: 16/9; border-radius: 8px; overflow: hidden; background: #0f172a; margin-bottom: 8px; }
-        .thumb-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .video-card-title { font-size: 11px; font-weight: 800; color: #1e293b; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-
-        /* FOOTER & SOSIAL MEDIA */
-        footer { border-top: 1px solid #e2e8f0; padding: 30px 0; text-align: center; margin-top: 20px; }
-        .social-links { display: flex; justify-content: center; gap: 16px; margin-bottom: 16px; }
-        .social-btn {
-            width: 40px; height: 40px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px;
-            display: flex; align-items: center; justify-content: center; color: #475569; text-decoration: none;
-            transition: all 0.2s;
-        }
-        .social-btn:hover { border-color: #38bdf8; color: #0284c7; transform: translateY(-3px); }
-        .copyright { font-size: 11px; font-weight: 800; color: #64748b; letter-spacing: 0.5px; }
+        .card-video:hover { transform: translateY(-3px); border-color: #38bdf8; box-shadow: 0 8px 18px rgba(2, 132, 199, 0.12); }
     </style>
 </head>
 <body>
 
-    <!-- SIDEBAR NAVIGASI MENU (KIRI KE KANAN) -->
-    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeMenu()"></div>
+    <!-- SIDEBAR DRAWER NAVIGASI -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleMenu()"></div>
     <div class="sidebar" id="sidebar">
         <div>
             <div class="sidebar-header">
                 <span class="sidebar-title">NAVIGASI MENU</span>
-                <button class="close-btn" onclick="closeMenu()">✕</button>
+                <button class="close-btn" onclick="toggleMenu()">✕</button>
             </div>
             <nav class="nav-links">
-                <a href="javascript:void(0)" class="nav-item active" onclick="scrollToSection('top'); closeMenu();">
+                <a href="javascript:void(0)" class="nav-item active" onclick="scrollToSection('top'); toggleMenu();">
                     <span>BERANDA</span>
                 </a>
-                <a href="javascript:void(0)" class="nav-item" onclick="scrollToSection('live-section'); closeMenu();">
+                <a href="javascript:void(0)" class="nav-item" onclick="scrollToSection('live-section'); toggleMenu();">
                     <span>LIVE STREAMING</span>
                 </a>
+                <div class="nav-item" style="opacity: 0.5; cursor: not-allowed;">
+                    <span>PROGRAM TV</span> <span>🔒</span>
+                </div>
+                <div class="nav-item" style="opacity: 0.5; cursor: not-allowed;">
+                    <span>JADWAL</span> <span>🔒</span>
+                </div>
             </nav>
         </div>
-        <p style="font-size: 10px; color: #94a3b8; font-weight: 800; text-align: center;">IHYA' 7 TV &copy; 2026</p>
+        <p class="text-[10px] text-slate-400 font-extrabold text-center uppercase tracking-widest">IHYA' 7 TV &copy; 2026</p>
     </div>
 
     <!-- NAVBAR HEADER -->
     <nav class="navbar">
-        <div class="container nav-container">
-            <div class="brand">
-                <img src="logoihya7tv.png" alt="Logo" class="brand-logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/717/717426.png'">
+        <div class="container-custom flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img src="logoihya7tv.png" alt="Logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/717/717426.png'" class="w-11 h-11 object-contain rounded-xl border border-slate-200 p-0.5 bg-white">
                 <div>
                     <h1 class="brand-title">IHYA' 7 TV</h1>
                     <p class="brand-sub">TELEVISI AHLUSSUNNAH WAL JAMA'AH</p>
                 </div>
             </div>
-            <button class="menu-btn" onclick="openMenu()">
+            <button class="menu-btn" onclick="toggleMenu()">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
                 <span>MENU</span>
             </button>
         </div>
     </nav>
 
-    <main class="container" id="top">
+    <main class="container-custom my-6" id="top">
         
-        <!-- BANNER SLIDER: 3 FOTO THUMBNAIL BERGESER OTOMATIS 2,5 DETIK -->
-        <div class="banner-slider">
-            <div class="slider-track" id="sliderTrack">
-                <div class="slide-item">
-                    <img src="thumbnail1.jpg" alt="Thumbnail 1" onerror="this.src='https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=1000&q=80'">
+        <!-- SWIPER BANNER 3 FOTO (SLIDE OTOMATIS 2,5 DETIK) -->
+        <section class="mb-8">
+            <div class="swiper mySwiper rounded-2xl overflow-hidden border border-slate-200 shadow-sm">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="thumbnail1.jpg" class="w-full aspect-video object-cover" onerror="this.src='https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=1000&q=80'">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="thumbnail2.jpg" class="w-full aspect-video object-cover" onerror="this.src='https://images.unsplash.com/photo-1590076175571-4b5459efb08c?w=1000&q=80'">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="thumbnail3.jpg" class="w-full aspect-video object-cover" onerror="this.src='https://images.unsplash.com/photo-1564769625905-50e93615e769?w=1000&q=80'">
+                    </div>
                 </div>
-                <div class="slide-item">
-                    <img src="thumbnail2.jpg" alt="Thumbnail 2" onerror="this.src='https://images.unsplash.com/photo-1590076175571-4b5459efb08c?w=1000&q=80'">
-                </div>
-                <div class="slide-item">
-                    <img src="thumbnail3.jpg" alt="Thumbnail 3" onerror="this.src='https://images.unsplash.com/photo-1564769625905-50e93615e769?w=1000&q=80'">
-                </div>
+                <div class="swiper-pagination"></div>
             </div>
-        </div>
+        </section>
 
         <!-- PROFILE CARD -->
-        <section class="profile-card">
-            <p>
-                <strong>IHYA' 7 TV</strong> Adalah Televisi Islam Ahlussunnah wal Jama'ah yang menyajikan tayangan Siaran Langsung Haul, Maulid, Kajian Ilmiah, dan Acara Keagamaan lainnya melalui platform digital.
+        <section class="profile-card mb-8">
+            <p class="text-xs md:text-sm text-slate-700 font-semibold leading-relaxed">
+                <strong class="text-sky-600 font-black">IHYA' 7 TV</strong> Adalah Televisi Islam Ahlussunnah wal Jama'ah yang menyajikan tayangan Siaran Langsung Haul, Maulid, Kajian Ilmiah, dan Acara Keagamaan lainnya melalui platform digital.
             </p>
-            <div class="profile-meta">
-                <span class="meta-est">EST. 1 RAMADHAN 1444 H</span>
-                <span class="typewriter-text">TELEVISI AHLUSSUNNAH WAL JAMA'AH</span>
+            <div class="mt-3 pt-3 border-t border-slate-100 flex justify-between items-center text-[10px] font-extrabold">
+                <span class="text-slate-400 uppercase tracking-wider">EST. 1 RAMADHAN 1444 H</span>
+                <span class="text-sky-600 bg-sky-50 px-3 py-1 rounded-full border border-sky-200 uppercase">TELEVISI AHLUSSUNNAH WAL JAMA'AH</span>
             </div>
         </section>
 
-        <!-- LIVE STREAMING -->
-        <section class="section-title" id="live-section">
-            <div class="live-badge">
-                <span class="pulse-dot"></span>
-                <span>LIVE STREAMING</span>
+        <!-- LIVE STREAMING PLAYER -->
+        <section class="mb-10" id="live-section">
+            <div class="text-center mb-4">
+                <span class="bg-sky-600 text-white text-[11px] font-black px-4 py-2 rounded-full tracking-widest inline-flex items-center gap-2 shadow-md shadow-sky-600/20">
+                    <span class="w-2 h-2 bg-red-500 rounded-full animate-ping"></span>
+                    LIVE STREAMING
+                </span>
+            </div>
+            <div class="video-container">
+                <iframe id="live-player" src="https://www.youtube.com/embed/CY-h9DF-CH4" allowfullscreen allow="autoplay"></iframe>
             </div>
         </section>
 
-        <!-- VIDEO PLAYER UTAMA -->
-        <div class="video-container">
-            <iframe id="main-player" src="https://www.youtube.com/embed/CY-h9DF-CH4" title="YouTube Video Player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
+        <!-- 10 SIARAN YOUTUBE TERBARU -->
+        <section class="mb-12">
+            <div class="border-b-2 border-slate-200 pb-2 mb-4 flex justify-between items-center">
+                <h2 class="text-xs font-black text-slate-800 uppercase tracking-wider">10 Siaran Live Terbaru</h2>
+                <span class="text-[10px] font-bold text-sky-600 uppercase">Channel: IHYA' 7 TV</span>
+            </div>
+            <div id="video-list" class="grid grid-cols-2 md:grid-cols-5 gap-3.5">
+                <!-- Video Items Will Dynamic Fetch/Fallback -->
+            </div>
+        </section>
 
-        <!-- DAFTAR 10 VIDEO REKAMAN SIARAN LANGSUNG YOUTUBE -->
-        <div class="archive-header">
-            <h2 class="archive-title">10 Siaran Live Terbaru</h2>
-        </div>
-
-        <div class="video-grid">
-            <div class="video-card" onclick="playVideo('CY-h9DF-CH4')">
-                <div class="thumb-box"><img src="https://img.youtube.com/vi/CY-h9DF-CH4/hqdefault.jpg" alt="Video 1"></div>
-                <h3 class="video-card-title">LIVE ZIKIR KEBANGSAAN BERSAMA HABIB LUTHFI BIN YAHYA</h3>
-            </div>
-            <div class="video-card" onclick="playVideo('ukklpnS9spg')">
-                <div class="thumb-box"><img src="https://img.youtube.com/vi/ukklpnS9spg/hqdefault.jpg" alt="Video 2"></div>
-                <h3 class="video-card-title">LIVE MULTAQO SANAWI INTERNASIONAL HA'IAH AS-SHOFWANITYAH</h3>
-            </div>
-            <div class="video-card" onclick="playVideo('6T0X-Y_ekWo')">
-                <div class="thumb-box"><img src="https://img.youtube.com/vi/6T0X-Y_ekWo/hqdefault.jpg" alt="Video 3"></div>
-                <h3 class="video-card-title">LIVE PEMBACAAN MAULID NABI MUHAMMAD SAW - DARUL MUSTHOFA</h3>
-            </div>
-            <div class="video-card" onclick="playVideo('FenmonYHWdk')">
-                <div class="thumb-box"><img src="https://img.youtube.com/vi/FenmonYHWdk/hqdefault.jpg" alt="Video 4"></div>
-                <h3 class="video-card-title">LIVE RAUHAH SERIES OF THE GRAND HAUL</h3>
-            </div>
-            <div class="video-card" onclick="playVideo('CY-h9DF-CH4')">
-                <div class="thumb-box"><img src="https://img.youtube.com/vi/CY-h9DF-CH4/hqdefault.jpg" alt="Video 5"></div>
-                <h3 class="video-card-title">Peringatan Haul Akbar & Doa Bersama</h3>
-            </div>
-            <div class="video-card" onclick="playVideo('ukklpnS9spg')">
-                <div class="thumb-box"><img src="https://img.youtube.com/vi/ukklpnS9spg/hqdefault.jpg" alt="Video 6"></div>
-                <h3 class="video-card-title">Tabligh Akbar Bersama Para Habaib</h3>
-            </div>
-            <div class="video-card" onclick="playVideo('6T0X-Y_ekWo')">
-                <div class="thumb-box"><img src="https://img.youtube.com/vi/6T0X-Y_ekWo/hqdefault.jpg" alt="Video 7"></div>
-                <h3 class="video-card-title">Kajian Fiqih & Akhlak Islamiyah</h3>
-            </div>
-            <div class="video-card" onclick="playVideo('FenmonYHWdk')">
-                <div class="thumb-box"><img src="https://img.youtube.com/vi/FenmonYHWdk/hqdefault.jpg" alt="Video 8"></div>
-                <h3 class="video-card-title">Dokumentasi Majelis Zikir & Sholawat</h3>
-            </div>
-            <div class="video-card" onclick="playVideo('CY-h9DF-CH4')">
-                <div class="thumb-box"><img src="https://img.youtube.com/vi/CY-h9DF-CH4/hqdefault.jpg" alt="Video 9"></div>
-                <h3 class="video-card-title">Kajian Tematik Tafsir Al-Qur'an</h3>
-            </div>
-            <div class="video-card" onclick="playVideo('ukklpnS9spg')">
-                <div class="thumb-box"><img src="https://img.youtube.com/vi/ukklpnS9spg/hqdefault.jpg" alt="Video 10"></div>
-                <h3 class="video-card-title">Kajian Malam Jum'at & Ratib Al-Haddad</h3>
-            </div>
-        </div>
-
-        <!-- FOOTER DENGAN SOSIAL MEDIA -->
-        <footer>
-            <div class="social-links">
-                <a href="https://www.youtube.com/@IHYA7TV" target="_blank" class="social-btn" title="YouTube">
+        <!-- FOOTER MEDIA SOSIAL -->
+        <footer class="border-t border-slate-200 pt-8 pb-10 text-center">
+            <div class="flex justify-center gap-4 mb-4">
+                <a href="https://www.youtube.com/@IHYA7TV" target="_blank" class="w-10 h-10 bg-white border border-slate-200 rounded-xl flex items-center justify-center text-slate-600 hover:text-sky-600 hover:border-sky-400 transition-all">
                     <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
                 </a>
-                <a href="https://www.instagram.com/ihya7tv" target="_blank" class="social-btn" title="Instagram">
+                <a href="https://www.instagram.com/ihya7tv?igsh=MTYwNDZpaGxkNnlscA==" target="_blank" class="w-10 h-10 bg-white border border-slate-200 rounded-xl flex items-center justify-center text-slate-600 hover:text-sky-600 hover:border-sky-400 transition-all">
                     <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                 </a>
-                <a href="https://www.tiktok.com/@ihya.7.tv" target="_blank" class="social-btn" title="TikTok">
+                <a href="https://vm.tiktok.com/ZS9N299oN48LS-LBapA/" target="_blank" class="w-10 h-10 bg-white border border-slate-200 rounded-xl flex items-center justify-center text-slate-600 hover:text-sky-600 hover:border-sky-400 transition-all">
                     <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.28-2.67.82-5.38 2.84-7.01 1.62-1.33 3.76-1.92 5.81-1.64v4.13c-1.1-.19-2.26.1-3.15.78-.97.72-1.48 1.91-1.38 3.12.07 1.09.68 2.08 1.63 2.62 1.02.58 2.29.58 3.32.02 1.02-.53 1.68-1.58 1.74-2.73.05-3.33.02-6.66.03-9.99 0-2.24 0-4.48 0-6.72z"/></svg>
                 </a>
             </div>
-            <p class="copyright">&copy; 2026 TIM MULTIMEDIA IHYA' 7 TV</p>
+            <p class="text-slate-500 text-[11px] font-extrabold uppercase tracking-widest">&copy; 2026 TIM MULTIMEDIA IHYA' 7 TV</p>
         </footer>
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        // 1. SKRIP BUKA/TUTUP MENU DRAWER (KIRI KE KANAN)
-        function openMenu() {
-            document.getElementById('sidebar').classList.add('show');
-            document.getElementById('sidebarOverlay').classList.add('show');
+        const CHANNEL_ID = 'UC2TptaJdg05H5zrIyffgPiQ';
+
+        // 1. SKRIP BUKA/TUTUP MENU DRAWER
+        function toggleMenu() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('sidebarOverlay').classList.toggle('active');
         }
 
-        function closeMenu() {
-            document.getElementById('sidebar').classList.remove('show');
-            document.getElementById('sidebarOverlay').classList.remove('show');
-        }
-
-        // 2. SCROLL OTOMATIS HALAMAN
+        // 2. SCROLL KE SECTION
         function scrollToSection(id) {
             if(id === 'top') {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             } else {
-                var el = document.getElementById(id);
+                const el = document.getElementById(id);
                 if(el) el.scrollIntoView({ behavior: 'smooth' });
             }
         }
 
-        // 3. ANIMASI GESER BANNER 3 THUMBNAIL (SETIAP 2,5 DETIK)
-        var slideIndex = 0;
-        var track = document.getElementById('sliderTrack');
-        setInterval(function() {
-            slideIndex = (slideIndex + 1) % 3;
-            track.style.transform = 'translateX(-' + (slideIndex * 33.33333) + '%)';
-        }, 2500);
+        // 3. INisialisasi SWIPER SLIDER (AUTOPLAY 2,5 DETIK)
+        const swiper = new Swiper(".mySwiper", {
+            loop: true,
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+        });
 
-        // 4. FUNCTION PUTAR VIDEO PLAYER UTAMA
+        // 4. DAFTAR VIDEO DEFAULT CHANNEL IHYA 7 TV (JIKA KONEKSI RSS LAMBAT)
+        const fallbackVideos = [
+            { id: 'CY-h9DF-CH4', title: 'LIVE ZIKIR KEBANGSAAN BERSAMA HABIB LUTHFI BIN YAHYA' },
+            { id: 'ukklpnS9spg', title: 'LIVE MULTAQO SANAWI INTERNASIONAL HA\'IAH AS-SHOFWANITYAH' },
+            { id: '6T0X-Y_ekWo', title: 'LIVE PEMBACAAN MAULID NABI MUHAMMAD SAW - DARUL MUSTHOFA' },
+            { id: 'FenmonYHWdk', title: 'LIVE RAUHAH SERIES OF THE GRAND HAUL' },
+            { id: 'CY-h9DF-CH4', title: 'Peringatan Haul Akbar & Doa Bersama' },
+            { id: 'ukklpnS9spg', title: 'Tabligh Akbar Bersama Para Habaib' },
+            { id: '6T0X-Y_ekWo', title: 'Kajian Fiqih & Akhlak Islamiyah' },
+            { id: 'FenmonYHWdk', title: 'Dokumentasi Majelis Zikir & Sholawat' },
+            { id: 'CY-h9DF-CH4', title: 'Kajian Tematik Tafsir Al-Qur\'an' },
+            { id: 'ukklpnS9spg', title: 'Kajian Malam Jum\'at & Ratib Al-Haddad' }
+        ];
+
+        // 5. RENDERING 10 VIDEO INSTAN (SINKRONISASI OTOMATIS)
+        function renderVideos(items) {
+            const list = document.getElementById('video-list');
+            list.innerHTML = '';
+            items.forEach(item => {
+                list.innerHTML += `
+                    <div class="card-video" onclick="playVideo('${item.id}')">
+                        <div class="aspect-video w-full rounded-lg overflow-hidden bg-slate-900 mb-2">
+                            <img src="https://img.youtube.com/vi/${item.id}/hqdefault.jpg" alt="${item.title}" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-[11px] font-extrabold text-slate-800 line-clamp-2 leading-snug">${item.title}</h3>
+                    </div>
+                `;
+            });
+        }
+
+        async function fetchArchive() {
+            try {
+                const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`);
+                const data = await res.json();
+                
+                if (data.status === 'ok' && data.items && data.items.length > 0) {
+                    const parsed = [];
+                    data.items.forEach(item => {
+                        const vId = item.link.split('v=')[1]?.split('&')[0];
+                        if (vId && !item.title.toLowerCase().includes('#shorts')) {
+                            parsed.push({ id: vId, title: item.title });
+                        }
+                    });
+                    if(parsed.length > 0) {
+                        renderVideos(parsed.slice(0, 10));
+                        return;
+                    }
+                }
+                renderVideos(fallbackVideos);
+            } catch (err) { 
+                renderVideos(fallbackVideos);
+            }
+        }
+
+        // 6. FUNCTION PUTAR VIDEO PLAYER UTAMA
         function playVideo(vId) {
-            var player = document.getElementById('main-play
+            const player = document.getElementById('live-player');
+            player.src = `https://www.youtube.com/embed/${vId}?autoplay=1`;
+            scrollToSection('live-section');
+        }
+
+        window.onload = fetchArchive;
+    </script>
+</body>
+    </html>
+        
