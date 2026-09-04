@@ -4,225 +4,255 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IHYA' 7 TV - Media Streaming</title>
-    
-    <!-- CSS & Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-
+    
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { 
-            background-color: #ffffff; 
-            color: #0f172a; 
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            overflow-x: hidden;
-        }
-
-        /* HEADER & BRAND */
-        .brand-title { font-size: 19px; font-weight: 900; color: #000000 !important; line-height: 1; }
+        body { background-color: #020617; color: #f1f5f9; overflow-x: hidden; }
         
-        /* SIDEBAR MENU DRAWER FIX (KIRI KE KANAN) */
-        #sidebar-backdrop {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
-            z-index: 998; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+        /* BACKGROUND ANIMATION */
+        .shape-1 {
+            position: fixed; top: -10%; left: -10%; width: 50vw; height: 50vw;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.2) 0%, rgba(2, 6, 23, 0) 70%);
+            border-radius: 50%; z-index: -1; animation: float 15s infinite alternate;
         }
-        #sidebar-backdrop.active { opacity: 1; pointer-events: auto; }
-
-        #sidebar-drawer {
-            position: fixed; top: 0; left: 0; width: 280px; height: 100%;
-            background: #ffffff; z-index: 999; transform: translateX(-100%);
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 5px 0 25px rgba(0,0,0,0.15); padding: 24px;
-            border-right: 1px solid #e2e8f0;
+        .shape-2 {
+            position: fixed; bottom: -10%; right: -10%; width: 45vw; height: 45vw;
+            background: radial-gradient(circle, rgba(129, 140, 248, 0.15) 0%, rgba(2, 6, 23, 0) 70%);
+            border-radius: 50%; z-index: -1; animation: float 12s infinite alternate-reverse;
         }
-        #sidebar-drawer.active { transform: translateX(0); }
 
-        /* PLAYER CONTAINER */
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.5; }
+            100% { transform: translate(10%, 10%) scale(1.2) rotate(10deg); opacity: 0.8; }
+        }
+
+        /* LIVE TEXT NEON */
+        .live-label {
+            font-size: 14px; font-weight: 900; letter-spacing: 0.3em;
+            color: #fff; text-shadow: 0 0 10px #38bdf8, 0 0 20px #38bdf8;
+            animation: pulse-neon 1.5s infinite;
+        }
+        @keyframes pulse-neon {
+            0%, 100% { transform: scale(1); filter: brightness(1); }
+            50% { transform: scale(1.05); filter: brightness(1.3); }
+        }
+
+        /* SIDEBAR */
+        #sidebar {
+            position: fixed; top: 0; left: -60%; width: 60%; height: 100%;
+            background: rgba(2, 6, 23, 0.95); backdrop-filter: blur(25px);
+            z-index: 100; transition: 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+            border-right: 1px solid rgba(56, 189, 248, 0.3);
+            padding: 40px 20px;
+        }
+        #sidebar.active { left: 0; box-shadow: 20px 0 50px rgba(0,0,0,0.8); }
+
+        .nav-glass {
+            background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
         .video-container { 
             position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; 
-            border-radius: 16px; background: #000; border: 1px solid #cbd5e1;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            border-radius: 24px; background: #000; border: 1px solid rgba(56, 189, 248, 0.4);
+            box-shadow: 0 0 50px rgba(56, 189, 248, 0.15);
         }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
-
-        /* CARD VIDEO */
+        
         .card-video {
-            background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px;
-            padding: 8px; cursor: pointer; transition: all 0.2s ease;
+            background: rgba(30, 41, 59, 0.3); backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.05); transition: 0.3s;
         }
-        .card-video:hover { transform: translateY(-3px); border-color: #0284c7; box-shadow: 0 6px 15px rgba(2,132,199,0.12); }
+        .card-video:hover { transform: translateY(-5px); border-color: #38bdf8; }
 
-        /* SWIPER BULLETS */
-        .swiper-pagination-bullet-active { background: #0284c7 !important; width: 20px !important; border-radius: 5px !important; }
+        .profile-box {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.9) 100%);
+            border: 1px solid rgba(56, 189, 248, 0.2); position: relative; overflow: hidden;
+        }
+        .profile-box::after {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(56, 189, 248, 0.1), transparent);
+            transform: rotate(45deg); animation: shine 4s infinite;
+        }
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        /* CUSTOM SWIPER DOTS */
+        .swiper-pagination-bullet { background: rgba(56, 189, 248, 0.5) !important; }
+        .swiper-pagination-bullet-active { background: #38bdf8 !important; box-shadow: 0 0 10px #38bdf8; }
+
+        .menu-btn {
+            background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.3);
+            width: 42px; height: 42px; border-radius: 50%; display: flex;
+            align-items: center; justify-content: center; cursor: pointer;
+        }
     </style>
 </head>
-<body>
+<body class="font-sans">
 
-    <!-- OVERLAY & SIDEBAR MENU (SLIDE KIRI KE KANAN) -->
-    <div id="sidebar-backdrop" onclick="toggleMenu()"></div>
-    <div id="sidebar-drawer">
-        <div class="flex justify-between items-center pb-4 mb-6 border-b border-slate-100">
-            <h2 class="text-xs font-black text-slate-800 uppercase tracking-wider">NAVIGASI MENU</h2>
-            <button onclick="toggleMenu()" class="text-slate-400 hover:text-slate-700 text-lg font-bold">✕</button>
+    <div class="shape-1"></div>
+    <div class="shape-2"></div>
+
+    <div id="sidebar">
+        <div class="flex justify-between items-center mb-10">
+            <h2 class="text-sky-400 font-black italic tracking-widest uppercase">Menu</h2>
+            <button onclick="toggleMenu()" class="text-slate-400 hover:text-white text-xl">✕</button>
         </div>
-        <nav class="space-y-3">
-            <a href="/beranda" onclick="toggleMenu();" class="block p-3 rounded-xl bg-sky-50 text-sky-600 font-extrabold text-xs">BERANDA</a>
-            <a href="/livestreaming" onclick="toggleMenu();" class="block p-3 rounded-xl hover:bg-slate-50 text-slate-700 font-extrabold text-xs">LIVE STREAMING</a>
-            <div class="flex justify-between p-3 rounded-xl text-slate-400 font-extrabold text-xs opacity-60">
+        <nav class="space-y-8">
+            <a href="#" class="flex items-center text-sm font-bold text-sky-400 hover:tracking-widest transition-all">BERANDA</a>
+            <div class="flex items-center justify-between text-xs font-bold text-slate-600">
                 <span>PROGRAM TV</span> <span>🔒</span>
             </div>
-            <div class="flex justify-between p-3 rounded-xl text-slate-400 font-extrabold text-xs opacity-60">
+            <div class="flex items-center justify-between text-xs font-bold text-slate-600">
                 <span>JADWAL</span> <span>🔒</span>
             </div>
+            <p class="text-[8px] text-slate-500 uppercase tracking-[0.4em] mt-20 border-t border-white/5 pt-4">Fitur Coming Soon</p>
         </nav>
     </div>
 
-    <!-- NAVBAR HEADER -->
-    <nav class="p-4 bg-white/95 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
-        <div class="max-w-5xl mx-auto flex items-center justify-between">
+    <nav class="p-4 nav-glass sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <img src="logoihya7tv.png" alt="Logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/717/717426.png'" class="h-10 w-10 object-contain rounded-xl border border-slate-200 p-0.5">
-                <div>
-                    <h1 class="brand-title">IHYA' 7 TV</h1>
-                    <p class="text-[9px] font-black text-sky-600 uppercase tracking-wider">AHLUSSUNNAH WAL JAMA'AH</p>
-                </div>
+                <img src="logoihya7tv.png" alt="Logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/717/717426.png'" class="h-10 w-10 object-contain rounded-xl">
+                <h1 class="text-xl font-black tracking-tighter text-sky-400 uppercase leading-none italic">IHYA' 7 TV</h1>
             </div>
-            <button onclick="toggleMenu()" class="px-4 py-2 bg-slate-100 border border-slate-300 rounded-xl text-slate-700 font-extrabold text-xs flex items-center gap-2 hover:bg-sky-50 hover:text-sky-600 hover:border-sky-300 transition-all">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-                <span>MENU</span>
+            <button class="menu-btn" onclick="toggleMenu()">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
             </button>
         </div>
     </nav>
 
-    <main class="max-w-5xl mx-auto p-4 md:p-6">
+    <main class="max-w-5xl mx-auto p-4 md:p-8">
         
-        <!-- SWIPER BANNER THUMBNAIL (GESER OTOMATIS) -->
-        <section class="mb-6">
-            <div class="swiper mySwiper rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+        <section class="mb-10">
+            <h2 class="text-[10px] font-black mb-4 tracking-[0.4em] text-slate-500 uppercase italic text-center">Jadwal Mendatang</h2>
+            <div class="swiper mySwiper rounded-3xl overflow-hidden border border-sky-500/30 shadow-2xl shadow-sky-500/10">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <img src="thumbnail1.jpg" class="w-full aspect-video object-cover" onerror="this.src='https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=1000&q=80'">
+                    <div class="swiper-slide relative">
+                        <img src="thumbnail1.jpg" class="w-full aspect-video object-cover" onerror="this.src='https://via.placeholder.com/1280x720/020617/38bdf8?text=IHYA+7+TV+JADWAL+1'">
+                        <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 via-black/20 to-transparent">
+                            <span class="px-3 py-1 bg-sky-500 text-[10px] font-black rounded-full text-white uppercase italic tracking-widest">Upcoming Event</span>
+                        </div>
                     </div>
-                    <div class="swiper-slide">
-                        <img src="thumbnail2.jpg" class="w-full aspect-video object-cover" onerror="this.src='https://images.unsplash.com/photo-1590076175571-4b5459efb08c?w=1000&q=80'">
+                    <div class="swiper-slide relative">
+                        <img src="thumbnail2.jpg" class="w-full aspect-video object-cover" onerror="this.src='https://via.placeholder.com/1280x720/020617/38bdf8?text=IHYA+7+TV+JADWAL+2'">
+                        <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 via-black/20 to-transparent">
+                            <span class="px-3 py-1 bg-sky-500 text-[10px] font-black rounded-full text-white uppercase italic tracking-widest">Upcoming Event</span>
+                        </div>
                     </div>
-                    <div class="swiper-slide">
-                        <img src="thumbnail3.jpg" class="w-full aspect-video object-cover" onerror="this.src='https://images.unsplash.com/photo-1564769625905-50e93615e769?w=1000&q=80'">
+                    <div class="swiper-slide relative">
+                        <img src="thumbnail3.jpg" class="w-full aspect-video object-cover" onerror="this.src='https://via.placeholder.com/1280x720/020617/38bdf8?text=IHYA+7+TV+JADWAL+3'">
+                        <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 via-black/20 to-transparent">
+                            <span class="px-3 py-1 bg-sky-500 text-[10px] font-black rounded-full text-white uppercase italic tracking-widest">Upcoming Event</span>
+                        </div>
                     </div>
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
         </section>
 
-        <!-- DESKRIPSI -->
-        <section class="mb-6 p-5 rounded-2xl bg-slate-50 border border-sky-100">
-            <p class="text-xs md:text-sm text-slate-700 font-semibold leading-relaxed">
-                <strong class="text-sky-600 font-black">IHYA' 7 TV</strong> ADALAH TELEVISI ISLAM AHLUSSUNAH WAL JAMA'AH YANG MENAMPILKAN LIVE STREAMING DI CHANNEL YOUTUBE, INSTAGRAM, TIKTOK, DLL BERISI TENTANG LIVE HAUL, MAULID, KAJIAN, DLL.
+        <section class="mb-10 profile-box p-6 rounded-3xl shadow-2xl relative">
+            <p class="text-[11px] md:text-sm text-slate-300 leading-relaxed font-medium relative z-10 uppercase tracking-tight">
+                <strong class="text-sky-400 italic uppercase">IHYA' 7 TV</strong> ADALAH TELEVISI ISLAM AHLUSSUNAH WAL JAMA'AH YANG MENAMPILKAN LIVE STREAMING DI CHANNEL YOUTUBE, INSTAGRAM, TIKTOK, DLL BERISI TENTANG LIVE HAUL, MAULID, KAJIAN, DLL. <br class="hidden md:block">
+                <span class="text-sky-500 font-black mt-2 inline-block border-b-2 border-sky-900/50">EST. 1 RAMADHAN 1444 H</span>
             </p>
-            <span class="text-[10px] font-black text-sky-600 mt-2 inline-block uppercase tracking-wider">EST. 1 RAMADHAN 1444 H</span>
         </section>
 
-        <!-- LIVE STREAMING PLAYER -->
-        <section class="mb-10" id="live-section">
-            <div class="flex items-center justify-between mb-3">
-                <h2 class="text-xs font-black text-slate-800 uppercase tracking-wider flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 bg-red-600 rounded-full animate-pulse"></span> SIARAN LIVE / VIDEO UTAMA
-                </h2>
+        <section class="mb-14">
+            <div class="flex items-center justify-center gap-4 mb-8">
+                <div class="h-px flex-grow bg-gradient-to-r from-transparent to-sky-500/50"></div>
+                <h2 class="live-label uppercase italic">LIVE STREAMING</h2>
+                <div class="h-px flex-grow bg-gradient-to-l from-transparent to-sky-500/50"></div>
             </div>
             <div class="video-container">
-                <iframe id="live-player" src="https://www.youtube.com/embed/5dZrNC1I0V8?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+                <iframe id="live-player" src="https://www.youtube.com/embed/live_stream?channel=UC2TptaJdg05H5zrIyffgPiQ" allowfullscreen allow="autoplay"></iframe>
             </div>
         </section>
 
-        <!-- 10 VIDEO TERBARU CHANNEL IHYA 7 TV -->
-        <section class="mb-12">
-            <div class="border-b border-slate-200 pb-2 mb-4 flex justify-between items-center">
-                <h2 class="text-xs font-black text-slate-800 uppercase tracking-wider">10 Siaran Terbaru Channel IHYA' 7 TV</h2>
-                <span id="sync-status" class="text-[10px] font-bold text-sky-600 uppercase">TERHUBUNG LIVE</span>
-            </div>
-            <div id="video-list" class="grid grid-cols-2 md:grid-cols-5 gap-3">
-                <!-- Data video dimasukkan lewat JS -->
+        <section class="mb-20 text-center">
+            <h2 class="text-[10px] font-black mb-8 tracking-[0.4em] text-slate-500 uppercase italic">Siaran Terbaru</h2>
+            <div id="video-list" class="grid grid-cols-2 lg:grid-cols-5 gap-4">
+                <p id="loading-msg" class="col-span-full py-10 text-[9px] uppercase tracking-widest animate-pulse">Syncing satellite...</p>
             </div>
         </section>
 
-        <!-- FOOTER SOSMED -->
-        <footer class="border-t border-slate-200 pt-8 pb-10 text-center">
-            <div class="flex justify-center gap-4 mb-4">
-                <a href="https://www.youtube.com/@IHYA7TV" target="_blank" class="p-2.5 bg-slate-100 rounded-xl hover:bg-sky-50 hover:text-sky-600 border border-slate-200"><svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
-                <a href="https://www.instagram.com/ihya7tv?igsh=MTYwNDZpaGxkNnlscA==" target="_blank" class="p-2.5 bg-slate-100 rounded-xl hover:bg-sky-50 hover:text-sky-600 border border-slate-200"><svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
-                <a href="https://vm.tiktok.com/ZS9N299oN48LS-LBapA/" target="_blank" class="p-2.5 bg-slate-100 rounded-xl hover:bg-sky-50 hover:text-sky-600 border border-slate-200"><svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.28-2.67.82-5.38 2.84-7.01 1.62-1.33 3.76-1.92 5.81-1.64v4.13c-1.1-.19-2.26.1-3.15.78-.97.72-1.48 1.91-1.38 3.12.07 1.09.68 2.08 1.63 2.62 1.02.58 2.29.58 3.32.02 1.02-.53 1.68-1.58 1.74-2.73.05-3.33.02-6.66.03-9.99 0-2.24 0-4.48 0-6.72z"/></svg></a>
+        <footer class="text-center border-t border-white/5 pt-16 pb-20">
+            <div class="flex justify-center gap-6 mb-10">
+                <a href="https://www.youtube.com/@IHYA7TV" target="_blank" class="p-3 bg-slate-900/50 rounded-2xl border border-white/5 hover:bg-sky-500 transition-all"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" class="w-5 h-5 invert"></a>
+                <a href="https://www.instagram.com/ihya7tv?igsh=MTYwNDZpaGxkNnlscA==" target="_blank" class="p-3 bg-slate-900/50 rounded-2xl border border-white/5 hover:bg-sky-500 transition-all"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" class="w-5 h-5 invert"></a>
+                <a href="https://vm.tiktok.com/ZS9N299oN48LS-LBapA/" target="_blank" class="p-3 bg-slate-900/50 rounded-2xl border border-white/5 hover:bg-sky-500 transition-all"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" class="w-5 h-5 invert"></a>
             </div>
-            <p class="text-slate-500 text-[10px] font-black uppercase tracking-widest">TIM MULTIMEDIA IHYA' 7 TV &copy; 2026</p>
+            <p class="text-slate-600 text-[10px] font-black uppercase tracking-[0.5em]">TIM MULTIMEDIA IHYA' 7 TV &copy; 2026</p>
         </footer>
     </main>
 
-    <!-- SCRIPTS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         const CHANNEL_ID = 'UC2TptaJdg05H5zrIyffgPiQ';
 
-        // DATA VERIFIED 10 VIDEO TERBARU CHANNEL IHYA 7 TV
-        const ihyaRealVideos = [
-            { id: '5dZrNC1I0V8', title: '🔴LIVE MAULID NABI MUHAMMAD ﷺ & HAUL SYEKH USMAN AL-ISHAQY | PONDOK TRIWUNG - PROBOLINGGO' },
-            { id: 'Hj5_5vs5bZs', title: '🔴LIVE PENUTUPAN MUKTAMAR KE 35 NAHDLATUL ULAMA DI TAMBAKBERAS - JOMBANG' },
-            { id: 'XA5Hcq-7Q5k', title: '🔴LIVE PEMBUKAAN MUKTAMAR KE 35 NAHDLATUL ULAMA DI TAMBAKBERAS - JOMBANG' },
-            { id: 'Kbd_yzYUIa0', title: '🔴LIVE HAUL SANGENG KE-117 AL-HABIB ABDULLAH BIN ALI AL-HADDAD' },
-            { id: 'j7QsUSLuSI4', title: '🔴LIVE 24 JAM IHYA\' 7 TV' },
-            { id: 'ukklpnS9spg', title: 'LIVE MULTAQO SANAWI INTERNASIONAL HA\'IAH AS-SHOFWANITYAH' },
-            { id: '6T0X-Y_ekWo', title: 'LIVE PEMBACAAN MAULID NABI MUHAMMAD SAW - DARUL MUSTHOFA' },
-            { id: 'FenmonYHWdk', title: 'LIVE RAUHAH SERIES OF THE GRAND HAUL' },
-            { id: 'CY-h9DF-CH4', title: 'LIVE ZIKIR KEBANGSAAN BERSAMA HABIB LUTHFI BIN YAHYA' },
-            { id: '2G8N34kX_6s', title: 'DOKUMENTASI KAJIAN SHOLAWAT & KETELADANAN MAJELIS IHYA' }
-        ];
-
-        // FUNCTION TOGGLE MENU
+        // TOGGLE MENU
         function toggleMenu() {
-            document.getElementById('sidebar-drawer').classList.toggle('active');
-            document.getElementById('sidebar-backdrop').classList.toggle('active');
+            document.getElementById('sidebar').classList.toggle('active');
         }
 
-        // FUNCTION INIT SWIPER
-        let swiper = new Swiper(".mySwiper", {
+        // INITIALIZE SWIPER
+        const swiper = new Swiper(".mySwiper", {
             loop: true,
             autoplay: {
-                delay: 2500,
+                delay: 4000,
                 disableOnInteraction: false,
             },
             pagination: {
                 el: ".swiper-pagination",
                 clickable: true,
             },
+            effect: "fade",
+            fadeEffect: { crossFade: true },
         });
 
-        // FUNCTION RENDER VIDEO CARDS
-        function renderVideoCards(videos) {
-            const container = document.getElementById('video-list');
-            container.innerHTML = '';
-            videos.forEach(v => {
-                container.innerHTML += `
-                    <div class="card-video" onclick="playVideo('${v.id}')">
-                        <div class="aspect-video w-full rounded-lg overflow-hidden bg-slate-900 mb-2">
-                            <img src="https://img.youtube.com/vi/${v.id}/hqdefault.jpg" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/480x360/0f172a/38bdf8?text=IHYA+7+TV'">
-                        </div>
-                        <h3 class="text-[10px] font-black text-slate-800 line-clamp-2 leading-snug">${v.title}</h3>
-                    </div>
-                `;
-            });
-        }
+        // FETCH ARCHIVE DENGAN FILTER ANTI-SHORTS & ANTI-CACHE
+        async function fetchArchive() {
+            const list = document.getElementById('video-list');
+            const loading = document.getElementById('loading-msg');
+            try {
+                // Menambahkan timestamp agar data selalu fresh (anti-loading terus)
+                const cacheBuster = new Date().getTime();
+                const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}&t=${cacheBuster}`);
+                const data = await res.json();
+                
+                if (data.status === 'ok') {
+                    loading.style.display = 'none';
+                    list.innerHTML = ''; // Clear loading message
 
-        function playVideo(vId) {
-            document.getElementById('live-player').src = `https://www.youtube.com/embed/${vId}?autoplay=1`;
-            document.getElementById('live-section').scrollIntoView({ behavior: 'smooth' });
-        }
+                    data.items.forEach(item => {
+                        const vId = item.link.split('v=')[1]?.split('&')[0];
+                        
+                        // Deteksi Shorts: Link YouTube Shorts biasanya berbeda, atau bisa filter via judul
+                        const isShort = item.title.toLowerCase().includes('#shorts') || item.link.includes('/shorts/');
 
-        // TAMPILKAN VIDEO SECARA INSTAN TANPA DELAY LOADING
-        window.addEventListener('DOMContentLoaded', () => {
-            renderVideoCards(ihyaRealVideos);
-        });
+                        if (vId && !isShort) {
+                            list.innerHTML += `
+                                <div class="card-video rounded-2xl overflow-hidden cursor-pointer group p-1" onclick="window.scrollTo({top:500, behavior:'smooth'}); document.getElementById('live-player').src='https://www.youtube.com/embed/${vId}?autoplay=1'">
+                                    <div class="aspect-video w-full overflow-hidden rounded-xl bg-slate-800">
+                                        <img src="${item.thumbnail}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                                    </div>
+                                    <div class="p-2 text-center">
+                                        <h3 class="text-[9px] font-bold line-clamp-2 text-slate-400 group-hover:text-sky-300 transition-colors uppercase italic">${item.title}</h3>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                    });
+                }
+            } catch (err) { 
+                loading.innerText = "Error Sinkronisasi Satellite."; 
+            }
+        }
+        
+        window.onload = fetchArchive;
     </script>
 </body>
-                </html>
-                
+                        </html>
