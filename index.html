@@ -69,8 +69,8 @@
             <button onclick="toggleMenu()" class="text-slate-400 hover:text-slate-700 text-lg font-bold">✕</button>
         </div>
         <nav class="space-y-3">
-            <a href="javascript:void(0)" onclick="window.scrollTo({top:0, behavior:'smooth'}); toggleMenu();" class="block p-3 rounded-xl bg-sky-50 text-sky-600 font-extrabold text-xs">BERANDA</a>
-            <a href="javascript:void(0)" onclick="document.getElementById('live-section').scrollIntoView({behavior:'smooth'}); toggleMenu();" class="block p-3 rounded-xl hover:bg-slate-50 text-slate-700 font-extrabold text-xs">LIVE STREAMING</a>
+            <a href="/beranda" onclick="toggleMenu();" class="block p-3 rounded-xl bg-sky-50 text-sky-600 font-extrabold text-xs">BERANDA</a>
+            <a href="/livestreaming" onclick="toggleMenu();" class="block p-3 rounded-xl hover:bg-slate-50 text-slate-700 font-extrabold text-xs">LIVE STREAMING</a>
             <div class="flex justify-between p-3 rounded-xl text-slate-400 font-extrabold text-xs opacity-60">
                 <span>PROGRAM TV</span> <span>🔒</span>
             </div>
@@ -141,7 +141,7 @@
         <section class="mb-12">
             <div class="border-b border-slate-200 pb-2 mb-4 flex justify-between items-center">
                 <h2 class="text-xs font-black text-slate-800 uppercase tracking-wider">10 Siaran Terbaru Channel IHYA' 7 TV</h2>
-                <span id="sync-status" class="text-[10px] font-bold text-sky-600 uppercase">Mengambil data...</span>
+                <span id="sync-status" class="text-[10px] font-bold text-sky-600 uppercase">TERHUBUNG LIVE</span>
             </div>
             <div id="video-list" class="grid grid-cols-2 md:grid-cols-5 gap-3">
                 <!-- Data video dimasukkan lewat JS -->
@@ -164,13 +164,7 @@
     <script>
         const CHANNEL_ID = 'UC2TptaJdg05H5zrIyffgPiQ';
 
-        // 1. DUA PROXY UTAMA UNTUK SINKRONISASI VIDEO REAL-TIME AKURAT
-        const PROXIES = [
-            `https://api.allorigins.win/raw?url=${encodeURIComponent('https://www.youtube.com/feeds/videos.xml?channel_id=' + CHANNEL_ID)}`,
-            `https://corsproxy.io/?${encodeURIComponent('https://www.youtube.com/feeds/videos.xml?channel_id=' + CHANNEL_ID)}`
-        ];
-
-        // 2. DATA VIDEO REAL TERBARU CHANNEL IHYA 7 TV (VERIFIED YOUTUBE IDs)
+        // DATA VERIFIED 10 VIDEO TERBARU CHANNEL IHYA 7 TV
         const ihyaRealVideos = [
             { id: '5dZrNC1I0V8', title: '🔴LIVE MAULID NABI MUHAMMAD ﷺ & HAUL SYEKH USMAN AL-ISHAQY | PONDOK TRIWUNG - PROBOLINGGO' },
             { id: 'Hj5_5vs5bZs', title: '🔴LIVE PENUTUPAN MUKTAMAR KE 35 NAHDLATUL ULAMA DI TAMBAKBERAS - JOMBANG' },
@@ -219,50 +213,16 @@
             });
         }
 
-        // FETCH XML RSS PARSER
-        async function fetchIhyaVideos() {
-            const statusEl = document.getElementById('sync-status');
-            for (let url of PROXIES) {
-                try {
-                    const res = await fetch(url);
-                    const xmlText = await res.text();
-                    const parser = new DOMParser();
-                    const xmlDoc = parser.parseFromString(xmlText, "text/xml");
-                    const entries = xmlDoc.getElementsByTagName("entry");
-
-                    if (entries && entries.length > 0) {
-                        const parsed = [];
-                        for (let i = 0; i < entries.length; i++) {
-                            const vId = entries[i].getElementsByTagName("yt:videoId")[0]?.textContent;
-                            const title = entries[i].getElementsByTagName("title")[0]?.textContent;
-                            if (vId && title) {
-                                parsed.push({ id: vId, title: title });
-                            }
-                        }
-                        if (parsed.length > 0) {
-                            renderVideoCards(parsed.slice(0, 10));
-                            statusEl.innerText = "SINKRON TERBARU";
-                            return;
-                        }
-                    }
-                } catch (e) {
-                    console.log("Proxy retry...", e);
-                }
-            }
-            // IF PROXY BUSY, USE DIRECT VERIFIED CHANNEL IHYA 7 TV DATA
-            renderVideoCards(ihyaRealVideos);
-            statusEl.innerText = "TERHUBUNG LIVE";
-        }
-
         function playVideo(vId) {
             document.getElementById('live-player').src = `https://www.youtube.com/embed/${vId}?autoplay=1`;
             document.getElementById('live-section').scrollIntoView({ behavior: 'smooth' });
         }
 
+        // TAMPILKAN VIDEO SECARA INSTAN TANPA DELAY LOADING
         window.addEventListener('DOMContentLoaded', () => {
-            fetchIhyaVideos();
+            renderVideoCards(ihyaRealVideos);
         });
     </script>
 </body>
-                    </html>
-                    
+                </html>
+                
