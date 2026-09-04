@@ -3,8 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IHYA' 7 TV - Media Streaming</title>
+    <title>IHYA' 7 TV - TELEVISI AHLUSSUNNAH WAL JAMA'AH</title>
     
+    <!-- META SEO & LOGO PROFIL UNTUK MESIN PENCARIAN -->
+    <meta name="description" content="IHYA' 7 TV - Televisi Islam Ahlussunnah wal Jama'ah. Menyajikan siaran langsung haul, maulid, dan kajian ilmiah.">
+    <meta property="og:title" content="IHYA' 7 TV - TELEVISI AHLUSSUNNAH WAL JAMA'AH">
+    <meta property="og:description" content="Televisi Islam Ahlussunnah wal Jama'ah digital.">
+    <meta property="og:image" content="logoihya7tv.png">
+    <link rel="icon" href="logoihya7tv.png" type="image/png">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -20,28 +27,28 @@
             min-height: 100vh;
         }
 
-        /* ANIMASI BACKGROUND */
+        /* ANIMASI BACKGROUND FLOAT */
         .ambient-glow-1 {
-            position: fixed; top: -10vw; left: -10vw; width: 50vw; height: 50vw;
-            background: radial-gradient(circle, rgba(56, 189, 248, 0.25) 0%, rgba(248, 250, 252, 0) 70%);
-            border-radius: 50%; z-index: -1; animation: floatSphere 12s ease-in-out infinite alternate;
+            position: fixed; top: -10vw; left: -10vw; width: 55vw; height: 55vw;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.3) 0%, rgba(248, 250, 252, 0) 70%);
+            border-radius: 50%; z-index: -1; animation: floatSphere 10s ease-in-out infinite alternate;
         }
         .ambient-glow-2 {
-            position: fixed; bottom: -10vw; right: -10vw; width: 45vw; height: 45vw;
-            background: radial-gradient(circle, rgba(2, 132, 199, 0.2) 0%, rgba(248, 250, 252, 0) 70%);
-            border-radius: 50%; z-index: -1; animation: floatSphere 10s ease-in-out infinite alternate-reverse;
+            position: fixed; bottom: -10vw; right: -10vw; width: 50vw; height: 50vw;
+            background: radial-gradient(circle, rgba(2, 132, 199, 0.25) 0%, rgba(248, 250, 252, 0) 70%);
+            border-radius: 50%; z-index: -1; animation: floatSphere 8s ease-in-out infinite alternate-reverse;
         }
 
         @keyframes floatSphere {
             0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(8%, 10%) scale(1.2); }
+            100% { transform: translate(10%, 12%) scale(1.25); }
         }
 
         .container { max-width: 1000px; margin: 0 auto; padding: 0 16px; }
 
         /* NAVBAR */
         .navbar {
-            position: sticky; top: 0; z-index: 50;
+            position: sticky; top: 0; z-index: 100;
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
@@ -51,13 +58,14 @@
         .nav-container { display: flex; justify-content: space-between; align-items: center; }
         .brand { display: flex; align-items: center; gap: 12px; }
         .brand-logo {
-            width: 40px; height: 40px; border-radius: 12px;
+            width: 44px; height: 44px; border-radius: 12px;
             background: #fff; border: 1px solid #e2e8f0;
-            padding: 4px; object-fit: contain;
+            padding: 2px; object-fit: contain;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
         .brand-title { font-size: 18px; font-weight: 900; color: #0f172a; line-height: 1; }
         .brand-title span { color: #0284c7; }
-        .brand-sub { font-size: 9px; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+        .brand-sub { font-size: 8px; font-weight: 800; color: #0284c7; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 3px; }
 
         .menu-btn {
             background: #f1f5f9; border: 1px solid #cbd5e1;
@@ -65,12 +73,12 @@
             color: #334155; cursor: pointer; display: flex; align-items: center; gap: 6px;
             transition: all 0.2s;
         }
-        .menu-btn:hover { background: #e0f2fe; color: #0284c7; border-color: #38bdf8; }
+        .menu-btn:hover { background: #e0f2fe; color: #0284c7; border-color: #38bdf8; transform: scale(1.03); }
 
-        /* SIDEBAR (NAVIGASI) */
+        /* SIDEBAR (MENU) */
         .sidebar-overlay {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(4px);
+            position: fixed; inset: 0;
+            background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(4px);
             z-index: 998; opacity: 0; visibility: hidden; transition: all 0.3s ease;
         }
         .sidebar-overlay.active { opacity: 1; visibility: visible; }
@@ -80,7 +88,7 @@
             background: #ffffff; z-index: 999; transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             border-right: 1px solid #e2e8f0; padding: 24px;
             display: flex; flex-direction: column; justify-content: space-between;
-            box-shadow: 10px 0 30px rgba(0,0,0,0.05);
+            box-shadow: 10px 0 30px rgba(0,0,0,0.1);
         }
         .sidebar.active { left: 0; }
 
@@ -90,54 +98,57 @@
         }
         .sidebar-title { font-size: 13px; font-weight: 800; color: #0f172a; text-transform: uppercase; letter-spacing: 1px; }
         .close-btn { background: #f1f5f9; border: none; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-weight: bold; color: #64748b; }
-        
-        .nav-links { display: flex; flex-direction: column; gap: 12px; }
-        .nav-item {
-            padding: 12px 16px; border-radius: 12px; font-size: 13px; font-weight: 700;
-            text-decoration: none; display: flex; align-items: center; justify-content: space-between;
-            color: #334155; transition: background 0.2s;
-        }
-        .nav-item.active { background: #f0f9ff; color: #0284c7; }
-        .nav-item.disabled { color: #94a3b8; cursor: not-allowed; }
+        .close-btn:hover { background: #fee2e2; color: #ef4444; }
 
-        /* BANNER SLIDER */
+        .nav-links { display: flex; flex-direction: column; gap: 10px; }
+        .nav-item {
+            padding: 12px 16px; border-radius: 12px; font-size: 13px; font-weight: 800;
+            text-decoration: none; display: flex; align-items: center; justify-content: space-between;
+            color: #334155; transition: all 0.2s; cursor: pointer;
+        }
+        .nav-item:hover { background: #f0f9ff; color: #0284c7; }
+        .nav-item.active { background: #0284c7; color: #ffffff; }
+        .nav-item.disabled { color: #94a3b8; cursor: not-allowed; background: #f8fafc; }
+
+        /* BANNER SLIDER (3 THUMBNAIL AUTOMATIS) */
         .banner-slider {
             width: 100%; aspect-ratio: 16/9; border-radius: 24px; overflow: hidden;
-            position: relative; border: 1px solid #e2e8f0; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.05);
-            background: #e2e8f0; margin-top: 24px;
+            position: relative; border: 1px solid #e2e8f0; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.08);
+            background: #1e293b; margin-top: 24px;
         }
-        .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.8s ease-in-out; }
+        .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1s ease-in-out; }
         .slide.active { opacity: 1; }
         .slide img { width: 100%; height: 100%; object-fit: cover; }
         .slide-overlay {
             position: absolute; inset: 0;
-            background: linear-gradient(to top, rgba(15,23,42,0.8) 0%, transparent 60%);
+            background: linear-gradient(to top, rgba(15,23,42,0.85) 0%, transparent 60%);
             display: flex; align-items: flex-end; padding: 24px;
         }
         .badge-tag {
             background: rgba(255,255,255,0.95); color: #0284c7; font-size: 11px;
             font-weight: 800; padding: 6px 14px; border-radius: 20px; text-transform: uppercase;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        /* ANIMASI KARTU DESKRIPSI */
+        /* CARD DESKRIPSI & ANIMASI SHINE */
         .profile-card {
             background: #ffffff; border: 1px solid #e0f2fe; border-radius: 24px;
-            padding: 24px; margin-top: 32px; box-shadow: 0 10px 30px -10px rgba(2, 132, 199, 0.08);
+            padding: 24px; margin-top: 32px; box-shadow: 0 10px 30px -10px rgba(2, 132, 199, 0.12);
             position: relative; overflow: hidden;
-            animation: pulseGlow 4s ease-in-out infinite alternate;
+            animation: cardGlow 3s ease-in-out infinite alternate;
         }
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 10px 30px -10px rgba(2, 132, 199, 0.08); }
-            100% { box-shadow: 0 15px 35px -5px rgba(2, 132, 199, 0.2); }
+        @keyframes cardGlow {
+            0% { border-color: #bae6fd; box-shadow: 0 10px 30px -10px rgba(2, 132, 199, 0.12); }
+            100% { border-color: #38bdf8; box-shadow: 0 15px 35px -5px rgba(2, 132, 199, 0.25); }
         }
         .profile-card::before {
             content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
             background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.8) 50%, transparent 70%);
-            transform: rotate(30deg) translateY(-100%); animation: lightRay 5s infinite ease-in-out;
+            transform: rotate(30deg) translateY(-100%); animation: lightRay 4s infinite ease-in-out;
         }
         @keyframes lightRay {
             0% { transform: rotate(30deg) translateY(-100%); }
-            30% { transform: rotate(30deg) translateY(100%); }
+            40% { transform: rotate(30deg) translateY(100%); }
             100% { transform: rotate(30deg) translateY(100%); }
         }
         .profile-card p { font-size: 14px; font-weight: 600; color: #334155; line-height: 1.6; position: relative; z-index: 1; }
@@ -156,15 +167,15 @@
             background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
             color: #fff; font-size: 11px; font-weight: 900; padding: 8px 20px; border-radius: 20px;
             letter-spacing: 1.5px; text-transform: uppercase; display: inline-flex; align-items: center; gap: 8px;
-            box-shadow: 0 0 20px rgba(2, 132, 199, 0.3);
+            box-shadow: 0 0 20px rgba(2, 132, 199, 0.35);
         }
-        .pulse-dot { width: 8px; height: 8px; background: #ef4444; border-radius: 50%; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(1.3); } }
+        .pulse-dot { width: 8px; height: 8px; background: #ef4444; border-radius: 50%; animation: pulse 1.2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(1.4); } }
 
         .video-container {
             position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
             border-radius: 24px; background: #0f172a; border: 4px solid #ffffff;
-            box-shadow: 0 25px 50px -12px rgba(2, 132, 199, 0.2);
+            box-shadow: 0 25px 50px -12px rgba(2, 132, 199, 0.25);
         }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
 
@@ -184,20 +195,20 @@
         }
         .video-card:hover {
             transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 25px -5px rgba(2, 132, 199, 0.15);
-            border-color: #bae6fd;
+            box-shadow: 0 20px 25px -5px rgba(2, 132, 199, 0.2);
+            border-color: #38bdf8;
         }
         .thumb-box {
             width: 100%; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; background: #f1f5f9; position: relative; margin-bottom: 12px;
         }
         .thumb-box img { width: 100%; height: 100%; object-fit: cover; }
         .play-icon {
-            position: absolute; inset: 0; background: rgba(2, 132, 199, 0.3); opacity: 0;
+            position: absolute; inset: 0; background: rgba(2, 132, 199, 0.35); opacity: 0;
             display: flex; align-items: center; justify-content: center; transition: opacity 0.2s;
         }
         .play-icon span {
             width: 40px; height: 40px; background: #ffffff; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #0284c7; font-weight: bold;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
         .video-card:hover .play-icon { opacity: 1; }
         .video-card-title { font-size: 12px; font-weight: 800; color: #1e293b; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
@@ -211,41 +222,40 @@
             display: flex; align-items: center; justify-content: center; color: #475569; text-decoration: none;
             transition: all 0.2s;
         }
-        .social-btn:hover { border-color: #38bdf8; color: #0284c7; transform: translateY(-4px); box-shadow: 0 8px 15px rgba(2, 132, 199, 0.15); }
+        .social-btn:hover { border-color: #38bdf8; color: #0284c7; transform: translateY(-4px); box-shadow: 0 8px 15px rgba(2, 132, 199, 0.2); }
         .copyright { font-size: 11px; font-weight: 800; color: #94a3b8; letter-spacing: 1px; text-transform: uppercase; }
     </style>
 </head>
 <body>
 
-    <!-- Ambient Glow Background -->
     <div class="ambient-glow-1"></div>
     <div class="ambient-glow-2"></div>
 
-    <!-- SIDEBAR & OVERLAY -->
+    <!-- SIDEBAR MENU OVERLAY -->
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleMenu()"></div>
     <div class="sidebar" id="sidebar">
         <div>
             <div class="sidebar-header">
-                <span class="sidebar-title">Menu Utama</span>
+                <span class="sidebar-title">Menu Navigasi</span>
                 <button class="close-btn" onclick="toggleMenu()">✕</button>
             </div>
             <nav class="nav-links">
-                <a href="#" class="nav-item active" onclick="toggleMenu()"><span>BERANDA</span></a>
-                <div class="nav-item disabled"><span>PROGRAM TV</span> <span>🔒</span></div>
-                <div class="nav-item disabled"><span>JADWAL SIARAN</span> <span>🔒</span></div>
+                <a href="#" class="nav-item active" onclick="scrollToSection('top'); toggleMenu();"><span>BERANDA</span></a>
+                <a href="#live-section" class="nav-item" onclick="scrollToSection('live-section'); toggleMenu();"><span>LIVE STREAMING</span></a>
+                <div class="nav-item disabled"><span>COMING SOON</span> <span>🔒</span></div>
             </nav>
         </div>
-        <p style="font-size: 10px; color: #94a3b8; font-weight: 800; text-align: center; text-transform: uppercase;">Fitur Dalam Pengembangan</p>
+        <p style="font-size: 10px; color: #94a3b8; font-weight: 800; text-align: center; text-transform: uppercase;">IHYA' 7 TV &copy; 2026</p>
     </div>
 
     <!-- NAVBAR -->
     <nav class="navbar">
         <div class="container nav-container">
             <div class="brand">
-                <img src="logoihya7tv.png" alt="Logo" class="brand-logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/717/717426.png'">
+                <img src="logoihya7tv.png" alt="Logo IHYA 7 TV" class="brand-logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/717/717426.png'">
                 <div>
                     <h1 class="brand-title">IHYA' <span>7 TV</span></h1>
-                    <p class="brand-sub">Media Streaming Islam</p>
+                    <p class="brand-sub">TELEVISI AHLUSSUNNAH WAL JAMA'AH</p>
                 </div>
             </div>
             <button class="menu-btn" onclick="toggleMenu()">
@@ -255,17 +265,21 @@
         </div>
     </nav>
 
-    <main class="container">
+    <main class="container" id="top">
         
-        <!-- BANNER SLIDER -->
+        <!-- BANNER SLIDER AUTOMATIS (3 THUMBNAIL) -->
         <div class="banner-slider">
             <div class="slide active">
-                <img src="thumbnail1.jpg" onerror="this.src='https://via.placeholder.com/1280x720/f0f9ff/0284c7?text=IHYA+7+TV+AGENDA+1'">
+                <img src="thumbnail1.jpg" onerror="this.src='https://via.placeholder.com/1280x720/0284c7/ffffff?text=IHYA+7+TV+-+AGENDA+UTAMA'">
                 <div class="slide-overlay"><span class="badge-tag">Agenda Utama</span></div>
             </div>
             <div class="slide">
-                <img src="thumbnail2.jpg" onerror="this.src='https://via.placeholder.com/1280x720/f0f9ff/0284c7?text=IHYA+7+TV+AGENDA+2'">
+                <img src="thumbnail2.jpg" onerror="this.src='https://via.placeholder.com/1280x720/0369a1/ffffff?text=IHYA+7+TV+-+KAJIAN+RUTIN'">
                 <div class="slide-overlay"><span class="badge-tag">Kajian Rutin</span></div>
+            </div>
+            <div class="slide">
+                <img src="thumbnail3.jpg" onerror="this.src='https://via.placeholder.com/1280x720/0f172a/ffffff?text=IHYA+7+TV+-+SIARAN+HAUL'">
+                <div class="slide-overlay"><span class="badge-tag">Siaran Haul & Tabligh</span></div>
             </div>
         </div>
 
@@ -276,12 +290,12 @@
             </p>
             <div class="profile-meta">
                 <span class="meta-est">EST. 1 RAMADHAN 1444 H</span>
-                <span class="typewriter-text" id="typewriterText">Media Dakwah Digital</span>
+                <span class="typewriter-text" id="typewriterText">TELEVISI AHLUSSUNNAH WAL JAMA'AH</span>
             </div>
         </section>
 
         <!-- LIVE STREAMING SECTION -->
-        <section class="section-title">
+        <section class="section-title" id="live-section">
             <div class="live-badge">
                 <span class="pulse-dot"></span>
                 <span>LIVE STREAMING UTAMA</span>
@@ -292,17 +306,17 @@
             <iframe id="main-player" src="https://www.youtube.com/embed/live_stream?channel=UC2TptaJdg05H5zrIyffgPiQ" allowfullscreen allow="autoplay"></iframe>
         </div>
 
-        <!-- ARCHIVE SECTION (INSTANT DISPLAY) -->
+        <!-- SIARAN TERBARU (LOAD INSTAN) -->
         <div class="archive-header">
             <div>
                 <h2 class="archive-title">Siaran Terbaru</h2>
-                <p class="archive-sub">Rekaman kajian dan acara keagamaan terbaru</p>
+                <p class="archive-sub">Rekaman kajian dan siaran acara keagamaan</p>
             </div>
         </div>
 
         <div class="video-grid" id="video-list"></div>
 
-        <!-- FOOTER DENGAN YOUTUBE, IG, DAN TIKTOK -->
+        <!-- FOOTER -->
         <footer>
             <div class="social-links">
                 <!-- YouTube -->
@@ -313,8 +327,8 @@
                 <a href="https://www.instagram.com/ihya7tv" target="_blank" class="social-btn" title="Instagram">
                     <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                 </a>
-                <!-- TikTok -->
-                <a href="https://www.tiktok.com/@ihya7tv" target="_blank" class="social-btn" title="TikTok">
+                <!-- TikTok (Menggunakan Username ihya.7.tv) -->
+                <a href="https://www.tiktok.com/@ihya.7.tv" target="_blank" class="social-btn" title="TikTok">
                     <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.28-2.67.82-5.38 2.84-7.01 1.62-1.33 3.76-1.92 5.81-1.64v4.13c-1.1-.19-2.26.1-3.15.78-.97.72-1.48 1.91-1.38 3.12.07 1.09.68 2.08 1.63 2.62 1.02.58 2.29.58 3.32.02 1.02-.53 1.68-1.58 1.74-2.73.05-3.33.02-6.66.03-9.99 0-2.24 0-4.48 0-6.72z"/></svg>
                 </a>
             </div>
@@ -323,37 +337,5 @@
     </main>
 
     <script>
-        // FUNCTION MENU SIDEBAR
-        function toggleMenu() {
-            document.getElementById('sidebar').classList.toggle('active');
-            document.getElementById('sidebarOverlay').classList.toggle('active');
-        }
-
-        // CAROUSEL BANNER
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        setInterval(() => {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
-        }, 4000);
-
-        // ANIMASI MESIN KETIK (TYPEWRITER)
-        const textArray = ["Media Dakwah Digital", "Siaran Haul & Kajian", "Ahlussunnah wal Jama'ah"];
-        let textIndex = 0;
-        let charIndex = 0;
-        const typewriterEl = document.getElementById('typewriterText');
-
-        function typeText() {
-            if (charIndex < textArray[textIndex].length) {
-                typewriterEl.textContent += textArray[textIndex].charAt(charIndex);
-                charIndex++;
-                setTimeout(typeText, 90);
-            } else {
-                setTimeout(eraseText, 2200);
-            }
-        }
-
-        function eraseText() {
-            if (charIndex > 0) {
-                typewriterEl.textContent = textArray[textIndex].substring(0, charIndex -
+        // TOGGLE MENU SIDEBAR
+        function
