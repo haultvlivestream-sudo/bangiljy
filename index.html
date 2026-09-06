@@ -6,7 +6,7 @@
     <!-- Judul Situs & Tag Meta -->
     <title>IHYA' 7 TV - TELEVISI AHLUSSUNAH WAL JAMA'AH</title>
     
-    <!-- Favicon Logo untuk Tab Browser & Hasil Pencarian Google/Browser -->
+    <!-- Favicon Logo -->
     <link rel="icon" type="image/png" href="logoihya7tv.png">
     <link rel="apple-touch-icon" href="logoihya7tv.png">
 
@@ -68,7 +68,6 @@
             transform: translateY(-2px) scale(1.02);
         }
         
-        /* Shimmer Animation Effect */
         .live-badge-container::after {
             content: '';
             position: absolute;
@@ -85,7 +84,6 @@
             100% { transform: translateX(100%) rotate(30deg); }
         }
 
-        /* Pulsing Dot Effect */
         .live-dot-glow {
             width: 10px;
             height: 10px;
@@ -127,6 +125,7 @@
             padding: 40px 20px;
             box-shadow: 10px 0 30px rgba(14, 165, 233, 0.08);
         }
+        @media (min-width: 768px) { #sidebar { width: 300px; left: -300px; } }
         #sidebar.active { left: 0; box-shadow: 20px 0 50px rgba(2, 132, 199, 0.2); }
 
         .nav-glass {
@@ -214,6 +213,11 @@
         .social-btn:hover img {
             filter: brightness(0) invert(1);
         }
+
+        /* CONTROLS UNTUK ROUTING KONTEN */
+        .page-section { display: none; }
+        .page-section.active-page { display: block; }
+        .nav-link.active-link { color: #0284c7; font-weight: 900; }
     </style>
 </head>
 <body class="font-sans">
@@ -226,8 +230,9 @@
             <h2 class="text-sky-600 font-black italic tracking-widest uppercase">Menu</h2>
             <button onclick="toggleMenu()" class="text-slate-500 hover:text-sky-600 text-xl font-bold transition-colors">✕</button>
         </div>
-        <nav class="space-y-8">
-            <a href="#" class="flex items-center text-sm font-bold text-sky-600 hover:tracking-widest transition-all">BERANDA</a>
+        <nav class="space-y-6">
+            <a href="/beranda" onclick="navigateTo(event, '/beranda')" class="nav-link flex items-center text-sm font-bold text-slate-600 hover:text-sky-600 hover:tracking-widest transition-all">BERANDA</a>
+            <a href="/live" onclick="navigateTo(event, '/live')" class="nav-link flex items-center text-sm font-bold text-slate-600 hover:text-sky-600 hover:tracking-widest transition-all">LIVE STREAMING</a>
             <div class="flex items-center justify-between text-xs font-bold text-slate-400">
                 <span>PROGRAM TV</span> <span>🔒</span>
             </div>
@@ -240,10 +245,10 @@
 
     <nav class="p-4 nav-glass sticky top-0 z-50">
         <div class="max-w-6xl mx-auto flex items-center justify-between">
-            <div class="flex items-center gap-3">
+            <a href="/beranda" onclick="navigateTo(event, '/beranda')" class="flex items-center gap-3 cursor-pointer">
                 <img src="logoihya7tv.png" alt="Logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/717/717426.png'" class="h-10 w-10 object-contain rounded-xl shadow-md border border-sky-100">
                 <h1 class="text-xl font-black tracking-tighter text-sky-600 uppercase leading-none italic drop-shadow-sm">IHYA' 7 TV</h1>
-            </div>
+            </a>
             <button class="menu-btn" onclick="toggleMenu()">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
             </button>
@@ -252,64 +257,86 @@
 
     <main class="max-w-5xl mx-auto p-4 md:p-8">
         
-        <section class="mb-10">
-            <h2 class="text-[10px] font-black mb-4 tracking-[0.4em] text-slate-400 uppercase italic text-center">Jadwal Mendatang</h2>
-            <div class="swiper mySwiper rounded-3xl overflow-hidden">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide relative">
-                        <img src="thumbnail1.jpg" class="w-full aspect-video object-cover" onerror="this.src='https://via.placeholder.com/1280x720/0284c7/ffffff?text=IHYA+7+TV+JADWAL+1'">
-                        <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-slate-900/80 via-slate-900/30 to-transparent">
-                            <span class="px-3 py-1 bg-sky-500 text-[10px] font-black rounded-full text-white uppercase italic tracking-widest shadow-md">Upcoming Event</span>
+        <!-- HALAMAN BERANDA (Sama persis dengan HTML asli) -->
+        <div id="page-beranda" class="page-section active-page">
+            <section class="mb-10">
+                <h2 class="text-[10px] font-black mb-4 tracking-[0.4em] text-slate-400 uppercase italic text-center">Jadwal Mendatang</h2>
+                <div class="swiper mySwiper rounded-3xl overflow-hidden">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide relative">
+                            <img src="thumbnail1.jpg" class="w-full aspect-video object-cover" onerror="this.src='https://via.placeholder.com/1280x720/0284c7/ffffff?text=IHYA+7+TV+JADWAL+1'">
+                            <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-slate-900/80 via-slate-900/30 to-transparent">
+                                <span class="px-3 py-1 bg-sky-500 text-[10px] font-black rounded-full text-white uppercase italic tracking-widest shadow-md">Upcoming Event</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide relative">
+                            <img src="thumbnail2.jpg" class="w-full aspect-video object-cover" onerror="this.src='https://via.placeholder.com/1280x720/0284c7/ffffff?text=IHYA+7+TV+JADWAL+2'">
+                            <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-slate-900/80 via-slate-900/30 to-transparent">
+                                <span class="px-3 py-1 bg-sky-500 text-[10px] font-black rounded-full text-white uppercase italic tracking-widest shadow-md">Upcoming Event</span>
+                            </div>
+                        </div>
+                        <div class="swiper-slide relative">
+                            <img src="thumbnail3.jpg" class="w-full aspect-video object-cover" onerror="this.src='https://via.placeholder.com/1280x720/0284c7/ffffff?text=IHYA+7+TV+JADWAL+3'">
+                            <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-slate-900/80 via-slate-900/30 to-transparent">
+                                <span class="px-3 py-1 bg-sky-500 text-[10px] font-black rounded-full text-white uppercase italic tracking-widest shadow-md">Upcoming Event</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="swiper-slide relative">
-                        <img src="thumbnail2.jpg" class="w-full aspect-video object-cover" onerror="this.src='https://via.placeholder.com/1280x720/0284c7/ffffff?text=IHYA+7+TV+JADWAL+2'">
-                        <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-slate-900/80 via-slate-900/30 to-transparent">
-                            <span class="px-3 py-1 bg-sky-500 text-[10px] font-black rounded-full text-white uppercase italic tracking-widest shadow-md">Upcoming Event</span>
-                        </div>
-                    </div>
-                    <div class="swiper-slide relative">
-                        <img src="thumbnail3.jpg" class="w-full aspect-video object-cover" onerror="this.src='https://via.placeholder.com/1280x720/0284c7/ffffff?text=IHYA+7+TV+JADWAL+3'">
-                        <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-slate-900/80 via-slate-900/30 to-transparent">
-                            <span class="px-3 py-1 bg-sky-500 text-[10px] font-black rounded-full text-white uppercase italic tracking-widest shadow-md">Upcoming Event</span>
-                        </div>
-                    </div>
+                    <div class="swiper-pagination"></div>
                 </div>
-                <div class="swiper-pagination"></div>
-            </div>
-        </section>
+            </section>
 
-        <section class="mb-10 profile-box p-6 rounded-3xl relative">
-            <p class="text-[11px] md:text-sm text-slate-700 leading-relaxed font-semibold relative z-10 uppercase tracking-tight">
-                <strong class="text-sky-600 italic uppercase">IHYA' 7 TV</strong> ADALAH TELEVISI ISLAM AHLUSSUNAH WAL JAMA'AH YANG MENAMPILKAN LIVE STREAMING DI CHANNEL YOUTUBE, INSTAGRAM, TIKTOK, DLL BERISI TENTANG LIVE HAUL, MAULID, KAJIAN, DLL. <br class="hidden md:block">
-                <span class="text-sky-600 font-black mt-2 inline-block border-b-2 border-sky-300">EST. 1 RAMADHAN 1444 H</span>
-            </p>
-        </section>
+            <section class="mb-10 profile-box p-6 rounded-3xl relative">
+                <p class="text-[11px] md:text-sm text-slate-700 leading-relaxed font-semibold relative z-10 uppercase tracking-tight">
+                    <strong class="text-sky-600 italic uppercase">IHYA' 7 TV</strong> ADALAH TELEVISI ISLAM AHLUSSUNAH WAL JAMA'AH YANG MENAMPILKAN LIVE STREAMING DI CHANNEL YOUTUBE, INSTAGRAM, TIKTOK, DLL BERISI TENTANG LIVE HAUL, MAULID, KAJIAN, DLL. <br class="hidden md:block">
+                    <span class="text-sky-600 font-black mt-2 inline-block border-b-2 border-sky-300">EST. 1 RAMADHAN 1444 H</span>
+                </p>
+            </section>
 
-        <section class="mb-14">
-            <!-- HEADER LIVE STREAMING DENGAN BADGE MODERN & ANIMASI GLOW -->
-            <div class="flex items-center justify-center gap-4 mb-8">
-                <div class="h-px flex-grow bg-gradient-to-r from-transparent via-sky-300 to-sky-400"></div>
-                
-                <div class="live-badge-container">
-                    <span class="live-dot-glow"></span>
-                    <span class="live-text-modern">LIVE STREAMING</span>
+            <section class="mb-14">
+                <div class="flex items-center justify-center gap-4 mb-8">
+                    <div class="h-px flex-grow bg-gradient-to-r from-transparent via-sky-300 to-sky-400"></div>
+                    
+                    <div class="live-badge-container">
+                        <span class="live-dot-glow"></span>
+                        <span class="live-text-modern">LIVE STREAMING</span>
+                    </div>
+
+                    <div class="h-px flex-grow bg-gradient-to-l from-transparent via-sky-300 to-sky-400"></div>
                 </div>
 
-                <div class="h-px flex-grow bg-gradient-to-l from-transparent via-sky-300 to-sky-400"></div>
-            </div>
+                <div class="video-container">
+                    <iframe id="live-player-home" src="https://www.youtube.com/embed/live_stream?channel=UC2TptaJdg05H5zrIyffgPiQ" allowfullscreen allow="autoplay"></iframe>
+                </div>
+            </section>
 
-            <div class="video-container">
-                <iframe id="live-player" src="https://www.youtube.com/embed/live_stream?channel=UC2TptaJdg05H5zrIyffgPiQ" allowfullscreen allow="autoplay"></iframe>
-            </div>
-        </section>
+            <section class="mb-20 text-center">
+                <h2 class="text-[10px] font-black mb-8 tracking-[0.4em] text-slate-400 uppercase italic">Siaran Terbaru</h2>
+                <div id="video-list" class="grid grid-cols-2 lg:grid-cols-5 gap-4">
+                    <p id="loading-msg" class="col-span-full py-10 text-[9px] uppercase tracking-widest animate-pulse text-sky-600 font-bold">Syncing satellite...</p>
+                </div>
+            </section>
+        </div>
 
-        <section class="mb-20 text-center">
-            <h2 class="text-[10px] font-black mb-8 tracking-[0.4em] text-slate-400 uppercase italic">Siaran Terbaru</h2>
-            <div id="video-list" class="grid grid-cols-2 lg:grid-cols-5 gap-4">
-                <p id="loading-msg" class="col-span-full py-10 text-[9px] uppercase tracking-widest animate-pulse text-sky-600 font-bold">Syncing satellite...</p>
-            </div>
-        </section>
+        <!-- HALAMAN KHUSUS LIVE STREAMING (/live) -->
+        <div id="page-live" class="page-section">
+            <section class="my-8">
+                <div class="flex items-center justify-center gap-4 mb-8">
+                    <div class="h-px flex-grow bg-gradient-to-r from-transparent via-sky-300 to-sky-400"></div>
+                    
+                    <div class="live-badge-container">
+                        <span class="live-dot-glow"></span>
+                        <span class="live-text-modern">LIVE STREAMING</span>
+                    </div>
+
+                    <div class="h-px flex-grow bg-gradient-to-l from-transparent via-sky-300 to-sky-400"></div>
+                </div>
+
+                <div class="video-container">
+                    <iframe id="live-player-dedicated" src="https://www.youtube.com/embed/live_stream?channel=UC2TptaJdg05H5zrIyffgPiQ" allowfullscreen allow="autoplay"></iframe>
+                </div>
+            </section>
+        </div>
 
         <footer class="text-center border-t border-slate-200 pt-16 pb-20">
             <div class="flex justify-center gap-6 mb-10">
@@ -345,47 +372,27 @@
             fadeEffect: { crossFade: true },
         });
 
-        // FETCH ARCHIVE DENGAN FILTER ANTI-SHORTS & ANTI-CACHE
-        async function fetchArchive() {
-            const list = document.getElementById('video-list');
-            const loading = document.getElementById('loading-msg');
-            try {
-                // Menambahkan timestamp agar data selalu fresh (anti-loading terus)
-                const cacheBuster = new Date().getTime();
-                const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}&t=${cacheBuster}`);
-                const data = await res.json();
-                
-                if (data.status === 'ok') {
-                    loading.style.display = 'none';
-                    list.innerHTML = ''; // Clear loading message
+        // SYSTEM ROUTING UNTUK PINDAH HALAMAN LOGIS
+        function navigateTo(event, path) {
+            if (event) event.preventDefault();
+            
+            history.pushState({}, "", path);
+            renderPage(path);
 
-                    data.items.forEach(item => {
-                        const vId = item.link.split('v=')[1]?.split('&')[0];
-                        
-                        // Deteksi Shorts: Link YouTube Shorts biasanya berbeda, atau bisa filter via judul
-                        const isShort = item.title.toLowerCase().includes('#shorts') || item.link.includes('/shorts/');
-
-                        if (vId && !isShort) {
-                            list.innerHTML += `
-                                <div class="card-video rounded-2xl overflow-hidden cursor-pointer group p-1" onclick="window.scrollTo({top:500, behavior:'smooth'}); document.getElementById('live-player').src='https://www.youtube.com/embed/${vId}?autoplay=1'">
-                                    <div class="aspect-video w-full overflow-hidden rounded-xl bg-slate-100">
-                                        <img src="${item.thumbnail}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                                    </div>
-                                    <div class="p-2 text-center">
-                                        <h3 class="text-[9px] font-bold line-clamp-2 text-slate-600 group-hover:text-sky-600 transition-colors uppercase italic">${item.title}</h3>
-                                    </div>
-                                </div>
-                            `;
-                        }
-                    });
-                }
-            } catch (err) { 
-                loading.innerText = "Error Sinkronisasi Satellite."; 
-            }
+            document.getElementById('sidebar').classList.remove('active');
         }
-        
-        window.onload = fetchArchive;
-    </script>
-</body>
-                            </html>
-                    
+
+        function renderPage(path) {
+            document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active-page'));
+            
+            const cleanPath = path.replace(/\/$/, '') || '/beranda';
+
+            if (cleanPath === '/live') {
+                document.getElementById('page-live').classList.add('active-page');
+            } else {
+                // Default / Beranda
+                document.getElementById('page-beranda').classList.add('active-page');
+            }
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+    
