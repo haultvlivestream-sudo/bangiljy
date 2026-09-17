@@ -1,5 +1,12 @@
 {
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    {
+      "source": "/control",
+      "destination": "https://website-live-bymsr.vercel.app"
+    },
+    {
+      "source": "/control/:path*",
+      "destination": "https://website-live-bymsr.vercel.app/:path*"
+    }
   ]
 }
