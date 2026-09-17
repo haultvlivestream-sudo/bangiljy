@@ -6,412 +6,151 @@
     <title>IHYA' 7 TV - TELEVISI AHLUSSUNAH WAL JAMA'AH</title>
     
     <link rel="icon" type="image/png" href="logoihya7tv.png">
-    <link rel="apple-touch-icon" href="logoihya7tv.png">
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts & Boxicons (Standard CodingNepal) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    
+    <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     
-    <style>
-        body { 
-            background-color: #f8fafc; 
-            color: #1e293b; 
-            overflow-x: hidden; 
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-        }
-        
-        /* BACKGROUND 3D ANIMATED SHAPES */
-        .shape-1 {
-            position: fixed; top: -10%; left: -10%; width: 55vw; height: 55vw;
-            background: radial-gradient(circle, rgba(56, 189, 248, 0.25) 0%, rgba(248, 250, 252, 0) 70%);
-            border-radius: 50%; z-index: -1; animation: float3D-1 14s ease-in-out infinite alternate;
-            filter: blur(40px);
-        }
-        .shape-2 {
-            position: fixed; bottom: -10%; right: -10%; width: 50vw; height: 50vw;
-            background: radial-gradient(circle, rgba(37, 99, 235, 0.2) 0%, rgba(248, 250, 252, 0) 70%);
-            border-radius: 50%; z-index: -1; animation: float3D-2 16s ease-in-out infinite alternate-reverse;
-            filter: blur(50px);
-        }
-
-        @keyframes float3D-1 {
-            0% { transform: translate3d(0, 0, 0) scale(1) rotate(0deg); opacity: 0.7; }
-            50% { transform: translate3d(8%, 5%, 0) scale(1.15) rotate(5deg); opacity: 0.9; }
-            100% { transform: translate3d(12%, 12%, 0) scale(1.25) rotate(12deg); opacity: 0.8; }
-        }
-        @keyframes float3D-2 {
-            0% { transform: translate3d(0, 0, 0) scale(1) rotate(0deg); opacity: 0.6; }
-            50% { transform: translate3d(-8%, -6%, 0) scale(1.1) rotate(-8deg); opacity: 0.85; }
-            100% { transform: translate3d(-12%, -10%, 0) scale(1.2) rotate(-15deg); opacity: 0.7; }
-        }
-
-        /* LIVE STREAMING BADGE MODERN 3D */
-        .live-badge-container {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            padding: 8px 24px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(240, 249, 255, 0.85));
-            border: 1px solid rgba(56, 189, 248, 0.4);
-            border-radius: 9999px;
-            box-shadow: 
-                0 10px 25px -5px rgba(2, 132, 199, 0.15),
-                0 0 15px rgba(56, 189, 248, 0.2),
-                inset 0 1px 2px rgba(255, 255, 255, 1);
-            backdrop-filter: blur(12px);
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s ease;
-        }
-        .live-badge-container:hover {
-            transform: translateY(-2px) scale(1.02);
-        }
-        
-        .live-badge-container::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(60deg, transparent, rgba(56, 189, 248, 0.15), transparent);
-            transform: rotate(30deg);
-            animation: liveShimmer 3s infinite linear;
-        }
-        @keyframes liveShimmer {
-            0% { transform: translateX(-100%) rotate(30deg); }
-            100% { transform: translateX(100%) rotate(30deg); }
-        }
-
-        .live-dot-glow {
-            width: 10px;
-            height: 10px;
-            background-color: #0284c7;
-            border-radius: 50%;
-            position: relative;
-            box-shadow: 0 0 8px #0284c7;
-        }
-        .live-dot-glow::before {
-            content: '';
-            position: absolute;
-            top: -3px; left: -3px; right: -3px; bottom: -3px;
-            background-color: rgba(2, 132, 199, 0.6);
-            border-radius: 50%;
-            animation: livePulse 1.5s infinite ease-out;
-        }
-        @keyframes livePulse {
-            0% { transform: scale(1); opacity: 0.8; }
-            100% { transform: scale(2.4); opacity: 0; }
-        }
-
-        .live-text-modern {
-            font-size: 13px;
-            font-weight: 900;
-            letter-spacing: 0.35em;
-            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-transform: uppercase;
-            font-style: italic;
-        }
-
-        /* SIDEBAR DEFINITION WITH HIGH SPECIFICITY */
-        #sidebar {
-            position: fixed !important; 
-            top: 0 !important; 
-            left: -320px !important; 
-            width: 280px !important; 
-            max-width: 80% !important;
-            height: 100vh !important;
-            background: rgba(255, 255, 255, 0.98) !important; 
-            backdrop-filter: blur(25px) !important;
-            z-index: 9999 !important; 
-            transition: transform 0.4s cubic-bezier(0.77, 0.2, 0.05, 1.0), left 0.4s cubic-bezier(0.77, 0.2, 0.05, 1.0) !important;
-            border-right: 1px solid rgba(56, 189, 248, 0.3) !important;
-            padding: 30px 20px !important;
-            box-shadow: 10px 0 30px rgba(14, 165, 233, 0.15) !important;
-        }
-        #sidebar.active { 
-            left: 0 !important; 
-        }
-
-        /* OVERLAY BACKDROP */
-        #sidebar-overlay {
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 100vw !important;
-            height: 100vh !important;
-            background: rgba(15, 23, 42, 0.5) !important;
-            backdrop-filter: blur(4px) !important;
-            z-index: 9998 !important;
-            display: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        #sidebar-overlay.active {
-            display: block !important;
-            opacity: 1 !important;
-        }
-
-        .nav-glass {
-            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(56, 189, 248, 0.2);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-        }
-
-        .video-container { 
-            position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; 
-            border-radius: 24px; background: #0f172a; border: 1px solid rgba(56, 189, 248, 0.4);
-            box-shadow: 0 20px 40px -15px rgba(2, 132, 199, 0.25), 0 0 15px rgba(56, 189, 248, 0.2);
-            transform: perspective(1000px) rotateX(1deg);
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-        }
-        .video-container:hover {
-            transform: perspective(1000px) rotateX(0deg) scale(1.01);
-            box-shadow: 0 25px 50px -12px rgba(2, 132, 199, 0.35);
-        }
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
-        
-        .card-video {
-            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px);
-            border: 1px solid rgba(224, 242, 254, 0.8); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 10px 25px -5px rgba(14, 165, 233, 0.08);
-            transform-style: preserve-3d;
-        }
-        .card-video:hover { 
-            transform: translateY(-8px) scale(1.03) rotateX(4deg); 
-            border-color: #0284c7; 
-            box-shadow: 0 20px 35px -10px rgba(2, 132, 199, 0.25);
-        }
-
-        .profile-box {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 249, 255, 0.95) 100%);
-            border: 1px solid rgba(56, 189, 248, 0.3); position: relative; overflow: hidden;
-            box-shadow: 0 15px 35px -10px rgba(2, 132, 199, 0.12), inset 0 0 20px rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(12px);
-        }
-        .profile-box::after {
-            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(56, 189, 248, 0.15), transparent);
-            transform: rotate(45deg); animation: shine 5s infinite;
-        }
-        @keyframes shine {
-            0% { transform: translateX(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) rotate(45deg); }
-        }
-
-        .swiper {
-            width: 100%;
-            box-shadow: 0 20px 40px -15px rgba(2, 132, 199, 0.2);
-            border: 1px solid rgba(56, 189, 248, 0.3);
-        }
-        .swiper-pagination-bullet { background: rgba(2, 132, 199, 0.3) !important; }
-        .swiper-pagination-bullet-active { background: #0284c7 !important; box-shadow: 0 0 12px #0284c7; }
-
-        .btn-toggle-trigger {
-            background: rgba(56, 189, 248, 0.15); 
-            border: 1px solid rgba(56, 189, 248, 0.4);
-            width: 44px; 
-            height: 44px; 
-            border-radius: 50%; 
-            display: flex;
-            align-items: center; 
-            justify-content: center; 
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(56, 189, 248, 0.15);
-        }
-        .btn-toggle-trigger:hover {
-            background: rgba(2, 132, 199, 0.2);
-            transform: scale(1.08);
-        }
-
-        .social-btn {
-            background: #ffffff;
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            box-shadow: 0 8px 15px rgba(2, 132, 199, 0.1);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .social-btn:hover {
-            background: #0284c7;
-            transform: translateY(-5px) scale(1.1);
-            box-shadow: 0 12px 20px rgba(2, 132, 199, 0.3);
-        }
-        .social-btn:hover img {
-            filter: brightness(0) invert(1);
-        }
-    </style>
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="font-sans">
+<body>
 
-    <div class="shape-1"></div>
-    <div class="shape-2"></div>
+    <!-- OVERLAY LAYAR -->
+    <div class="overlay" id="overlay"></div>
 
-    <!-- OVERLAY -->
-    <div id="sidebar-overlay"></div>
-
-    <!-- SIDEBAR NAVIGATION -->
-    <aside id="sidebar">
-        <div class="flex justify-between items-center mb-8">
-            <h2 class="text-sky-600 font-black italic tracking-widest uppercase text-base">Menu</h2>
-            <button id="close-sidebar-btn" type="button" class="text-slate-400 hover:text-sky-600 text-2xl font-bold transition-colors p-1 leading-none">&times;</button>
+    <!-- SIDEBAR NAVIGATION (CodingNepal Pattern) -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2 class="sidebar-logo">MENU</h2>
+            <i class='bx bx-x close-btn' id="close-btn"></i>
         </div>
-        <nav class="space-y-6">
-            <a href="#" class="flex items-center text-sm font-bold text-sky-600 hover:tracking-widest transition-all">BERANDA</a>
-            
-            <!-- LINK TERSAMBUNG KE CONTROL PANEL /control -->
-            <a href="/control" class="flex items-center text-sm font-bold text-slate-700 hover:text-sky-600 hover:tracking-widest transition-all">CONTROL PANEL</a>
-            
-            <div class="flex items-center justify-between text-xs font-bold text-slate-400">
-                <span>PROGRAM TV</span> <span>🔒</span>
-            </div>
-            <div class="flex items-center justify-between text-xs font-bold text-slate-400">
-                <span>JADWAL</span> <span>🔒</span>
-            </div>
-            <p class="text-[8px] text-slate-400 uppercase tracking-[0.4em] mt-16 border-t border-slate-200 pt-4">Fitur Coming Soon</p>
-        </nav>
+        
+        <ul class="nav-links">
+            <li>
+                <a href="#" class="active">
+                    <i class='bx bx-home-alt'></i>
+                    <span class="link-name">BERANDA</span>
+                </a>
+            </li>
+            <li>
+                <a href="/control">
+                    <i class='bx bx-slider-alt'></i>
+                    <span class="link-name">CONTROL PANEL</span>
+                </a>
+            </li>
+            <li class="disabled">
+                <a href="#">
+                    <i class='bx bx-tv'></i>
+                    <span class="link-name">PROGRAM TV</span>
+                    <i class='bx bx-lock-alt lock-icon'></i>
+                </a>
+            </li>
+            <li class="disabled">
+                <a href="#">
+                    <i class='bx bx-calendar'></i>
+                    <span class="link-name">JADWAL</span>
+                    <i class='bx bx-lock-alt lock-icon'></i>
+                </a>
+            </li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <p>Fitur Coming Soon</p>
+        </div>
     </aside>
 
-    <!-- NAVBAR HEADER -->
-    <nav class="p-4 nav-glass sticky top-0 z-40">
-        <div class="max-w-6xl mx-auto flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <img src="logoihya7tv.png" alt="Logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/717/717426.png'" class="h-10 w-10 object-contain rounded-xl shadow-md border border-sky-100">
-                <h1 class="text-xl font-black tracking-tighter text-sky-600 uppercase leading-none italic drop-shadow-sm">IHYA' 7 TV</h1>
+    <!-- HEADER NAVBAR -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="brand">
+                <img src="logoihya7tv.png" alt="Logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/717/717426.png'">
+                <h1>IHYA' 7 TV</h1>
             </div>
-            
-            <!-- TOMBOL MENU TOGGLE HANDLER -->
-            <button id="open-sidebar-btn" type="button" class="btn-toggle-trigger">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            <button class="menu-toggle" id="menu-toggle">
+                <i class='bx bx-menu'></i>
             </button>
         </div>
-    </nav>
+    </header>
 
-    <main class="max-w-5xl mx-auto p-4 md:p-8">
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
         
-        <!-- SWIPER JADWAL MENDATANG -->
-        <section class="mb-10">
-            <h2 class="text-[10px] font-black mb-4 tracking-[0.4em] text-slate-400 uppercase italic text-center">Jadwal Mendatang</h2>
-            <div class="swiper mySwiper rounded-3xl overflow-hidden">
+        <!-- SWIPER CAROUSEL (JADWAL MENDATANG) -->
+        <section class="section-container">
+            <h2 class="section-title">Jadwal Mendatang</h2>
+            <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide relative">
-                        <img src="thumbnail1.jpg" class="w-full aspect-video object-cover" onerror="this.src='https://placehold.co/1280x720/0284c7/ffffff?text=IHYA+7+TV+JADWAL+1'">
-                        <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-slate-900/80 via-slate-900/30 to-transparent">
-                            <span class="px-3 py-1 bg-sky-500 text-[10px] font-black rounded-full text-white uppercase italic tracking-widest shadow-md">Upcoming Event 1</span>
-                        </div>
+                    <div class="swiper-slide">
+                        <img src="thumbnail1.jpg" onerror="this.src='https://placehold.co/1280x720/0284c7/ffffff?text=JADWAL+1'">
+                        <div class="slide-caption"><span>Upcoming Event 1</span></div>
                     </div>
-                    <div class="swiper-slide relative">
-                        <img src="thumbnail2.jpg" class="w-full aspect-video object-cover" onerror="this.src='https://placehold.co/1280x720/0369a1/ffffff?text=IHYA+7+TV+JADWAL+2'">
-                        <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-slate-900/80 via-slate-900/30 to-transparent">
-                            <span class="px-3 py-1 bg-sky-500 text-[10px] font-black rounded-full text-white uppercase italic tracking-widest shadow-md">Upcoming Event 2</span>
-                        </div>
+                    <div class="swiper-slide">
+                        <img src="thumbnail2.jpg" onerror="this.src='https://placehold.co/1280x720/0369a1/ffffff?text=JADWAL+2'">
+                        <div class="slide-caption"><span>Upcoming Event 2</span></div>
                     </div>
-                    <div class="swiper-slide relative">
-                        <img src="thumbnail3.jpg" class="w-full aspect-video object-cover" onerror="this.src='https://placehold.co/1280x720/0e7490/ffffff?text=IHYA+7+TV+JADWAL+3'">
-                        <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-slate-900/80 via-slate-900/30 to-transparent">
-                            <span class="px-3 py-1 bg-sky-500 text-[10px] font-black rounded-full text-white uppercase italic tracking-widest shadow-md">Upcoming Event 3</span>
-                        </div>
+                    <div class="swiper-slide">
+                        <img src="thumbnail3.jpg" onerror="this.src='https://placehold.co/1280x720/0e7490/ffffff?text=JADWAL+3'">
+                        <div class="slide-caption"><span>Upcoming Event 3</span></div>
                     </div>
                 </div>
                 <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
             </div>
         </section>
 
         <!-- PROFILE BOX -->
-        <section class="mb-10 profile-box p-6 rounded-3xl relative">
-            <p class="text-[11px] md:text-sm text-slate-700 leading-relaxed font-semibold relative z-10 uppercase tracking-tight">
-                <strong class="text-sky-600 italic uppercase">IHYA' 7 TV</strong> ADALAH TELEVISI ISLAM AHLUSSUNAH WAL JAMA'AH YANG MENAMPILKAN LIVE STREAMING DI CHANNEL YOUTUBE, INSTAGRAM, TIKTOK, DLL BERISI TENTANG LIVE HAUL, MAULID, KAJIAN, DLL. <br class="hidden md:block">
-                <span class="text-sky-600 font-black mt-2 inline-block border-b-2 border-sky-300">EST. 1 RAMADHAN 1444 H</span>
+        <section class="profile-card">
+            <p>
+                <strong>IHYA' 7 TV</strong> ADALAH TELEVISI ISLAM AHLUSSUNAH WAL JAMA'AH YANG MENAMPILKAN LIVE STREAMING DI CHANNEL YOUTUBE, INSTAGRAM, TIKTOK, DLL BERISI TENTANG LIVE HAUL, MAULID, KAJIAN, DLL.
+                <br>
+                <span class="est-badge">EST. 1 RAMADHAN 1444 H</span>
             </p>
         </section>
 
-        <!-- LIVE STREAMING -->
-        <section class="mb-14">
-            <div class="flex items-center justify-center gap-4 mb-8">
-                <div class="h-px flex-grow bg-gradient-to-r from-transparent via-sky-300 to-sky-400"></div>
-                
-                <div class="live-badge-container">
-                    <span class="live-dot-glow"></span>
-                    <span class="live-text-modern">LIVE STREAMING</span>
+        <!-- LIVE STREAMING SECTION -->
+        <section class="section-container">
+            <div class="badge-divider">
+                <div class="line"></div>
+                <div class="live-badge">
+                    <span class="pulse-dot"></span>
+                    <span class="live-text">LIVE STREAMING</span>
                 </div>
-
-                <div class="h-px flex-grow bg-gradient-to-l from-transparent via-sky-300 to-sky-400"></div>
+                <div class="line"></div>
             </div>
 
-            <div class="video-container">
+            <div class="responsive-iframe">
                 <iframe id="live-player" src="https://www.youtube.com/embed/live_stream?channel=UC2TptaJdg05H5zrIyffgPiQ" allowfullscreen allow="autoplay"></iframe>
             </div>
         </section>
 
-        <!-- ARCHIVE LIST -->
-        <section class="mb-20 text-center">
-            <h2 class="text-[10px] font-black mb-8 tracking-[0.4em] text-slate-400 uppercase italic">Siaran Terbaru</h2>
-            <div id="video-list" class="grid grid-cols-2 lg:grid-cols-5 gap-4">
-                <p id="loading-msg" class="col-span-full py-10 text-[9px] uppercase tracking-widest animate-pulse text-sky-600 font-bold">Syncing satellite...</p>
+        <!-- SIARAN TERBARU -->
+        <section class="section-container">
+            <h2 class="section-title">Siaran Terbaru</h2>
+            <div id="video-list" class="video-grid">
+                <p id="loading-msg">Syncing satellite...</p>
             </div>
         </section>
 
         <!-- FOOTER -->
-        <footer class="text-center border-t border-slate-200 pt-16 pb-20">
-            <div class="flex justify-center gap-6 mb-10">
-                <a href="https://www.youtube.com/@IHYA7TV" target="_blank" class="social-btn p-3 rounded-2xl"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" class="w-5 h-5 transition-all"></a>
-                <a href="https://www.instagram.com/ihya7tv?igsh=MTYwNDZpaGxkNnlscA==" target="_blank" class="social-btn p-3 rounded-2xl"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" class="w-5 h-5 transition-all"></a>
-                <a href="https://vm.tiktok.com/ZS9N299oN48LS-LBapA/" target="_blank" class="social-btn p-3 rounded-2xl"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" class="w-5 h-5 transition-all"></a>
+        <footer>
+            <div class="social-links">
+                <a href="https://www.youtube.com/@IHYA7TV" target="_blank"><i class='bx bxl-youtube'></i></a>
+                <a href="https://www.instagram.com/ihya7tv?igsh=MTYwNDZpaGxkNnlscA==" target="_blank"><i class='bx bxl-instagram'></i></a>
+                <a href="https://vm.tiktok.com/ZS9N299oN48LS-LBapA/" target="_blank"><i class='bx bxl-tiktok'></i></a>
             </div>
-            <p class="text-slate-400 text-[10px] font-black uppercase tracking-[0.5em]">TIM MULTIMEDIA IHYA' 7 TV &copy; 2026</p>
+            <p class="copyright">TIM MULTIMEDIA IHYA' 7 TV &copy; 2026</p>
         </footer>
+
     </main>
 
-    <!-- SCRIPTS -->
+    <!-- Swiper JS & Custom Script -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script>
-        const CHANNEL_ID = 'UC2TptaJdg05H5zrIyffgPiQ';
-
-        // Direct Event Listener Binding (Pasti Berhasil)
-        document.addEventListener('DOMContentLoaded', () => {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('sidebar-overlay');
-            const openBtn = document.getElementById('open-sidebar-btn');
-            const closeBtn = document.getElementById('close-sidebar-btn');
-
-            function openSidebar() {
-                if (sidebar) sidebar.classList.add('active');
-                if (overlay) overlay.classList.add('active');
-            }
-
-            function closeSidebar() {
-                if (sidebar) sidebar.classList.remove('active');
-                if (overlay) overlay.classList.remove('active');
-            }
-
-            if (openBtn) openBtn.addEventListener('click', openSidebar);
-            if (closeBtn) closeBtn.addEventListener('click', closeSidebar);
-            if (overlay) overlay.addEventListener('click', closeSidebar);
-
-            // Inisialisasi Swiper Slider
-            const swiper = new Swiper(".mySwiper", {
-                loop: true,
-                spaceBetween: 0,
-                speed: 800,
-                observer: true,
-                observeParents: true,
-                autoplay: {
-                    delay: 3500,
-                    disableOnInteraction: false,
-                },
-                pagination: {
-                    el: ".swiper-pagination",
-                    clickable: true,
-                },
-            });
-
-            // Fetch Data YouTube Video Archives
-            fetchArchive();
-        });
-
-        async function fetchArchive() {
-            const list = document.getElementById('video-list');
-            const loading = document.getElementById('loading-msg');
-            try {
-                const cacheBuster = new Date().getTime();
-                const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=${CHANN
+    <script src="script.js"></script>
+</body>
+                    </html>
+                
