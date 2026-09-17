@@ -121,8 +121,8 @@
         /* SIDEBAR LIGHT GLASSMORPHISM */
         #sidebar {
             position: fixed; top: 0; left: -60%; width: 60%; height: 100%;
-            background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(25px);
-            z-index: 100; transition: 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(25px);
+            z-index: 999; transition: 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
             border-right: 1px solid rgba(56, 189, 248, 0.3);
             padding: 40px 20px;
             box-shadow: 10px 0 30px rgba(14, 165, 233, 0.08);
@@ -224,13 +224,13 @@
     <div id="sidebar">
         <div class="flex justify-between items-center mb-10">
             <h2 class="text-sky-600 font-black italic tracking-widest uppercase">Menu</h2>
-            <button onclick="toggleMenu()" class="text-slate-500 hover:text-sky-600 text-xl font-bold transition-colors">✕</button>
+            <button type="button" onclick="toggleMenu()" class="text-slate-500 hover:text-sky-600 text-xl font-bold transition-colors p-2">✕</button>
         </div>
         <nav class="space-y-8">
             <a href="#" class="flex items-center text-sm font-bold text-sky-600 hover:tracking-widest transition-all">BERANDA</a>
             
-            <!-- TOMBOL MENU BARU MENUJU KE /control -->
-            <a href="/control" class="flex items-center text-sm font-bold text-slate-600 hover:text-sky-600 hover:tracking-widest transition-all">CONTROL PANEL</a>
+            <!-- TOMBOL CONTROL PANEL -->
+            <a href="/control" class="flex items-center text-sm font-bold text-slate-700 hover:text-sky-600 hover:tracking-widest transition-all">CONTROL PANEL</a>
             
             <div class="flex items-center justify-between text-xs font-bold text-slate-400">
                 <span>PROGRAM TV</span> <span>🔒</span>
@@ -248,8 +248,10 @@
                 <img src="logoihya7tv.png" alt="Logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/717/717426.png'" class="h-10 w-10 object-contain rounded-xl shadow-md border border-sky-100">
                 <h1 class="text-xl font-black tracking-tighter text-sky-600 uppercase leading-none italic drop-shadow-sm">IHYA' 7 TV</h1>
             </div>
-            <button class="menu-btn" onclick="toggleMenu()">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            
+            <!-- TOMBOL MENU YANG SUDAH DIPERBAIKI -->
+            <button type="button" class="menu-btn relative z-50 cursor-pointer" onclick="toggleMenu()">
+                <svg class="pointer-events-none" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
             </button>
         </div>
     </nav>
@@ -329,9 +331,12 @@
     <script>
         const CHANNEL_ID = 'UC2TptaJdg05H5zrIyffgPiQ';
 
-        // TOGGLE MENU
+        // TOGGLE MENU SIDEBAR
         function toggleMenu() {
-            document.getElementById('sidebar').classList.toggle('active');
+            const sidebar = document.getElementById('sidebar');
+            if (sidebar) {
+                sidebar.classList.toggle('active');
+            }
         }
 
         // INITIALIZE SWIPER
@@ -354,19 +359,16 @@
             const list = document.getElementById('video-list');
             const loading = document.getElementById('loading-msg');
             try {
-                // Menambahkan timestamp agar data selalu fresh (anti-loading terus)
                 const cacheBuster = new Date().getTime();
                 const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}&t=${cacheBuster}`);
                 const data = await res.json();
                 
                 if (data.status === 'ok') {
                     loading.style.display = 'none';
-                    list.innerHTML = ''; // Clear loading message
+                    list.innerHTML = '';
 
                     data.items.forEach(item => {
                         const vId = item.link.split('v=')[1]?.split('&')[0];
-                        
-                        // Deteksi Shorts: Link YouTube Shorts biasanya berbeda, atau bisa filter via judul
                         const isShort = item.title.toLowerCase().includes('#shorts') || item.link.includes('/shorts/');
 
                         if (vId && !isShort) {
@@ -388,4 +390,5 @@
             }
         }
         
-        window.onload = fetchArchiv
+        window.onload = fetchArchive;
+    </sc
