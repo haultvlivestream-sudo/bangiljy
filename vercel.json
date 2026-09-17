@@ -7,6 +7,10 @@
     {
       "source": "/control/:path*",
       "destination": "https://website-live-bymsr.vercel.app/:path*"
+    },
+    {
+      "source": "/api/:path*",
+      "destination": "https://website-live-bymsr.vercel.app/api/:path*"
     }
   ]
 }
