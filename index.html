@@ -5,21 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IHYA' 7 TV - TELEVISI AHLUSSUNAH WAL JAMA'AH</title>
     
-    <!-- Favicon Logo -->
     <link rel="icon" type="image/png" href="logoihya7tv.png">
     <link rel="apple-touch-icon" href="logoihya7tv.png">
 
-    <!-- Tailwind CSS & Google Fonts & Boxicons (Standard CodingNepal) -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 
     <style>
         body { 
             background-color: #f8fafc; 
             color: #1e293b; 
             overflow-x: hidden; 
-            font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
         }
         
         /* BACKGROUND 3D ANIMATED SHAPES */
@@ -117,138 +113,43 @@
             font-style: italic;
         }
 
-        /* SIDEBAR & OVERLAY STYLES (MEKANISME CODINGNEPAL - PASTI PASTI PASTI MUNCUL) */
-        .sidebar {
-            position: fixed !important;
-            top: 0 !important;
-            left: -320px !important;
-            width: 280px !important;
-            height: 100vh !important;
-            background: rgba(255, 255, 255, 0.96) !important;
-            backdrop-filter: blur(25px) !important;
-            z-index: 1000 !important;
-            padding: 30px 20px !important;
-            display: flex !important;
-            flex-direction: column !important;
-            transition: left 0.4s cubic-bezier(0.77, 0.2, 0.05, 1.0) !important;
-            border-right: 1px solid rgba(56, 189, 248, 0.3) !important;
-            box-shadow: 10px 0 30px rgba(14, 165, 233, 0.15) !important;
+        /* STYLES SIDEBAR (TIRU MEKANISME SCRIPT 2) */
+        .cn-sidebar {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 280px;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(25px);
+            z-index: 99999;
+            transition: left 0.4s ease;
+            border-right: 1px solid rgba(56, 189, 248, 0.3);
+            padding: 40px 20px;
+            box-shadow: 10px 0 30px rgba(14, 165, 233, 0.15);
         }
-
-        .sidebar.open {
+        
+        .cn-sidebar.open {
             left: 0 !important;
         }
 
-        .overlay {
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 100vw !important;
-            height: 100vh !important;
-            background: rgba(15, 23, 42, 0.4) !important;
-            backdrop-filter: blur(4px) !important;
-            z-index: 999 !important;
-            opacity: 0 !important;
-            pointer-events: none !important;
-            transition: opacity 0.3s ease !important;
+        .cn-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(4px);
+            z-index: 99990;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
         }
-
-        .overlay.active {
+        
+        .cn-overlay.active {
             opacity: 1 !important;
             pointer-events: auto !important;
-        }
-
-        .sidebar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        .sidebar-logo {
-            color: #0284c7;
-            font-size: 18px;
-            font-weight: 800;
-            letter-spacing: 2px;
-            font-style: italic;
-        }
-
-        .close-btn {
-            font-size: 28px;
-            color: #64748b;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .close-btn:hover {
-            color: #0284c7;
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .nav-links li a {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            text-decoration: none;
-            color: #334155;
-            font-weight: 600;
-            font-size: 14px;
-            padding: 12px 16px;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .nav-links li a:hover,
-        .nav-links li a.active {
-            background: rgba(56, 189, 248, 0.15);
-            color: #0284c7;
-        }
-
-        .nav-links li.disabled a {
-            color: #94a3b8;
-            cursor: not-allowed;
-        }
-
-        .lock-icon {
-            margin-left: auto;
-            font-size: 14px;
-        }
-
-        .sidebar-footer {
-            margin-top: auto;
-            border-top: 1px solid #e2e8f0;
-            padding-top: 15px;
-            font-size: 10px;
-            color: #94a3b8;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .menu-toggle {
-            background: rgba(56, 189, 248, 0.15);
-            border: 1px solid rgba(56, 189, 248, 0.4);
-            color: #0284c7;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            font-size: 24px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(56, 189, 248, 0.15);
-        }
-
-        .menu-toggle:hover {
-            background: rgba(2, 132, 199, 0.2);
-            transform: scale(1.08);
         }
 
         .nav-glass {
@@ -289,13 +190,12 @@
         }
 
         @keyframes autoSlide2s5 {
-            0%, 28%   { transform: translateX(0%); }         /* Gambar 1 (2.5d) */
-            33%, 61%  { transform: translateX(-33.333%); }   /* Gambar 2 (2.5d) */
-            66%, 94%  { transform: translateX(-66.666%); }   /* Gambar 3 (2.5d) */
+            0%, 28%   { transform: translateX(0%); }         /* Gambar 1 (2.5 detik) */
+            33%, 61%  { transform: translateX(-33.333%); }   /* Gambar 2 (2.5 detik) */
+            66%, 94%  { transform: translateX(-66.666%); }   /* Gambar 3 (2.5 detik) */
             100%      { transform: translateX(0%); }         /* Ulangi Gambar 1 */
         }
 
-        /* VIDEO CONTAINER 3D EFEK */
         .video-container { 
             position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; 
             border-radius: 24px; background: #0f172a; border: 1px solid rgba(56, 189, 248, 0.4);
@@ -309,12 +209,14 @@
         }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
         
-        /* CARD VIDEO 3D EFFECT */
         .card-video {
             background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px);
             border: 1px solid rgba(224, 242, 254, 0.8); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             box-shadow: 0 10px 25px -5px rgba(14, 165, 233, 0.08);
             transform-style: preserve-3d;
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 12px;
         }
         .card-video:hover { 
             transform: translateY(-8px) scale(1.03) rotateX(4deg); 
@@ -322,7 +224,6 @@
             box-shadow: 0 20px 35px -10px rgba(2, 132, 199, 0.25);
         }
 
-        /* PROFILE BOX 3D SHINE & GLASS */
         .profile-box {
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 249, 255, 0.95) 100%);
             border: 1px solid rgba(56, 189, 248, 0.3); position: relative; overflow: hidden;
@@ -337,6 +238,18 @@
         @keyframes shine {
             0% { transform: translateX(-100%) rotate(45deg); }
             100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        .menu-btn {
+            background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.4);
+            width: 44px; height: 44px; border-radius: 50%; display: flex;
+            align-items: center; justify-content: center; cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(56, 189, 248, 0.15);
+        }
+        .menu-btn:hover {
+            background: rgba(2, 132, 199, 0.2);
+            transform: scale(1.08);
         }
 
         .social-btn {
@@ -360,51 +273,31 @@
     <div class="shape-1"></div>
     <div class="shape-2"></div>
 
-    <!-- OVERLAY LAYAR (CODINGNEPAL PATTERN) -->
-    <div class="overlay" id="overlay"></div>
+    <!-- OVERLAY LAYAR -->
+    <div class="cn-overlay" id="overlay"></div>
 
-    <!-- SIDEBAR NAVIGATION (CODINGNEPAL PATTERN) -->
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <h2 class="sidebar-logo">MENU</h2>
-            <i class='bx bx-x close-btn' id="close-btn"></i>
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="cn-sidebar" id="sidebar">
+        <div class="flex justify-between items-center mb-10">
+            <h2 class="text-sky-600 font-black italic tracking-widest uppercase">Menu</h2>
+            <button id="close-btn" type="button" class="text-slate-500 hover:text-sky-600 text-2xl font-bold transition-colors p-2 leading-none">&times;</button>
         </div>
-        
-        <ul class="nav-links">
-            <li>
-                <a href="#" class="active">
-                    <i class='bx bx-home-alt'></i>
-                    <span class="link-name">BERANDA</span>
-                </a>
-            </li>
-            <li>
-                <a href="/control">
-                    <i class='bx bx-slider-alt'></i>
-                    <span class="link-name">CONTROL PANEL</span>
-                </a>
-            </li>
-            <li class="disabled">
-                <a href="#">
-                    <i class='bx bx-tv'></i>
-                    <span class="link-name">PROGRAM TV</span>
-                    <i class='bx bx-lock-alt lock-icon'></i>
-                </a>
-            </li>
-            <li class="disabled">
-                <a href="#">
-                    <i class='bx bx-calendar'></i>
-                    <span class="link-name">JADWAL</span>
-                    <i class='bx bx-lock-alt lock-icon'></i>
-                </a>
-            </li>
-        </ul>
-
-        <div class="sidebar-footer">
-            <p>Fitur Coming Soon</p>
-        </div>
+        <nav class="space-y-8">
+            <a href="#" class="flex items-center text-sm font-bold text-sky-600 hover:tracking-widest transition-all">BERANDA</a>
+            
+            <a href="/control" class="flex items-center text-sm font-bold text-slate-700 hover:text-sky-600 hover:tracking-widest transition-all">CONTROL PANEL</a>
+            
+            <div class="flex items-center justify-between text-xs font-bold text-slate-400 cursor-not-allowed">
+                <span>PROGRAM TV</span> <span>🔒</span>
+            </div>
+            <div class="flex items-center justify-between text-xs font-bold text-slate-400 cursor-not-allowed">
+                <span>JADWAL</span> <span>🔒</span>
+            </div>
+            <p class="text-[8px] text-slate-400 uppercase tracking-[0.4em] mt-20 border-t border-slate-200 pt-4">Fitur Coming Soon</p>
+        </nav>
     </aside>
 
-    <!-- HEADER NAVBAR -->
+    <!-- NAVBAR HEADER -->
     <nav class="p-4 nav-glass sticky top-0 z-50">
         <div class="max-w-6xl mx-auto flex items-center justify-between">
             <div class="flex items-center gap-3">
@@ -412,9 +305,9 @@
                 <h1 class="text-xl font-black tracking-tighter text-sky-600 uppercase leading-none italic drop-shadow-sm">IHYA' 7 TV</h1>
             </div>
             
-            <!-- TOMBOL HAMBURGER MENU (CODINGNEPAL PATTERN) -->
-            <button class="menu-toggle" id="menu-toggle" type="button">
-                <i class='bx bx-menu'></i>
+            <!-- TOMBOL MENU HAMBURGER -->
+            <button id="menu-toggle" type="button" class="menu-btn">
+                <svg class="pointer-events-none" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
             </button>
         </div>
     </nav>
@@ -487,4 +380,52 @@
             <div class="flex justify-center gap-6 mb-10">
                 <a href="https://www.youtube.com/@IHYA7TV" target="_blank" class="social-btn p-3 rounded-2xl"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" class="w-5 h-5 transition-all"></a>
                 <a href="https://www.instagram.com/ihya7tv?igsh=MTYwNDZpaGxkNnlscA==" target="_blank" class="social-btn p-3 rounded-2xl"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" class="w-5 h-5 transition-all"></a>
-                <a href="https://vm.tiktok.com/ZS
+                <a href="https://vm.tiktok.com/ZS9N299oN48LS-LBapA/" target="_blank" class="social-btn p-3 rounded-2xl"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" class="w-5 h-5 transition-all"></a>
+            </div>
+            <p class="text-slate-400 text-[10px] font-black uppercase tracking-[0.5em]">TIM MULTIMEDIA IHYA' 7 TV &copy; 2026</p>
+        </footer>
+    </main>
+
+    <!-- SCRIPT JAVASCRIPT -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // SCRIPT LOGIC BUKA-TUTUP MENIRU SCRIPT 2 (100% WORKING)
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const menuToggleBtn = document.getElementById('menu-toggle');
+            const closeBtn = document.getElementById('close-btn');
+
+            function openSidebar() {
+                if (sidebar) sidebar.classList.add('open');
+                if (overlay) overlay.classList.add('active');
+            }
+
+            function closeSidebar() {
+                if (sidebar) sidebar.classList.remove('open');
+                if (overlay) overlay.classList.remove('active');
+            }
+
+            if (menuToggleBtn) menuToggleBtn.addEventListener('click', openSidebar);
+            if (closeBtn) closeBtn.addEventListener('click', closeSidebar);
+            if (overlay) overlay.addEventListener('click', closeSidebar);
+
+            // Fetch Data Youtube Channel
+            const CHANNEL_ID = 'UC2TptaJdg05H5zrIyffgPiQ';
+            fetchArchive(CHANNEL_ID);
+        });
+
+        async function fetchArchive(channelId) {
+            const list = document.getElementById('video-list');
+            const loading = document.getElementById('loading-msg');
+            try {
+                const cacheBuster = new Date().getTime();
+                const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}&t=${cacheBuster}`);
+                const data = await res.json();
+                
+                if (data.status === 'ok') {
+                    if (loading) loading.style.display = 'none';
+                    if (list) list.innerHTML = '';
+
+                    data.items.forEach(item => {
+                        const vId = item.link.split('v=')[1]?.split('&')[0];
+                        const i
